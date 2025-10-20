@@ -2,6 +2,7 @@
 .waf*
 build
 .lock-waf*
+compile_commands.json
 
 # Ignore linked files/directories
 waf

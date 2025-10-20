@@ -60,8 +60,25 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   Tuple *ringSunriseColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_RING_SUNRISE_COLOR);
   Tuple *ringSunsetColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_RING_SUNSET_COLOR);
   Tuple *sunStrokeColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_SUN_STROKE_COLOR);
-  Tuple *sunFillColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_SUN_FILL_COLOR);
-  Tuple *useLargeFonts_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_USE_LARGE_FONTS);
+   Tuple *sunFillColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_SUN_FILL_COLOR);
+
+   // night theme colors
+   Tuple *nightTimeColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_TIME_COLOR);
+   Tuple *nightSubTextPrimaryColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR);
+   Tuple *nightSubTextSecondaryColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR);
+   Tuple *nightBgColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_BG_COLOR);
+   Tuple *nightPipColorPrimary_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_PIP_COLOR_PRIMARY);
+   Tuple *nightPipColorSecondary_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_PIP_COLOR_SECONDARY);
+   Tuple *nightRingStrokeColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_RING_STROKE_COLOR);
+   Tuple *nightRingNightColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_RING_NIGHT_COLOR);
+   Tuple *nightRingDayColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_RING_DAY_COLOR);
+   Tuple *nightRingSunriseColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_RING_SUNRISE_COLOR);
+   Tuple *nightRingSunsetColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_RING_SUNSET_COLOR);
+   Tuple *nightSunStrokeColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_SUN_STROKE_COLOR);
+   Tuple *nightSunFillColor_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_NIGHT_SUN_FILL_COLOR);
+
+   Tuple *useLargeFonts_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_USE_LARGE_FONTS);
+   Tuple *useNightTheme_tuple = dict_find(iterator, MESSAGE_KEY_SETTING_USE_NIGHT_THEME);
 
   if(timeColor_tuple != NULL) {
     globalSettings.timeColor = GColorFromHEX(timeColor_tuple->value->int32);
@@ -111,13 +128,70 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     globalSettings.sunStrokeColor = GColorFromHEX(sunStrokeColor_tuple->value->int32);
   }
 
-  if(sunFillColor_tuple != NULL) {
-    globalSettings.sunFillColor = GColorFromHEX(sunFillColor_tuple->value->int32);
-  }
+   if(sunFillColor_tuple != NULL) {
+     globalSettings.sunFillColor = GColorFromHEX(sunFillColor_tuple->value->int32);
+   }
 
-  if(useLargeFonts_tuple != NULL) {
-    globalSettings.useLargeFonts = (bool)useLargeFonts_tuple->value->int8;
-  }
+   // night theme colors
+   if(nightTimeColor_tuple != NULL) {
+     globalSettings.nightTimeColor = GColorFromHEX(nightTimeColor_tuple->value->int32);
+   }
+
+   if(nightSubTextPrimaryColor_tuple != NULL) {
+     globalSettings.nightSubtextPrimaryColor = GColorFromHEX(nightSubTextPrimaryColor_tuple->value->int32);
+   }
+
+   if(nightSubTextSecondaryColor_tuple != NULL) {
+     globalSettings.nightSubtextSecondaryColor = GColorFromHEX(nightSubTextSecondaryColor_tuple->value->int32);
+   }
+
+   if(nightBgColor_tuple != NULL) {
+     globalSettings.nightBgColor = GColorFromHEX(nightBgColor_tuple->value->int32);
+   }
+
+   if(nightPipColorPrimary_tuple != NULL) {
+     globalSettings.nightPipColorPrimary = GColorFromHEX(nightPipColorPrimary_tuple->value->int32);
+   }
+
+   if(nightPipColorSecondary_tuple != NULL) {
+     globalSettings.nightPipColorSecondary = GColorFromHEX(nightPipColorSecondary_tuple->value->int32);
+   }
+
+   if(nightRingStrokeColor_tuple != NULL) {
+     globalSettings.nightRingStrokeColor = GColorFromHEX(nightRingStrokeColor_tuple->value->int32);
+   }
+
+   if(nightRingNightColor_tuple != NULL) {
+     globalSettings.nightRingNightColor = GColorFromHEX(nightRingNightColor_tuple->value->int32);
+   }
+
+   if(nightRingDayColor_tuple != NULL) {
+     globalSettings.nightRingDayColor = GColorFromHEX(nightRingDayColor_tuple->value->int32);
+   }
+
+   if(nightRingSunriseColor_tuple != NULL) {
+     globalSettings.nightRingSunriseColor = GColorFromHEX(nightRingSunriseColor_tuple->value->int32);
+   }
+
+   if(nightRingSunsetColor_tuple != NULL) {
+     globalSettings.nightRingSunsetColor = GColorFromHEX(nightRingSunsetColor_tuple->value->int32);
+   }
+
+   if(nightSunStrokeColor_tuple != NULL) {
+     globalSettings.nightSunStrokeColor = GColorFromHEX(nightSunStrokeColor_tuple->value->int32);
+   }
+
+   if(nightSunFillColor_tuple != NULL) {
+     globalSettings.nightSunFillColor = GColorFromHEX(nightSunFillColor_tuple->value->int32);
+   }
+
+   if(useLargeFonts_tuple != NULL) {
+     globalSettings.useLargeFonts = (bool)useLargeFonts_tuple->value->int8;
+   }
+
+   if(useNightTheme_tuple != NULL) {
+     globalSettings.useNightTheme = (bool)useNightTheme_tuple->value->int8;
+   }
 
   Settings_saveToStorage();
 

@@ -1,6 +1,8 @@
 #include <pebble.h>
 #include "solarUtils.h"
 #include "sun_calc.h"
+#include "settings.h"
+#include "utils.h"
 
 SolarInfo currentSolarInfo;
 
@@ -97,4 +99,18 @@ SolarInfo priv_recalculateSolarData() {
 
 void solarUtils_recalculateSolarData () {
   currentSolarInfo = priv_recalculateSolarData();
+}
+
+bool isNightTime() {
+  if (!globalSettings.useNightTheme) {
+    return false;
+  }
+
+  // Get current time in minutes since midnight
+  struct tm *timeInfo = getCurrentTime();
+  int currentMinutes = timeInfo->tm_hour * 60 + timeInfo->tm_min;
+
+  // Check if current time is between sunset and sunrise
+  return (currentMinutes >= currentSolarInfo.sunsetMinute ||
+          currentMinutes < currentSolarInfo.sunriseMinute);
 }

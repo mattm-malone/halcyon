@@ -3,24 +3,24 @@ module.exports = function (minified) {
   var _ = minified._;
   var $ = minified.$;
 
-  // Define presets
-  var presets = {
-    default: {
-      SETTING_TIME_COLOR: "000000",
-      SETTING_SUBTEXT_PRIMARY_COLOR: "000000",
-      SETTING_SUBTEXT_SECONDARY_COLOR: "555555",
-      SETTING_BG_COLOR: "FFFFFF",
-      SETTING_PIP_COLOR_PRIMARY: "000000",
-      SETTING_PIP_COLOR_SECONDARY: "AAAAAA",
-      SETTING_RING_STROKE_COLOR: "000000",
-      SETTING_RING_NIGHT_COLOR: "0055AA",
-      SETTING_RING_DAY_COLOR: "00AAFF",
-      SETTING_RING_SUNRISE_COLOR: "FFAAAA",
-      SETTING_RING_SUNSET_COLOR: "FFAA00",
-      SETTING_SUN_STROKE_COLOR: "000000",
-      SETTING_SUN_FILL_COLOR: "FFFF00"
+  // Define shared theme definitions (day theme colors)
+  var sharedThemes = {
+    "default": {
+      "SETTING_TIME_COLOR": "000000",
+      "SETTING_SUBTEXT_PRIMARY_COLOR": "000000",
+      "SETTING_SUBTEXT_SECONDARY_COLOR": "555555",
+      "SETTING_BG_COLOR": "FFFFFF",
+      "SETTING_PIP_COLOR_PRIMARY": "000000",
+      "SETTING_PIP_COLOR_SECONDARY": "AAAAAA",
+      "SETTING_RING_STROKE_COLOR": "000000",
+      "SETTING_RING_NIGHT_COLOR": "0055AA",
+      "SETTING_RING_DAY_COLOR": "00AAFF",
+      "SETTING_RING_SUNRISE_COLOR": "FFAAAA",
+      "SETTING_RING_SUNSET_COLOR": "FFAA00",
+      "SETTING_SUN_STROKE_COLOR": "000000",
+      "SETTING_SUN_FILL_COLOR": "FFFF00"
     },
-    orangeDreams: {
+    "orangeDreams": {
       SETTING_TIME_COLOR: "FF5500",
       SETTING_SUBTEXT_PRIMARY_COLOR: "FF5500",
       SETTING_SUBTEXT_SECONDARY_COLOR: "AA0000",
@@ -214,23 +214,44 @@ module.exports = function (minified) {
       "SETTING_RING_SUNSET_COLOR": "aaaaaa",
       "SETTING_SUN_STROKE_COLOR": "000000",
       "SETTING_SUN_FILL_COLOR": "ffffff"
-    },
-    bwTheme4: {
-      "SETTING_TIME_COLOR": "ffffff",
-      "SETTING_SUBTEXT_PRIMARY_COLOR": "ffffff",
-      "SETTING_SUBTEXT_SECONDARY_COLOR": "ffffff",
-      "SETTING_BG_COLOR": "000000",
-      "SETTING_PIP_COLOR_PRIMARY": "ffffff",
-      "SETTING_PIP_COLOR_SECONDARY": "ffffff",
-      "SETTING_RING_STROKE_COLOR": "000000",
-      "SETTING_RING_NIGHT_COLOR": "000000",
-      "SETTING_RING_DAY_COLOR": "000000",
-      "SETTING_RING_SUNRISE_COLOR": "aaaaaa",
-      "SETTING_RING_SUNSET_COLOR": "aaaaaa",
-      "SETTING_SUN_STROKE_COLOR": "000000",
-      "SETTING_SUN_FILL_COLOR": "ffffff"
+      },
+      "bwTheme4": {
+        "SETTING_TIME_COLOR": "ffffff",
+        "SETTING_SUBTEXT_PRIMARY_COLOR": "ffffff",
+        "SETTING_SUBTEXT_SECONDARY_COLOR": "ffffff",
+        "SETTING_BG_COLOR": "000000",
+        "SETTING_PIP_COLOR_PRIMARY": "ffffff",
+        "SETTING_PIP_COLOR_SECONDARY": "ffffff",
+        "SETTING_RING_STROKE_COLOR": "000000",
+        "SETTING_RING_NIGHT_COLOR": "000000",
+        "SETTING_RING_DAY_COLOR": "000000",
+        "SETTING_RING_SUNRISE_COLOR": "aaaaaa",
+        "SETTING_RING_SUNSET_COLOR": "aaaaaa",
+        "SETTING_SUN_STROKE_COLOR": "000000",
+        "SETTING_SUN_FILL_COLOR": "ffffff"
+      }
+    };
+
+    // Generate day and night presets from shared themes
+    var presets = sharedThemes;
+    var nightPresets = {};
+
+    // Convert day theme keys to night theme keys
+    var themeNames = Object.keys(sharedThemes);
+    for (var i = 0; i < themeNames.length; i++) {
+      var themeName = themeNames[i];
+      var dayTheme = sharedThemes[themeName];
+      var nightTheme = {};
+
+      var dayKeys = Object.keys(dayTheme);
+      for (var j = 0; j < dayKeys.length; j++) {
+        var dayKey = dayKeys[j];
+        var nightKey = dayKey.replace('SETTING_', 'SETTING_NIGHT_');
+        nightTheme[nightKey] = dayTheme[dayKey];
+      }
+
+      nightPresets[themeName] = nightTheme;
     }
-  };
 
   function decimalToHex(decimalColor) {
     return ('0' + decimalColor.toString(16)).slice(-2);
@@ -243,21 +264,22 @@ module.exports = function (minified) {
     return '#' + decimalToHex(r) + decimalToHex(g) + decimalToHex(b);
   }
 
-  function toggleCustomSection(show) {
+  function toggleCustomSection(show, isNight) {
+    var prefix = isNight ? 'SETTING_NIGHT_' : 'SETTING_';
     var customFields = [
-      'SETTING_TIME_COLOR',
-      'SETTING_SUBTEXT_PRIMARY_COLOR',
-      'SETTING_SUBTEXT_SECONDARY_COLOR',
-      'SETTING_BG_COLOR',
-      'SETTING_PIP_COLOR_PRIMARY',
-      'SETTING_PIP_COLOR_SECONDARY',
-      'SETTING_RING_STROKE_COLOR',
-      'SETTING_RING_NIGHT_COLOR',
-      'SETTING_RING_DAY_COLOR',
-      'SETTING_RING_SUNRISE_COLOR',
-      'SETTING_RING_SUNSET_COLOR',
-      'SETTING_SUN_STROKE_COLOR',
-      'SETTING_SUN_FILL_COLOR'
+      prefix + 'TIME_COLOR',
+      prefix + 'SUBTEXT_PRIMARY_COLOR',
+      prefix + 'SUBTEXT_SECONDARY_COLOR',
+      prefix + 'BG_COLOR',
+      prefix + 'PIP_COLOR_PRIMARY',
+      prefix + 'PIP_COLOR_SECONDARY',
+      prefix + 'RING_STROKE_COLOR',
+      prefix + 'RING_NIGHT_COLOR',
+      prefix + 'RING_DAY_COLOR',
+      prefix + 'RING_SUNRISE_COLOR',
+      prefix + 'RING_SUNSET_COLOR',
+      prefix + 'SUN_STROKE_COLOR',
+      prefix + 'SUN_FILL_COLOR'
     ];
 
     var items = [];
@@ -279,8 +301,9 @@ module.exports = function (minified) {
     }
   }
 
-  function updateSVGColors(colorKey, colorValue) {
-    var svgContainer = document.getElementById('svg-preview');
+  function updateSVGColors(colorKey, colorValue, isNight) {
+    var svgId = isNight ? 'svg-night-preview' : 'svg-preview';
+    var svgContainer = document.getElementById(svgId);
     if (!svgContainer) return;
 
     var element = svgContainer.querySelector('#' + colorKey);
@@ -301,9 +324,9 @@ module.exports = function (minified) {
     var selectedPreset = presetSelector.get();
 
     if (selectedPreset === "custom") {
-      toggleCustomSection(true);
+      toggleCustomSection(true, false);
     } else {
-      toggleCustomSection(false);
+      toggleCustomSection(false, false);
 
       var colors = presets[selectedPreset];
       var colorKeys = Object.keys(colors);
@@ -313,26 +336,62 @@ module.exports = function (minified) {
         if (item) {
           item.set(colors[key]);
         }
-        updateSVGColors(key, colors[key]);
+        updateSVGColors(key, colors[key], false);
+      }
+    }
+  }
+
+  function applyNightPreset() {
+    var presetSelector = clayConfig.getItemByMessageKey('SETTING_NIGHT_PRESET');
+    var selectedPreset = presetSelector.get();
+
+    if (selectedPreset === "custom") {
+      toggleCustomSection(true, true);
+    } else {
+      toggleCustomSection(false, true);
+
+      var colors = nightPresets[selectedPreset];
+      var colorKeys = Object.keys(colors);
+      for (var i = 0; i < colorKeys.length; i++) {
+        var key = colorKeys[i];
+        var item = clayConfig.getItemByMessageKey(key);
+        if (item) {
+          item.set(colors[key]);
+        }
+        updateSVGColors(key, colors[key], true);
       }
     }
   }
 
 
   function attachColorListeners() {
-    var colorKeys = Object.keys(presets.default);
-
-    for (var i = 0; i < colorKeys.length; i++) {
-      var key = colorKeys[i];
-
+    // Day theme color listeners
+    var dayColorKeys = Object.keys(presets.default);
+    for (var i = 0; i < dayColorKeys.length; i++) {
+      var key = dayColorKeys[i];
       var colorPicker = clayConfig.getItemByMessageKey(key);
       if (colorPicker) {
         (function (localKey, localColorPicker) {
           colorPicker.on('change', function () {
             var newColor = localColorPicker.get();
-            updateSVGColors(localKey, newColor);
+            updateSVGColors(localKey, newColor, false);
           });
         })(key, colorPicker);
+      }
+    }
+
+    // Night theme color listeners
+    var nightColorKeys = Object.keys(nightPresets.default);
+    for (var j = 0; j < nightColorKeys.length; j++) {
+      var nightKey = nightColorKeys[j];
+      var nightColorPicker = clayConfig.getItemByMessageKey(nightKey);
+      if (nightColorPicker) {
+        (function (localKey, localColorPicker) {
+          nightColorPicker.on('change', function () {
+            var newColor = localColorPicker.get();
+            updateSVGColors(localKey, newColor, true);
+          });
+        })(nightKey, nightColorPicker);
       }
     }
   }
@@ -374,14 +433,27 @@ module.exports = function (minified) {
     var presetSelector = clayConfig.getItemByMessageKey('SETTING_PRESET');
     presetSelector.on('change', applyPreset);
 
+    var nightPresetSelector = clayConfig.getItemByMessageKey('SETTING_NIGHT_PRESET');
+    nightPresetSelector.on('change', applyNightPreset);
+
     applyPreset();
+    applyNightPreset();
     attachColorListeners();
 
-    var colorKeys = Object.keys(presets.default);
-    for (var i = 0; i < colorKeys.length; i++) {
-      var key = colorKeys[i];
+    // Initialize day theme preview
+    var dayColorKeys = Object.keys(presets.default);
+    for (var i = 0; i < dayColorKeys.length; i++) {
+      var key = dayColorKeys[i];
       var colorValue = clayConfig.getItemByMessageKey(key).get();
-      updateSVGColors(key, colorValue);
+      updateSVGColors(key, colorValue, false);
+    }
+
+    // Initialize night theme preview
+    var nightColorKeys = Object.keys(nightPresets.default);
+    for (var j = 0; j < nightColorKeys.length; j++) {
+      var nightKey = nightColorKeys[j];
+      var nightColorValue = clayConfig.getItemByMessageKey(nightKey).get();
+      updateSVGColors(nightKey, nightColorValue, true);
     }
 
     // Create export button

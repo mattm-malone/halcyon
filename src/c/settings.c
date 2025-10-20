@@ -1,5 +1,7 @@
 #include <pebble.h>
 #include "settings.h"
+#include "solarUtils.h"
+#include "utils.h"
 
 Settings globalSettings;
 
@@ -30,8 +32,24 @@ void Settings_loadFromStorage() {
   globalSettings.sunStrokeColor = DEFAULT_SUN_STROKE_COLOR;
   globalSettings.sunFillColor = DEFAULT_SUN_FILL_COLOR;
 
+  // night theme colors (same as day by default)
+  globalSettings.nightTimeColor = DEFAULT_NIGHT_TIME_COLOR;
+  globalSettings.nightSubtextPrimaryColor = DEFAULT_NIGHT_SUBTEXT_PRIMARY_COLOR;
+  globalSettings.nightSubtextSecondaryColor = DEFAULT_NIGHT_SUBTEXT_SECONDARY_COLOR;
+  globalSettings.nightBgColor = DEFAULT_NIGHT_BG_COLOR;
+  globalSettings.nightPipColorPrimary = DEFAULT_NIGHT_PIP_COLOR_PRIMARY;
+  globalSettings.nightPipColorSecondary = DEFAULT_NIGHT_PIP_COLOR_SECONDARY;
+  globalSettings.nightRingStrokeColor = DEFAULT_NIGHT_RING_STROKE_COLOR;
+  globalSettings.nightRingNightColor = DEFAULT_NIGHT_RING_NIGHT_COLOR;
+  globalSettings.nightRingDayColor = DEFAULT_NIGHT_RING_DAY_COLOR;
+  globalSettings.nightRingSunriseColor = DEFAULT_NIGHT_RING_SUNRISE_COLOR;
+  globalSettings.nightRingSunsetColor = DEFAULT_NIGHT_RING_SUNSET_COLOR;
+  globalSettings.nightSunStrokeColor = DEFAULT_NIGHT_SUN_STROKE_COLOR;
+  globalSettings.nightSunFillColor = DEFAULT_NIGHT_SUN_FILL_COLOR;
+
   // metrics
   globalSettings.useLargeFonts = false;
+  globalSettings.useNightTheme = false;
 
   // globalSettings.widgets[0] = PBL_IF_HEALTH_ELSE(HEALTH, BATTERY_METER);
   // globalSettings.widgets[1] = EMPTY;
@@ -94,14 +112,43 @@ void Settings_updateDynamicSettings() {
 //     if(globalSettings.widgets[i] == ALT_TIME_ZONE) {
 //       globalSettings.enableAltTimeZone = true;
 //     }
-//   }
+   //   }
+   // }
+}
 
-//   // temp: if the sidebar is black, use inverted colors for icons
-//   if(gcolor_equal(globalSettings.sidebarColor, GColorBlack)) {
-//     globalSettings.iconFillColor = GColorBlack;
-//     globalSettings.iconStrokeColor = globalSettings.sidebarTextColor; // exciting
-//   } else {
-//     globalSettings.iconFillColor = GColorWhite;
-//     globalSettings.iconStrokeColor = GColorBlack;
-//   }
+ColorTheme getCurrentColorTheme() {
+  ColorTheme theme;
+  bool useNight = isNightTime();
+
+  if (useNight) {
+    theme.timeColor = globalSettings.nightTimeColor;
+    theme.subtextPrimaryColor = globalSettings.nightSubtextPrimaryColor;
+    theme.subtextSecondaryColor = globalSettings.nightSubtextSecondaryColor;
+    theme.bgColor = globalSettings.nightBgColor;
+    theme.pipColorPrimary = globalSettings.nightPipColorPrimary;
+    theme.pipColorSecondary = globalSettings.nightPipColorSecondary;
+    theme.ringStrokeColor = globalSettings.nightRingStrokeColor;
+    theme.ringNightColor = globalSettings.nightRingNightColor;
+    theme.ringDayColor = globalSettings.nightRingDayColor;
+    theme.ringSunriseColor = globalSettings.nightRingSunriseColor;
+    theme.ringSunsetColor = globalSettings.nightRingSunsetColor;
+    theme.sunStrokeColor = globalSettings.nightSunStrokeColor;
+    theme.sunFillColor = globalSettings.nightSunFillColor;
+  } else {
+    theme.timeColor = globalSettings.timeColor;
+    theme.subtextPrimaryColor = globalSettings.subtextPrimaryColor;
+    theme.subtextSecondaryColor = globalSettings.subtextSecondaryColor;
+    theme.bgColor = globalSettings.bgColor;
+    theme.pipColorPrimary = globalSettings.pipColorPrimary;
+    theme.pipColorSecondary = globalSettings.pipColorSecondary;
+    theme.ringStrokeColor = globalSettings.ringStrokeColor;
+    theme.ringNightColor = globalSettings.ringNightColor;
+    theme.ringDayColor = globalSettings.ringDayColor;
+    theme.ringSunriseColor = globalSettings.ringSunriseColor;
+    theme.ringSunsetColor = globalSettings.ringSunsetColor;
+    theme.sunStrokeColor = globalSettings.sunStrokeColor;
+    theme.sunFillColor = globalSettings.sunFillColor;
+  }
+
+  return theme;
 }

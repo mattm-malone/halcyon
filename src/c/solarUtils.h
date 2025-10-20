@@ -40,3 +40,8 @@ void solarUtils_updateLocation(LocationInfo loc);
 void solarUtils_recalculateSolarData();
 
 extern SolarInfo currentSolarInfo;
+
+/*
+ * Determines if it is currently night time based on solar data and settings
+ */
+bool isNightTime();
