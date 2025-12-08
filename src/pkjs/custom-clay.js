@@ -486,6 +486,9 @@ module.exports = function (minified) {
     previewContainer.style.zIndex = 1;
     previewContainer.style.background = '#333';
     previewContainer.style.borderBottom = '1px solid #444';
+    
+    var nightPreviewElement = document.getElementById("svg-night-preview").parentElement;
+    nightPreviewElement.style.marginTop = '1rem'; // correct for problem built-in clay style
 
     var mainForm = document.getElementById("main-form");
     mainForm.style.paddingTop = '224px';
