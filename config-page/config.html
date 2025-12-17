@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halcyon Watchface Configuration</title>
+    <link rel="stylesheet" href="config.css">
+</head>
+<body>
+    <div class="config-container">
+        <header>
+            <h1>Halcyon Configuration</h1>
+            <p class="subtitle">Customize your solar watchface</p>
+        </header>
+
+        <!-- Preview Section -->
+        <section class="preview-section">
+            <h2>Preview</h2>
+            <div class="preview-container">
+                <div class="preview-item">
+                    <h3>Day Theme</h3>
+                    <div id="svg-preview-container">
+                        <!-- SVG will be inserted here by JavaScript -->
+                    </div>
+                </div>
+                <div class="preview-item" id="night-preview-container">
+                    <h3>Night Theme</h3>
+                    <div id="svg-night-preview-container">
+                        <!-- SVG will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <form id="config-form">
+            <!-- Theme Section -->
+            <section class="config-section">
+                <h2>Theme</h2>
+                
+                <div class="form-group">
+                    <label for="day-preset">Preset</label>
+                    <select id="day-preset" name="SETTING_PRESET">
+                        <option value="default">Solar (Default)</option>
+                        <option value="orangeDreams">Orange Dreams</option>
+                        <option value="terminalGreen">Terminal Green</option>
+                        <option value="lightOceanTheme">Light Ocean</option>
+                        <option value="roseTheme">Rose Theme</option>
+                        <option value="fireworkTheme">Firework</option>
+                        <option value="oceanTheme">Ocean Theme</option>
+                        <option value="mauveTheme">Mauve Alert</option>
+                        <option value="sandTheme">Sand</option>
+                        <option value="greyTheme">Grey</option>
+                        <option value="userTeal1">User Teal 1</option>
+                        <option value="custom">Custom...</option>
+                    </select>
+                </div>
+
+                <div class="custom-colors" id="day-custom-colors">
+                    <h3>Custom Colors</h3>
+                    
+                    <div class="color-grid">
+                        <div class="form-group">
+                            <label for="SETTING_TIME_COLOR">Time Color</label>
+                            <input type="color" id="SETTING_TIME_COLOR" name="SETTING_TIME_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_SUBTEXT_PRIMARY_COLOR">Date Color</label>
+                            <input type="color" id="SETTING_SUBTEXT_PRIMARY_COLOR" name="SETTING_SUBTEXT_PRIMARY_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_SUBTEXT_SECONDARY_COLOR">Widget Text Color</label>
+                            <input type="color" id="SETTING_SUBTEXT_SECONDARY_COLOR" name="SETTING_SUBTEXT_SECONDARY_COLOR" value="#555555">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_BG_COLOR">Background Color</label>
+                            <input type="color" id="SETTING_BG_COLOR" name="SETTING_BG_COLOR" value="#FFFFFF">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_PIP_COLOR_PRIMARY">Pip Color (Primary)</label>
+                            <input type="color" id="SETTING_PIP_COLOR_PRIMARY" name="SETTING_PIP_COLOR_PRIMARY" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_PIP_COLOR_SECONDARY">Pip Color (Secondary)</label>
+                            <input type="color" id="SETTING_PIP_COLOR_SECONDARY" name="SETTING_PIP_COLOR_SECONDARY" value="#AAAAAA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_RING_STROKE_COLOR">Ring Outline Color</label>
+                            <input type="color" id="SETTING_RING_STROKE_COLOR" name="SETTING_RING_STROKE_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_RING_NIGHT_COLOR">Ring Color: Night</label>
+                            <input type="color" id="SETTING_RING_NIGHT_COLOR" name="SETTING_RING_NIGHT_COLOR" value="#0055AA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_RING_DAY_COLOR">Ring Color: Day</label>
+                            <input type="color" id="SETTING_RING_DAY_COLOR" name="SETTING_RING_DAY_COLOR" value="#00AAFF">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_RING_SUNRISE_COLOR">Ring Color: Sunrise</label>
+                            <input type="color" id="SETTING_RING_SUNRISE_COLOR" name="SETTING_RING_SUNRISE_COLOR" value="#FFAAAA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_RING_SUNSET_COLOR">Ring Color: Sunset</label>
+                            <input type="color" id="SETTING_RING_SUNSET_COLOR" name="SETTING_RING_SUNSET_COLOR" value="#FFAA00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_SUN_STROKE_COLOR">Sun Outline Color</label>
+                            <input type="color" id="SETTING_SUN_STROKE_COLOR" name="SETTING_SUN_STROKE_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_SUN_FILL_COLOR">Sun Color</label>
+                            <input type="color" id="SETTING_SUN_FILL_COLOR" name="SETTING_SUN_FILL_COLOR" value="#FFFF00">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Night Theme Section -->
+            <section class="config-section">
+                <h2>Theme (Night)</h2>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="SETTING_USE_NIGHT_THEME" name="SETTING_USE_NIGHT_THEME">
+                        Enable night theme
+                    </label>
+                    <p class="description">If enabled, the selected theme will be used between sunset and sunrise</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="night-preset">Preset</label>
+                    <select id="night-preset" name="SETTING_NIGHT_PRESET">
+                        <option value="default">Solar (Default)</option>
+                        <option value="orangeDreams">Orange Dreams</option>
+                        <option value="terminalGreen">Terminal Green</option>
+                        <option value="lightOceanTheme">Light Ocean</option>
+                        <option value="roseTheme">Rose Theme</option>
+                        <option value="fireworkTheme">Firework</option>
+                        <option value="oceanTheme">Ocean Theme</option>
+                        <option value="mauveTheme">Mauve Alert</option>
+                        <option value="sandTheme">Sand</option>
+                        <option value="greyTheme">Grey</option>
+                        <option value="userTeal1">User Teal 1</option>
+                        <option value="custom">Custom...</option>
+                    </select>
+                </div>
+
+                <div class="custom-colors" id="night-custom-colors">
+                    <h3>Custom Night Colors</h3>
+                    
+                    <div class="color-grid">
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_TIME_COLOR">Night Time Color</label>
+                            <input type="color" id="SETTING_NIGHT_TIME_COLOR" name="SETTING_NIGHT_TIME_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR">Night Date Color</label>
+                            <input type="color" id="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR" name="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR">Night Widget Text Color</label>
+                            <input type="color" id="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR" name="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR" value="#555555">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_BG_COLOR">Night Background Color</label>
+                            <input type="color" id="SETTING_NIGHT_BG_COLOR" name="SETTING_NIGHT_BG_COLOR" value="#FFFFFF">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_PIP_COLOR_PRIMARY">Night Pip Color (Primary)</label>
+                            <input type="color" id="SETTING_NIGHT_PIP_COLOR_PRIMARY" name="SETTING_NIGHT_PIP_COLOR_PRIMARY" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_PIP_COLOR_SECONDARY">Night Pip Color (Secondary)</label>
+                            <input type="color" id="SETTING_NIGHT_PIP_COLOR_SECONDARY" name="SETTING_NIGHT_PIP_COLOR_SECONDARY" value="#AAAAAA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_RING_STROKE_COLOR">Night Ring Outline Color</label>
+                            <input type="color" id="SETTING_NIGHT_RING_STROKE_COLOR" name="SETTING_NIGHT_RING_STROKE_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_RING_NIGHT_COLOR">Night Ring Color: Night</label>
+                            <input type="color" id="SETTING_NIGHT_RING_NIGHT_COLOR" name="SETTING_NIGHT_RING_NIGHT_COLOR" value="#0055AA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_RING_DAY_COLOR">Night Ring Color: Day</label>
+                            <input type="color" id="SETTING_NIGHT_RING_DAY_COLOR" name="SETTING_NIGHT_RING_DAY_COLOR" value="#00AAFF">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_RING_SUNRISE_COLOR">Night Ring Color: Sunrise</label>
+                            <input type="color" id="SETTING_NIGHT_RING_SUNRISE_COLOR" name="SETTING_NIGHT_RING_SUNRISE_COLOR" value="#FFAAAA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_RING_SUNSET_COLOR">Night Ring Color: Sunset</label>
+                            <input type="color" id="SETTING_NIGHT_RING_SUNSET_COLOR" name="SETTING_NIGHT_RING_SUNSET_COLOR" value="#FFAA00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_SUN_STROKE_COLOR">Night Sun Outline Color</label>
+                            <input type="color" id="SETTING_NIGHT_SUN_STROKE_COLOR" name="SETTING_NIGHT_SUN_STROKE_COLOR" value="#000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="SETTING_NIGHT_SUN_FILL_COLOR">Night Sun Color</label>
+                            <input type="color" id="SETTING_NIGHT_SUN_FILL_COLOR" name="SETTING_NIGHT_SUN_FILL_COLOR" value="#FFFF00">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appearance Section -->
+            <section class="config-section">
+                <h2>Appearance</h2>
+                
+                <div class="form-group">
+                    <label for="SETTING_PIP_VISIBILITY">Dial Markings</label>
+                    <select id="SETTING_PIP_VISIBILITY" name="SETTING_PIP_VISIBILITY">
+                        <option value="0">All (every hour)</option>
+                        <option value="1">Only major (every 3 hours)</option>
+                        <option value="2">None</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="SETTING_SHOW_LEADING_ZERO" name="SETTING_SHOW_LEADING_ZERO">
+                        Show leading zero
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="SETTING_USE_LARGE_FONTS" name="SETTING_USE_LARGE_FONTS">
+                        Use larger font size
+                    </label>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Save Settings</button>
+                <button type="button" id="export-theme" class="btn btn-secondary">Export Theme</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="config.js"></script>
+</body>
+</html>

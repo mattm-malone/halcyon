@@ -76,8 +76,5 @@
       ]
     }
   },
-  "dependencies": {
-    "pebble-clay": "^1.0.4",
-    "pebble-clay-preview-component": "^0.0.2"
-  }
+  "dependencies": {}
 }
