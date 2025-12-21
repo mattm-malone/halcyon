@@ -279,10 +279,12 @@ function openColorModal(inputId) {
   });
   modal.style.display = 'block';
   modal.dataset.forInput = inputId;
+  document.body.classList.add('modal-open');
 }
 
 function closeColorModal() {
   document.getElementById('color-modal').style.display = 'none';
+  document.body.classList.remove('modal-open');
 }
 
 function selectColor(inputId, hex) {

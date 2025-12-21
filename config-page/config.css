@@ -1,14 +1,80 @@
+:root {
+    --bg-color: transparent;
+    --text-color: #000;
+    --container-bg: transparent;
+    --preview-bg: #333;
+    --preview-text: white;
+    --preview-subtitle: #ccc;
+    --border-color: #ddd;
+    --border-color-hover: #3498db;
+    --input-bg: white;
+    --input-text: #000;
+    --input-border: #ddd;
+    --input-border-focus: #3498db;
+    --description-color: #7f8c8d;
+    --heading-color: #000;
+    --label-color: #000;
+    --custom-heading-color: #000;
+    --color-hex-color: #000;
+    --button-primary-bg: #3498db;
+    --button-primary-text: white;
+    --button-primary-hover: #2980b9;
+    --button-secondary-bg: #95a5a6;
+    --button-secondary-text: white;
+    --button-secondary-hover: #7f8c8d;
+    --button-group-bg: #FFF;
+    --modal-bg: #FFF;
+    --modal-header-bg: #FFFC;
+    --modal-header-text: #000;
+    --modal-close: #CCC;
+    --modal-close-hover: #FFF;
+    --color-name: #666;
+    --selected-ring-color: #000;
+    --selected-ring-color-inner: #fff9;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #333;
+        --text-color: #CCC;
+        --container-bg: #333;
+        --input-bg: #555;
+        --input-text: #CCC;
+        --input-border: #666;
+        --heading-color: #FFF;
+        --label-color: #CCC;
+        --custom-heading-color: #CCC;
+        --color-hex-color: #CCC;
+        --button-secondary-bg: #666;
+        --button-secondary-text: #CCC;
+        --button-group-bg: #333;
+        --modal-bg: #000;
+        --modal-header-bg: #0009;
+        --modal-header-text: #FFF;
+        --selected-ring-color: #fff;
+        --selected-ring-color-inner: #0009;
+    }
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
     margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+body.modal-open {
+    overflow: hidden;
 }
 
 .config-container {
     max-width: 800px;
     margin: 0 auto;
     min-height: 100vh;
+    background-color: var(--container-bg);
 }
 
 #config-form {
@@ -17,9 +83,9 @@ body {
 
 /* Preview Section */
 .preview-section {
-    background-color: #333;
+    background-color: var(--preview-bg);
     padding: 16px;
-    color: white;
+    color: var(--preview-text);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -38,7 +104,7 @@ body {
 .preview-item h3 {
     margin-bottom: 10px;
     font-size: 1.1rem;
-    color: #ccc;
+    color: var(--preview-subtitle);
 }
 
 /* Form Sections */
@@ -49,6 +115,7 @@ body {
 .config-section h2 {
     font-size: 1rem;
     margin-bottom: 20px;
+    color: var(--heading-color);
 }
 
 /* Form Groups */
@@ -60,20 +127,22 @@ body {
     display: block;
     font-weight: 600;
     margin-bottom: 8px;
+    color: var(--label-color);
 }
 
 .form-group select {
     width: 100%;
     padding: 12px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--input-border);
     border-radius: 4px;
     font-size: 1rem;
-    background-color: white;
+    background-color: var(--input-bg);
+    color: var(--input-text);
 }
 
 .form-group select:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: var(--input-border-focus);
 }
 
 .form-group input[type="checkbox"] {
@@ -88,7 +157,7 @@ body {
 
 .description {
     font-size: 0.9rem;
-    color: #7f8c8d;
+    color: var(--description-color);
     margin-top: 5px;
     font-style: italic;
 }
@@ -96,12 +165,7 @@ body {
 .custom-colors h3 {
     font-size: 1rem;
     margin-bottom: 15px;
-}
-
-.color-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    color: var(--custom-heading-color);
 }
 
 .color-grid .form-group {
@@ -127,7 +191,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #FFF;
+    background-color: var(--button-group-bg);
     z-index: 200;
 }
 
@@ -146,23 +210,23 @@ body {
 
 .btn-primary {
     flex: 1;
-    background-color: #3498db;
-    color: white;
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    background-color: var(--button-primary-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
 }
 
 .btn-secondary {
-    background-color: #95a5a6;
-    color: white;
+    background-color: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
 }
 
 .btn-secondary:hover {
-    background-color: #7f8c8d;
+    background-color: var(--button-secondary-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(149, 165, 166, 0.3);
 }
@@ -187,81 +251,6 @@ body {
     opacity: 0.3;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #333;
-        color: #CCC;
-    }
-
-    .config-container {
-        background-color: #333;
-    }
-
-    .config-section h2 {
-        color: #FFF;
-    }
-
-    .form-group label {
-        color: #CCC;
-    }
-
-    .form-group select {
-        background-color: #555;
-        color: #CCC;
-        border-color: #666;
-    }
-
-    .form-group select:focus {
-        border-color: #3498db;
-    }
-
-    .custom-colors h3 {
-        color: #CCC;
-    }
-
-    .color-hex {
-        color: #CCC;
-    }
-
-    .btn-primary {
-        background-color: #3498db;
-        color: #FFF;
-    }
-
-    .btn-primary:hover {
-        background-color: #2980b9;
-    }
-
-    .btn-secondary {
-        background-color: #666;
-        color: #CCC;
-    }
-
-    .btn-secondary:hover {
-        background-color: #7f8c8d;
-    }
-
-    .button-group {
-        background-color: #333;
-    }
-
-    .modal-content {
-        background-color: #444;
-    }
-
-    .modal-header h3 {
-        color: #FFF;
-    }
-
-    .modal-close {
-        color: #CCC;
-    }
-
-    .modal-close:hover {
-        color: #FFF;
-    }
-}
 
 /* Custom Color Picker */
 .color-picker {
@@ -273,24 +262,25 @@ body {
 .color-swatch {
     width: 40px;
     height: 40px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--border-color);
     border-radius: 4px;
     cursor: pointer;
 }
 
 .color-swatch:hover {
-    border-color: #3498db;
+    border-color: var(--border-color-hover);
 }
 
 .color-hex {
     font-family: monospace;
     font-size: 14px;
     font-weight: 500;
+    color: var(--color-hex-color);
 }
 
 .color-name {
     font-size: 12px;
-    color: #666;
+    color: var(--color-name);
     margin-left: 5px;
 }
 
@@ -303,27 +293,30 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--modal-bg);
+    overflow: auto;
 }
 
 .modal-content {
-    background-color: #FFF;
-    margin: 5% auto;
     padding: 0;
-    border-radius: 8px;
-    max-width: 600px;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding-left: 20px;
+    position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: var(--modal-header-bg);
+  backdrop-filter: blur(4px);
 }
 
 .modal-header h3 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    color: var(--modal-header-text);
 }
 
 .modal-close {
@@ -332,38 +325,47 @@ body {
     font-size: 2rem;
     cursor: pointer;
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--modal-close);
+}
+
+.modal-close:hover {
+    color: var(--modal-close-hover);
 }
 
 .color-grid-modal {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 0px;
-    padding: 10px;
+    gap: 4px;
+    padding: 8px;
     overflow-y: auto;
+    max-width: 480px;
+    margin: 0 auto;
 }
 
 .color-swatch-modal {
     width: 100%;
     aspect-ratio: 1.618;
-    border: 3px solid #fff;
+    border: 0 none;
     cursor: pointer;
     border-radius: 8px;
-  position: relative;
+    position: relative;
+    box-shadow: inset 0 0 0px 1px #8888;
 }
 
 .color-swatch-modal:hover:not(:disabled) {
-    border-color: #3498db;
+    border-color: var(--border-color-hover);
 }
 
 .color-swatch-modal:disabled {
     border: none;
     background: transparent;
     cursor: default;
+  box-shadow: none;
 }
 
 .color-swatch-modal.selected::after {
@@ -373,14 +375,12 @@ body {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border-color: #000;
-  border: 3px solid black;
+  border: 3px solid var(--selected-ring-color);
   z-index: 3;
-  box-shadow: inset 0px 0px 0px 1px #fff9;
+  box-shadow: inset 0px 0px 0px 1px var(--selected-ring-color-inner);
   border-radius: 8px;
 }
 
 .color-grid-modal {
-    max-height: 60vh;
     overflow-y: auto;
 }
