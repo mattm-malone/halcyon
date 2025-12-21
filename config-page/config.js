@@ -1,3 +1,20 @@
+// Color settings configuration
+const colorSettings = [
+  { baseId: 'TIME_COLOR', label: 'Time Color', default: '#000000' },
+  { baseId: 'SUBTEXT_PRIMARY_COLOR', label: 'Date Color', default: '#000000' },
+  { baseId: 'SUBTEXT_SECONDARY_COLOR', label: 'Widget Text Color', default: '#555555' },
+  { baseId: 'BG_COLOR', label: 'Background Color', default: '#FFFFFF' },
+  { baseId: 'PIP_COLOR_PRIMARY', label: 'Pip Color (Primary)', default: '#000000' },
+  { baseId: 'PIP_COLOR_SECONDARY', label: 'Pip Color (Secondary)', default: '#AAAAAA' },
+  { baseId: 'RING_STROKE_COLOR', label: 'Ring Outline Color', default: '#000000' },
+  { baseId: 'RING_NIGHT_COLOR', label: 'Ring Color: Night', default: '#0055AA' },
+  { baseId: 'RING_DAY_COLOR', label: 'Ring Color: Day', default: '#00AAFF' },
+  { baseId: 'RING_SUNRISE_COLOR', label: 'Ring Color: Sunrise', default: '#FFAAAA' },
+  { baseId: 'RING_SUNSET_COLOR', label: 'Ring Color: Sunset', default: '#FFAA00' },
+  { baseId: 'SUN_STROKE_COLOR', label: 'Sun Outline Color', default: '#000000' },
+  { baseId: 'SUN_FILL_COLOR', label: 'Sun Color', default: '#FFFF00' }
+];
+
 // Pebble Color Palette (64 colors)
 const pebbleColors = {
   "#AAFFAA": { name: "Mint Green", identifier: "MintGreen" },
@@ -184,6 +201,80 @@ const colorOrder = [
   null
 ];
 
+// ColorPicker class for managing individual color pickers
+class ColorPicker {
+  constructor(inputId) {
+    this.inputId = inputId;
+    this.input = document.getElementById(inputId);
+    this.picker = document.querySelector(`.color-picker[data-for="${inputId}"]`);
+    this.swatch = this.picker.querySelector('.color-swatch');
+    this.hexSpan = this.picker.querySelector('.color-hex');
+    this.nameSpan = this.picker.querySelector('.color-name');
+    this.isNight = inputId.startsWith('SETTING_NIGHT_');
+
+    // Attach click listener
+    this.picker.addEventListener('click', () => openColorModal(inputId));
+  }
+
+  updateDisplay() {
+    const color = this.input.value;
+    this.swatch.style.backgroundColor = color;
+    this.hexSpan.textContent = color.toUpperCase();
+    this.nameSpan.textContent = pebbleColors[color] ? pebbleColors[color].name : '';
+  }
+
+  setValue(hex) {
+    this.input.value = hex.toUpperCase();
+    this.updateDisplay();
+    updateSVGColors(this.inputId, hex, this.isNight);
+  }
+}
+
+// Function to create HTML for a color picker
+function createColorPickerHTML(settingId, labelText, defaultValue) {
+  return `
+    <div class="form-group">
+      <label for="${settingId}">${labelText}</label>
+      <input type="hidden" id="${settingId}" name="${settingId}" value="${defaultValue}">
+      <div class="color-picker" data-for="${settingId}">
+        <span class="color-name"></span>
+        <button type="button" class="color-swatch"></button>
+        <span class="color-hex">${defaultValue.toUpperCase()}</span>
+      </div>
+    </div>
+  `;
+}
+
+// Global map for color picker instances
+const colorPickers = new Map();
+
+// Function to generate color pickers for day and night
+function generateColorPickers() {
+  const dayGrid = document.querySelector('#day-custom-colors .color-grid');
+  const nightGrid = document.querySelector('#night-custom-colors .color-grid');
+
+  // Clear existing
+  dayGrid.innerHTML = '';
+  nightGrid.innerHTML = '';
+
+  // Generate day pickers
+  colorSettings.forEach(setting => {
+    const settingId = `SETTING_${setting.baseId}`;
+    const html = createColorPickerHTML(settingId, setting.label, setting.default);
+    dayGrid.insertAdjacentHTML('beforeend', html);
+    colorPickers.set(settingId, new ColorPicker(settingId));
+  });
+
+  // Generate night pickers
+  colorSettings.forEach(setting => {
+    const settingId = `SETTING_NIGHT_${setting.baseId}`;
+    const labelText = `Night ${setting.label}`;
+    const html = createColorPickerHTML(settingId, labelText, setting.default);
+    nightGrid.insertAdjacentHTML('beforeend', html);
+    colorPickers.set(settingId, new ColorPicker(settingId));
+  });
+}
+
 // Minimal preset selector system
 
 let themes = {};
@@ -211,13 +302,18 @@ function applyPreset(presetName, isNight = false) {
   Object.keys(theme).forEach(key => {
     const inputKey = isNight ? key.replace('SETTING_', 'SETTING_NIGHT_') : key;
     console.log('Processing key:', key, '-> inputKey:', inputKey, 'value:', theme[key]);
-    const input = document.getElementById(inputKey);
-    console.log('Input found:', !!input);
-    if (input) {
-      input.value = '#' + theme[key].toUpperCase();
-      console.log('Set input value to:', input.value);
-      updateColorDisplay(inputKey);
-      updateSVGColors(inputKey, theme[key], isNight);
+    if (colorPickers.has(inputKey)) {
+      colorPickers.get(inputKey).setValue('#' + theme[key].toUpperCase());
+    } else {
+      // Fallback
+      const input = document.getElementById(inputKey);
+      console.log('Input found:', !!input);
+      if (input) {
+        input.value = '#' + theme[key].toUpperCase();
+        console.log('Set input value to:', input.value);
+        updateColorDisplay(inputKey);
+        updateSVGColors(inputKey, theme[key], isNight);
+      }
     }
   });
 }
@@ -239,17 +335,22 @@ function attachColorListeners() {
 // Color Picker Functions
 
 function updateColorDisplay(inputId) {
-  const input = document.getElementById(inputId);
-  if (!input) return;
-  const picker = document.querySelector(`.color-picker[data-for="${inputId}"]`);
-  if (!picker) return;
-  const swatch = picker.querySelector('.color-swatch');
-  const hexSpan = picker.querySelector('.color-hex');
-  const nameSpan = picker.querySelector('.color-name');
-  const color = input.value;
-  swatch.style.backgroundColor = color;
-  hexSpan.textContent = color.toUpperCase();
-  nameSpan.textContent = pebbleColors[color] ? pebbleColors[color].name : '';
+  if (colorPickers.has(inputId)) {
+    colorPickers.get(inputId).updateDisplay();
+  } else {
+    // Fallback for old code
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    const picker = document.querySelector(`.color-picker[data-for="${inputId}"]`);
+    if (!picker) return;
+    const swatch = picker.querySelector('.color-swatch');
+    const hexSpan = picker.querySelector('.color-hex');
+    const nameSpan = picker.querySelector('.color-name');
+    const color = input.value;
+    swatch.style.backgroundColor = color;
+    hexSpan.textContent = color.toUpperCase();
+    nameSpan.textContent = pebbleColors[color] ? pebbleColors[color].name : '';
+  }
 }
 
 function openColorModal(inputId) {
@@ -289,24 +390,23 @@ function closeColorModal() {
 
 function selectColor(inputId, hex) {
   hex = hex.toUpperCase();
-  const input = document.getElementById(inputId);
-  input.value = hex;
-  updateColorDisplay(inputId);
-  const isNight = inputId.startsWith('SETTING_NIGHT_');
-  updateSVGColors(inputId, hex, isNight);
+  if (colorPickers.has(inputId)) {
+    colorPickers.get(inputId).setValue(hex);
+  } else {
+    // Fallback
+    const input = document.getElementById(inputId);
+    input.value = hex;
+    updateColorDisplay(inputId);
+    const isNight = inputId.startsWith('SETTING_NIGHT_');
+    updateSVGColors(inputId, hex, isNight);
+  }
   // Set preset to custom when color is manually changed
-  const presetId = isNight ? 'night-preset' : 'day-preset';
+  const presetId = inputId.startsWith('SETTING_NIGHT_') ? 'night-preset' : 'day-preset';
   document.getElementById(presetId).value = 'custom';
   closeColorModal();
 }
 
 function initializeColorPickers() {
-  document.querySelectorAll('.color-picker').forEach(picker => {
-    const inputId = picker.dataset.for;
-    updateColorDisplay(inputId); // Initial display
-    picker.addEventListener('click', () => openColorModal(inputId));
-  });
-
   // Modal close events
   document.querySelector('.modal-close').addEventListener('click', closeColorModal);
   document.getElementById('color-modal').addEventListener('click', (e) => {
@@ -315,11 +415,11 @@ function initializeColorPickers() {
 }
 
 function initializePreviews() {
-  // Update SVG from current input values
-  document.querySelectorAll('input[type="hidden"][id*="COLOR"]').forEach(input => {
-    const isNight = input.id.startsWith('SETTING_NIGHT_');
-    updateSVGColors(input.id, input.value, isNight);
-    updateColorDisplay(input.id);
+  // Update SVG from current input values and displays
+  colorPickers.forEach(picker => {
+    const isNight = picker.inputId.startsWith('SETTING_NIGHT_');
+    updateSVGColors(picker.inputId, picker.input.value, isNight);
+    picker.updateDisplay();
   });
 }
 
@@ -450,9 +550,16 @@ function initializeNightThemeToggle() {
   }
 }
 
+function initColorSystem() {
+  generateColorPickers();
+  initializeColorPickers();
+  initializePreviews();
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', async function () {
   await loadThemes();
+  initColorSystem();
   loadExistingSettings();
 
   // Preset listeners
@@ -466,8 +573,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     nightPresetSelector.addEventListener('change', () => applyPreset(nightPresetSelector.value, true));
   }
 
-   // Other listeners
-   const configForm = document.getElementById('config-form');
+  // Other listeners
+  const configForm = document.getElementById('config-form');
   if (configForm) {
     configForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -475,8 +582,5 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   }
 
-  attachColorListeners();
-  initializePreviews();
   initializeNightThemeToggle();
-  initializeColorPickers();
 });

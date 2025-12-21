@@ -11,7 +11,7 @@
     --input-text: #000;
     --input-border: #ddd;
     --input-border-focus: #3498db;
-    --description-color: #7f8c8d;
+    --description-color: #666;
     --heading-color: #000;
     --label-color: #000;
     --custom-heading-color: #000;
@@ -28,7 +28,7 @@
     --modal-header-text: #000;
     --modal-close: #CCC;
     --modal-close-hover: #FFF;
-    --color-name: #666;
+
     --selected-ring-color: #000;
     --selected-ring-color-inner: #fff9;
 }
@@ -54,6 +54,7 @@
         --modal-header-text: #FFF;
         --selected-ring-color: #fff;
         --selected-ring-color-inner: #0009;
+        --description-color: #AAA;
     }
 }
 
@@ -179,6 +180,7 @@ body.modal-open {
     margin-bottom: 0;
     flex: 1;
     margin-right: 10px;
+    font-weight: normal;
 }
 
 /* Buttons */
@@ -276,11 +278,12 @@ body.modal-open {
     font-size: 14px;
     font-weight: 500;
     color: var(--color-hex-color);
+    display: none;
 }
 
 .color-name {
-    font-size: 12px;
-    color: var(--color-name);
+    font-size: 14px;
+    color: var(--description-color);
     margin-left: 5px;
 }
 
