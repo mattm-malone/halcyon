@@ -297,6 +297,8 @@ const themeDisplayNames = {
   sandTheme: 'Sand',
   greyTheme: 'Grey',
   userTeal1: 'Teal',
+  bwTheme1: 'Black & White',
+  bwTheme2: 'Black & White 2',
   custom: 'Custom'
 };
 
@@ -592,19 +594,28 @@ function loadExistingSettings() {
     }
   }
 
-  // Fallback to localStorage if no URL settings
-  if (!configData) {
-    try {
-      const stored = localStorage.getItem('halcyonSettings');
-      if (stored) {
-        configData = JSON.parse(stored);
-      }
-    } catch (e) {
-      // localStorage not available
-    }
-  }
+   // Fallback to localStorage if no URL settings
+   if (!configData) {
+     try {
+       const stored = localStorage.getItem('halcyonSettings');
+       if (stored) {
+         configData = JSON.parse(stored);
+       }
+     } catch (e) {
+       // localStorage not available
+     }
+   }
 
-  if (configData) {
+   // Set default theme based on platform if no saved settings
+   if (!configData) {
+     const platform = getQueryParam('platform', '');
+     if (['aplite', 'diorite', 'flint'].includes(platform)) {
+       document.getElementById('day-preset').value = 'bwTheme1';
+       document.getElementById('night-preset').value = 'bwTheme2';
+     }
+   }
+
+   if (configData) {
     Object.keys(configData).forEach(key => {
       let element = document.getElementById(key);
       // Special handling for preset selects since their ids don't match the keys
