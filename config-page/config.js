@@ -15,6 +15,9 @@ const colorSettings = [
   { baseId: 'SUN_FILL_COLOR', label: 'Sun Color', default: '#FFFF00' }
 ];
 
+// Global variable for BW platform detection
+let isBWPlatform = false;
+
 // Pebble Color Palette (64 colors)
 const pebbleColors = {
   "#AAFFAA": { name: "Mint Green", identifier: "MintGreen" },
@@ -201,6 +204,29 @@ const colorOrder = [
   null
 ];
 
+// BW color orders
+const bwFillColorOrder = [
+  "#000000",
+  "#FFFFFF",
+  "#AAAAAA"
+];
+
+const bwStrokeColorOrder = [
+  "#000000",
+  "#FFFFFF"
+];
+
+// Stroke/text fields that can only be black or white on BW platforms
+const bwStrokeFields = new Set([
+  'SUN_STROKE_COLOR',
+  'RING_STROKE_COLOR',
+  'PIP_COLOR_PRIMARY',
+  'PIP_COLOR_SECONDARY',
+  'TIME_COLOR',
+  'SUBTEXT_PRIMARY_COLOR',
+  'SUBTEXT_SECONDARY_COLOR'
+]);
+
 // ColorPicker class for managing individual color pickers
 class ColorPicker {
   constructor(inputId) {
@@ -299,6 +325,8 @@ const themeDisplayNames = {
   userTeal1: 'Teal',
   bwTheme1: 'Black & White',
   bwTheme2: 'Black & White 2',
+  bwTheme3: 'Black & White 3',
+  bwTheme4: 'Black & White 4',
   custom: 'Custom'
 };
 
@@ -348,7 +376,11 @@ function generatePresetSelectors() {
 
 function generateForContainer(container, isNight, select) {
   container.innerHTML = '';
-  const allKeys = ['custom', ...Object.keys(themes)];
+  let themeKeys = Object.keys(themes);
+  if (isBWPlatform) {
+    themeKeys = themeKeys.filter(key => key.startsWith('bwTheme'));
+  }
+  const allKeys = ['custom', ...themeKeys];
   allKeys.forEach(key => {
     const optionDiv = document.createElement('div');
     optionDiv.className = 'preset-option';
@@ -475,7 +507,20 @@ function openColorModal(inputId) {
   }
   const grid = document.getElementById('color-grid-modal');
   grid.innerHTML = ''; // Clear previous
-  colorOrder.forEach(item => {
+
+  // Determine color order based on platform and field type
+  let orderToUse = colorOrder;
+  if (isBWPlatform) {
+    // Extract baseId from inputId
+    let baseId = inputId.replace('SETTING_', '').replace('SETTING_NIGHT_', '');
+    if (bwStrokeFields.has(baseId)) {
+      orderToUse = bwStrokeColorOrder;
+    } else {
+      orderToUse = bwFillColorOrder;
+    }
+  }
+
+  orderToUse.forEach(item => {
     const swatch = document.createElement('button');
     swatch.type = 'button';
     swatch.className = 'color-swatch-modal';
@@ -606,14 +651,16 @@ function loadExistingSettings() {
      }
    }
 
-   // Set default theme based on platform if no saved settings
-   if (!configData) {
-     const platform = getQueryParam('platform', '');
-     if (['aplite', 'diorite', 'flint'].includes(platform)) {
-       document.getElementById('day-preset').value = 'bwTheme1';
-       document.getElementById('night-preset').value = 'bwTheme2';
-     }
-   }
+    const platform = getQueryParam('platform', '');
+    isBWPlatform = ['aplite', 'diorite', 'flint'].includes(platform);
+
+    // Set default theme based on platform if no saved settings
+    if (!configData) {
+      if (isBWPlatform) {
+        document.getElementById('day-preset').value = 'bwTheme1';
+        document.getElementById('night-preset').value = 'bwTheme2';
+      }
+    }
 
    if (configData) {
     Object.keys(configData).forEach(key => {
