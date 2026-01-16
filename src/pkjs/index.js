@@ -44,21 +44,39 @@ Pebble.addEventListener('ready',
   }
 );
 
+// // Listen for when configuration is requested
+// Pebble.addEventListener('showConfiguration', function () {
+//   var url = USE_SERVER_CONFIG ? configLocalUri : configDataUri;
+//   // Get watch platform
+//   var watchInfo = Pebble.getWatchInfo();
+//   var platform = watchInfo.platform;
+//   // Append platform as URL param
+//   url += (url.includes('?') ? '&' : '?') + 'platform=' + platform;
+//   // Load persisted settings from localStorage
+//   var persistedSettings = localStorage.getItem('halcyonSettings');
+//   if (persistedSettings) {
+//     try {
+//       var settings = JSON.parse(persistedSettings);
+//       // Append settings as URL param
+//       url += '&settings=' + encodeURIComponent(JSON.stringify(settings));
+//     } catch (e) {
+//       console.log('Error loading persisted settings:', e);
+//     }
+//   }
+//   Pebble.openURL(url);
+// });
+
 // Listen for when configuration is requested
 Pebble.addEventListener('showConfiguration', function () {
   var url = USE_SERVER_CONFIG ? configLocalUri : configDataUri;
   // Get watch platform
-  var watchInfo = Pebble.getWatchInfo();
-  var platform = watchInfo.platform;
-  // Append platform as URL param
-  url += (url.includes('?') ? '&' : '?') + 'platform=' + platform;
   // Load persisted settings from localStorage
   var persistedSettings = localStorage.getItem('halcyonSettings');
   if (persistedSettings) {
     try {
       var settings = JSON.parse(persistedSettings);
       // Append settings as URL param
-      url += '&settings=' + encodeURIComponent(JSON.stringify(settings));
+      url += '?settings=' + encodeURIComponent(JSON.stringify(settings));
     } catch (e) {
       console.log('Error loading persisted settings:', e);
     }
