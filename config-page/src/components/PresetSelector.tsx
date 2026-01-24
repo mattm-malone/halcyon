@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import ThemePreview from './ThemePreview';
 
 interface PresetSelectorProps {
   themeType: 'day' | 'night';
@@ -23,17 +24,17 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ themeType, onPre
     setPreset(currentPreset);
   }, [themeManager, isLoading, themeType]);
 
-  const handlePresetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newPreset = e.target.value;
+  const handlePresetChange = (newPreset: string) => {
     setPreset(newPreset);
 
     if (themeManager) {
       themeManager.applyPreset(newPreset, themeType);
       onPresetChange?.(newPreset);
-      
-      // Force re-render of color pickers by updating their state
-      // This will be handled by the ThemeManager's state updates
     }
+  };
+
+  const handleCustomSelect = () => {
+    handlePresetChange('custom');
   };
 
   if (isLoading) {
@@ -41,24 +42,38 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ themeType, onPre
   }
 
   return (
-    <div className="preset-selector">
-      <label htmlFor={`${themeType}-preset-select`} className="preset-label">
+    <div className="preset-selectors">
+      <div className="preset-selector-label">
         {themeType.charAt(0).toUpperCase() + themeType.slice(1)} Theme:
-      </label>
-      <select
-        id={`${themeType}-preset-select`}
-        value={preset}
-        onChange={handlePresetChange}
-        className="preset-select"
-        disabled={isLoading}
-      >
-        <option value="custom">Custom</option>
+      </div>
+      <div className="preset-selector">
+        {/* Custom option */}
+        <div className="preset-option">
+          <input
+            type="radio"
+            id={`${themeType}-custom`}
+            name={`${themeType}-theme`}
+            checked={preset === 'custom'}
+            onChange={handleCustomSelect}
+            className="preset-radio"
+          />
+          <label htmlFor={`${themeType}-custom`} className="preset-label">
+            <div className="preset-custom-preview">🎨</div>
+            <span className="preset-name">Custom</span>
+          </label>
+        </div>
+
+        {/* Theme previews */}
         {themes.map((themeName) => (
-          <option key={themeName} value={themeName}>
-            {themeName}
-          </option>
+          <ThemePreview
+            key={themeName}
+            themeName={themeName}
+            themeType={themeType}
+            isSelected={preset === themeName}
+            onClick={() => handlePresetChange(themeName)}
+          />
         ))}
-      </select>
+      </div>
     </div>
   );
 };

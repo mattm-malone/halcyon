@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { pebbleColors } from '../color-data';
+import { pebbleColors, colorOrder } from '../color-data';
 
 interface ColorPickerProps {
   colorKey: string;
@@ -102,11 +102,10 @@ interface ColorModalProps {
 const ColorModal: React.FC<ColorModalProps> = ({ currentColor, onSelect, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
-  // Get all color hex values (both with and without #)
-  const allColors = Object.keys(pebbleColors);
-  const colorOrder = allColors.map(c => c.startsWith('#') ? c : `#${c}`);
-  
+  // Use the original visually pleasing color order
   const filteredColors = colorOrder.filter(color => {
+    if (color === null) return true; // Keep null values for spacing
+    
     const cleanColor = color.replace('#', '');
     const colorInfo = pebbleColors[color] || pebbleColors[cleanColor];
     const searchLower = searchTerm.toLowerCase();
@@ -134,7 +133,11 @@ const ColorModal: React.FC<ColorModalProps> = ({ currentColor, onSelect, onClose
         </div>
 
         <div className="color-grid-modal">
-          {filteredColors.map((color) => {
+          {filteredColors.map((color, index) => {
+            if (color === null) {
+              return <div key={`blank-${index}`} className="color-swatch-modal blank" />;
+            }
+            
             const cleanColor = color.replace('#', '');
             const colorInfo = pebbleColors[color] || pebbleColors[cleanColor];
             const displayColor = color.startsWith('#') ? color : `#${color}`;

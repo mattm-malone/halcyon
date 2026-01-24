@@ -109,6 +109,15 @@ export class ThemeManager {
     return config.colors.get(colorKey) || '';
   }
 
+  getThemeColor(themeName: string, colorKey: string, themeType: ThemeType): string {
+    const theme = this.getTheme(themeName);
+    if (!theme) {
+      console.warn(`Theme not found: ${themeName}`);
+      return '';
+    }
+    return theme[colorKey] || '';
+  }
+
   getThemeConfig(themeType: ThemeType): ThemeConfig {
     return themeType === 'day' ? this.themeState.day : this.themeState.night;
   }

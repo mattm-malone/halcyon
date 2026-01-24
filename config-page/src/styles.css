@@ -55,6 +55,9 @@
         --selected-ring-color: #fff;
         --selected-ring-color-inner: #0009;
         --description-color: #AAA;
+        --border-color: #666;
+        --border-color-hover: #4a90d9;
+        --input-border-focus: #4a90d9;
     }
 }
 
@@ -109,7 +112,16 @@ h1 {
   margin-top: 0;
 }
 
-/* Charming Preview Section Styling */
+/* Charming Preview Section Styling - Fixed Position Container */
+.preview-section {
+    background-color: var(--preview-bg);
+    padding: 16px;
+    color: var(--preview-text);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
 .preview-container {
     display: flex;
     justify-content: space-evenly;
@@ -429,6 +441,13 @@ h1 {
   margin-bottom: 15px;
 }
 
+.preset-selector-label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
 .night-theme-toggle {
   margin-top: 15px;
   padding: 10px;
@@ -590,6 +609,13 @@ h1 {
   overflow: hidden;
 }
 
+.color-swatch-modal.blank {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+  pointer-events: none;
+}
+
 .color-swatch-modal:hover {
   transform: scale(1.1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -716,6 +742,131 @@ h1 {
 
   .preset-label {
     min-width: auto;
+  }
+}
+
+/* Dark mode specific styles */
+@media (prefers-color-scheme: dark) {
+  .preview-section {
+    background-color: #222;
+  }
+
+  .preview-item {
+    border-color: #555;
+    background: #444;
+  }
+
+  .form-group select {
+    background-color: #444;
+    border-color: #555;
+  }
+
+  .color-display {
+    background: #444;
+  }
+
+  .svg-preview-container {
+    background: #333;
+  }
+
+  .color-modal {
+    background: #222;
+    border-color: #555;
+  }
+
+  .modal-header {
+    border-bottom-color: #555;
+  }
+
+  .modal-search input {
+    background-color: #333;
+    border-color: #555;
+    color: #CCC;
+  }
+
+  .color-swatch-modal {
+    border-color: #555;
+  }
+
+  .color-swatch-modal.selected {
+    border-color: #4a90d9;
+  }
+
+  .placeholder {
+    background: #444;
+    border-color: #555;
+  }
+
+  /* Modal specific dark mode styles */
+  .color-modal-overlay {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal-close {
+    color: #AAA;
+  }
+
+  .modal-close:hover {
+    color: #FFF;
+  }
+
+  /* Toggle switch dark mode */
+  .form-group .switch-label::before {
+    background-color: #555;
+  }
+
+  .form-group label:has(input[type="checkbox"])::before {
+    background-color: #555;
+  }
+
+  /* Button group dark mode */
+  .button-group {
+    background-color: #222;
+  }
+
+  /* Preset selector dark mode */
+  .preset-option label span {
+    color: #CCC;
+  }
+
+  .preset-custom-preview {
+    border-color: #555;
+    background-color: #444;
+  }
+
+  /* Color picker dark mode */
+  .color-swatch {
+    border-color: #555;
+  }
+
+  .color-swatch:hover {
+    border-color: #4a90d9;
+  }
+
+  /* Form section dark mode */
+  .form-section h3 {
+    color: #CCC;
+  }
+
+  .form-group label {
+    color: #CCC;
+  }
+
+  .text-label {
+    color: #CCC;
+  }
+
+  /* Description dark mode */
+  .description {
+    color: #AAA;
+  }
+
+  .color-name {
+    color: #AAA;
+  }
+
+  .color-hex {
+    color: #CCC;
   }
 }
 
