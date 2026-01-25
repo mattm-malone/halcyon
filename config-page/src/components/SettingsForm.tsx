@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PresetSelector from './PresetSelector';
 import ColorPicker from './ColorPicker';
 import AdditionalSettings from './AdditionalSettings';
+import ToggleSwitch from './ToggleSwitch';
 import { useTheme } from '../context/ThemeContext';
 import { useSettings } from '../context/SettingsContext';
 
@@ -9,6 +10,18 @@ const SettingsForm: React.FC = () => {
   const { themeManager, isLoading: themeLoading } = useTheme();
   const { saveSettings, isLoading: settingsLoading } = useSettings();
   const [useNightTheme, setUseNightTheme] = useState(false);
+  const [dayPreset, setDayPreset] = useState<string>('default');
+  const [nightPreset, setNightPreset] = useState<string>('default');
+
+  // Track current presets
+  useEffect(() => {
+    if (themeManager && !themeLoading) {
+      const dayPreset = themeManager.getCurrentPreset('day');
+      const nightPreset = themeManager.getCurrentPreset('night');
+      setDayPreset(dayPreset);
+      setNightPreset(nightPreset);
+    }
+  }, [themeManager, themeLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,93 +52,114 @@ const SettingsForm: React.FC = () => {
       <form id="config-form" onSubmit={handleSubmit}>
         <div className="form-section">
           <h3>Theme Presets</h3>
-          <div className="preset-selectors">
-            <PresetSelector themeType="day" />
-            {useNightTheme && <PresetSelector themeType="night" />}
+
+          {/* Day Theme Section */}
+          <div className="theme-section">
+            <h4>Day Theme</h4>
+            <PresetSelector 
+              themeType="day" 
+              onPresetChange={(preset) => setDayPreset(preset)} 
+            />
           </div>
 
-          <div className="night-theme-toggle">
-            <label>
-              <input
-                type="checkbox"
-                checked={useNightTheme}
-                onChange={(e) => setUseNightTheme(e.target.checked)}
-              />
-              Enable Night Theme
-            </label>
+          {/* Night Theme Section */}
+          <div className="theme-section">
+            <ToggleSwitch
+              checked={useNightTheme}
+              onChange={setUseNightTheme}
+              label="Enable Night Theme"
+              id="night-theme-toggle"
+              description="Enable a separate theme for night time hours"
+            />
+            
+            {useNightTheme && (
+              <div className="night-theme-content">
+                <h4>Night Theme</h4>
+                <PresetSelector 
+                  themeType="night" 
+                  onPresetChange={(preset) => setNightPreset(preset)} 
+                />
+              </div>
+            )}
           </div>
         </div>
 
+        {/* Color Settings - Show conditionally based on selected presets */}
         <div className="form-section">
           <h3>Color Settings</h3>
+          <p className="description">
+            Customize individual colors (only available when "Custom" theme is selected)
+          </p>
           <div className="color-settings">
-            {/* Day theme colors */}
-            <div className="color-group">
-              <h4>Day Theme Colors</h4>
-              <ColorPicker 
-                colorKey="SETTING_TIME_COLOR"
-                themeType="day"
-                label="Time Color"
-              />
-              <ColorPicker 
-                colorKey="SETTING_SUBTEXT_PRIMARY_COLOR"
-                themeType="day"
-                label="Primary Subtext"
-              />
-              <ColorPicker 
-                colorKey="SETTING_SUBTEXT_SECONDARY_COLOR"
-                themeType="day"
-                label="Secondary Subtext"
-              />
-              <ColorPicker 
-                colorKey="SETTING_BG_COLOR"
-                themeType="day"
-                label="Background"
-              />
-              <ColorPicker 
-                colorKey="SETTING_PIP_COLOR_PRIMARY"
-                themeType="day"
-                label="Primary Pips"
-              />
-              <ColorPicker 
-                colorKey="SETTING_PIP_COLOR_SECONDARY"
-                themeType="day"
-                label="Secondary Pips"
-              />
-              <ColorPicker 
-                colorKey="SETTING_RING_STROKE_COLOR"
-                themeType="day"
-                label="Ring Stroke"
-              />
-              <ColorPicker 
-                colorKey="SETTING_RING_DAY_COLOR"
-                themeType="day"
-                label="Day Ring"
-              />
-              <ColorPicker 
-                colorKey="SETTING_RING_SUNRISE_COLOR"
-                themeType="day"
-                label="Sunrise Ring"
-              />
-              <ColorPicker 
-                colorKey="SETTING_RING_SUNSET_COLOR"
-                themeType="day"
-                label="Sunset Ring"
-              />
-              <ColorPicker 
-                colorKey="SETTING_SUN_STROKE_COLOR"
-                themeType="day"
-                label="Sun Stroke"
-              />
-              <ColorPicker 
-                colorKey="SETTING_SUN_FILL_COLOR"
-                themeType="day"
-                label="Sun Fill"
-              />
-            </div>
+            {/* Day theme colors - only show when day preset is custom */}
+            {dayPreset === 'custom' && (
+              <div className="color-group">
+                <h4>Day Theme Colors</h4>
+                <ColorPicker 
+                  colorKey="SETTING_TIME_COLOR"
+                  themeType="day"
+                  label="Time Color"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_SUBTEXT_PRIMARY_COLOR"
+                  themeType="day"
+                  label="Primary Subtext"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_SUBTEXT_SECONDARY_COLOR"
+                  themeType="day"
+                  label="Secondary Subtext"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_BG_COLOR"
+                  themeType="day"
+                  label="Background"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_PIP_COLOR_PRIMARY"
+                  themeType="day"
+                  label="Primary Pips"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_PIP_COLOR_SECONDARY"
+                  themeType="day"
+                  label="Secondary Pips"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_RING_STROKE_COLOR"
+                  themeType="day"
+                  label="Ring Stroke"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_RING_DAY_COLOR"
+                  themeType="day"
+                  label="Day Ring"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_RING_SUNRISE_COLOR"
+                  themeType="day"
+                  label="Sunrise Ring"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_RING_SUNSET_COLOR"
+                  themeType="day"
+                  label="Sunset Ring"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_SUN_STROKE_COLOR"
+                  themeType="day"
+                  label="Sun Stroke"
+                />
+                <ColorPicker 
+                  colorKey="SETTING_SUN_FILL_COLOR"
+                  themeType="day"
+                  label="Sun Fill"
+                />
+              </div>
+            )}
 
-            {/* Night theme colors (conditional) */}
-            {useNightTheme && (
+            {/* Night theme colors - only show when night preset is custom AND night theme is enabled */}
+            {useNightTheme && nightPreset === 'custom' && (
               <div className="color-group">
                 <h4>Night Theme Colors</h4>
                 <ColorPicker 

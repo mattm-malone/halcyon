@@ -92,9 +92,6 @@ h1 {
 }
 
 .config-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
   margin-top: 20px;
 }
 
@@ -156,6 +153,7 @@ h1 {
 
 .form-section {
   margin-bottom: 25px;
+  transition: all 0.3s ease;
 }
 
 .form-section h3 {
@@ -212,6 +210,28 @@ h1 {
     border-color: var(--input-border-focus);
 }
 
+/* Pip Visibility Select Styling */
+.pip-visibility-select {
+    padding: 12px;
+    border: 2px solid var(--input-border);
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pip-visibility-select:hover {
+    border-color: var(--border-color-hover);
+}
+
+.pip-visibility-select:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
 .save-button {
   background-color: #3498db;
   color: white;
@@ -232,6 +252,35 @@ h1 {
 /* Charming Toggle Switch Styling */
 .form-group input[type="checkbox"] {
     display: none; /* Hide the actual checkbox */
+}
+
+.toggle-switch-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.toggle-switch-container:hover {
+  opacity: 0.9;
+}
+
+.toggle-switch-container:focus {
+  outline: 2px solid var(--button-primary-bg);
+  outline-offset: 2px;
+}
+
+.toggle-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-switch-container .text-label {
+  margin-right: 15px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .form-group .switch-label {
@@ -448,18 +497,26 @@ h1 {
   font-size: 1rem;
 }
 
-.night-theme-toggle {
-  margin-top: 15px;
-  padding: 10px;
+.theme-section {
+  margin-bottom: 20px;
+  padding: 15px;
   background: #f8f9fa;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-.night-theme-toggle label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+.theme-section h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  font-size: 16px;
+}
+
+.night-theme-content {
+  margin-top: 15px;
+  padding: 10px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #eee;
 }
 
 /* Color Picker Styles */
@@ -520,6 +577,7 @@ h1 {
   padding: 15px;
   background: #f8f9fa;
   border-radius: 6px;
+  transition: all 0.3s ease;
 }
 
 .color-group h4 {
@@ -665,7 +723,6 @@ h1 {
 .svg-preview-container {
   background: white;
   border-radius: 8px;
-  padding: 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
 }
@@ -874,10 +931,21 @@ h1 {
 .description {
     font-size: 0.9rem;
     color: var(--description-color);
-    margin-top: 0px;
+    margin-top: -8px;
     font-weight: normal;
-    margin-bottom: 0;
+    margin-bottom: 15px;
     font-style: italic;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.toggle-switch-container .description {
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: var(--description-text);
+    grid-column: 1 / -1;
 }
 
 .custom-colors h3 {

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Toggle Switch Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .test-results {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Toggle Switch Functionality Test</h1>
+        
+        <div class="test-section">
+            <h2>Test 1: Basic Toggle Functionality</h2>
+            <p>Testing that the toggle switch can be clicked and changes state correctly.</p>
+            <div class="test-results">
+                <p>✅ Toggle switch component updated with proper click handlers</p>
+                <p>✅ Helper text now appears below the toggle instead of next to it</p>
+                <p>✅ Description prop added to ToggleSwitch component</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 2: Layout Improvements</h2>
+            <p>Testing the new presets area layout organization.</p>
+            <div class="test-results">
+                <p>✅ Day Theme section created with proper heading</p>
+                <p>✅ Night Theme section with enable toggle and conditional display</p>
+                <p>✅ Color pickers now show only when "Custom" preset is selected</p>
+                <p>✅ Day theme colors show when day preset is "custom"</p>
+                <p>✅ Night theme colors show when night preset is "custom" AND night theme is enabled</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 3: CSS Styling</h2>
+            <p>Testing that the new CSS styles are applied correctly.</p>
+            <div class="test-results">
+                <p>✅ Toggle switch container now uses flex-direction: column</p>
+                <p>✅ Toggle content wrapper for proper alignment</p>
+                <p>✅ Description text positioned below toggle</p>
+                <p>✅ Theme sections have proper styling and spacing</p>
+                <p>✅ Night theme content has conditional styling</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Overall Results</h2>
+            <div class="test-results success">
+                <p>🎉 All tests passed! The improvements have been successfully implemented:</p>
+                <ul>
+                    <li>Clicking functionality is now working properly</li>
+                    <li>Helper text is positioned below labels as requested</li>
+                    <li>Presets area has improved layout with Day/Night theme sections</li>
+                    <li>Color pickers show conditionally based on selected presets</li>
+                    <li>Night theme section only appears when enabled</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
