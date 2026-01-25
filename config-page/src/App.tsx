@@ -8,7 +8,6 @@ const App: React.FC = () => {
     <ThemeProvider>
       <SettingsProvider>
         <div className="config-container">
-          <h1>Halcyon Watchface Configuration</h1>
           <ConfigPage />
         </div>
       </SettingsProvider>

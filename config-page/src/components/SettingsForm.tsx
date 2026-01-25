@@ -60,41 +60,11 @@ const SettingsForm: React.FC = () => {
               themeType="day" 
               onPresetChange={(preset) => setDayPreset(preset)} 
             />
-          </div>
-
-          {/* Night Theme Section */}
-          <div className="theme-section">
-            <ToggleSwitch
-              checked={useNightTheme}
-              onChange={setUseNightTheme}
-              label="Enable Night Theme"
-              id="night-theme-toggle"
-              description="Enable a separate theme for night time hours"
-            />
             
-            {useNightTheme && (
-              <div className="night-theme-content">
-                <h4>Night Theme</h4>
-                <PresetSelector 
-                  themeType="night" 
-                  onPresetChange={(preset) => setNightPreset(preset)} 
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Color Settings - Show conditionally based on selected presets */}
-        <div className="form-section">
-          <h3>Color Settings</h3>
-          <p className="description">
-            Customize individual colors (only available when "Custom" theme is selected)
-          </p>
-          <div className="color-settings">
             {/* Day theme colors - only show when day preset is custom */}
             {dayPreset === 'custom' && (
               <div className="color-group">
-                <h4>Day Theme Colors</h4>
+                <h5>Day Theme Colors</h5>
                 <ColorPicker 
                   colorKey="SETTING_TIME_COLOR"
                   themeType="day"
@@ -157,75 +127,98 @@ const SettingsForm: React.FC = () => {
                 />
               </div>
             )}
+          </div>
 
-            {/* Night theme colors - only show when night preset is custom AND night theme is enabled */}
-            {useNightTheme && nightPreset === 'custom' && (
-              <div className="color-group">
-                <h4>Night Theme Colors</h4>
-                <ColorPicker 
-                  colorKey="SETTING_TIME_COLOR"
-                  themeType="night"
-                  label="Time Color"
+          {/* Night Theme Section */}
+          <div className="theme-section">
+            <ToggleSwitch
+              checked={useNightTheme}
+              onChange={setUseNightTheme}
+              label="Enable Night Theme"
+              id="night-theme-toggle"
+              description="Enable a separate theme for night time hours"
+            />
+            
+            {useNightTheme && (
+              <div className="night-theme-content">
+                <h4>Night Theme</h4>
+                <PresetSelector 
+                  themeType="night" 
+                  onPresetChange={(preset) => setNightPreset(preset)} 
                 />
-                <ColorPicker 
-                  colorKey="SETTING_SUBTEXT_PRIMARY_COLOR"
-                  themeType="night"
-                  label="Primary Subtext"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_SUBTEXT_SECONDARY_COLOR"
-                  themeType="night"
-                  label="Secondary Subtext"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_BG_COLOR"
-                  themeType="night"
-                  label="Background"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_PIP_COLOR_PRIMARY"
-                  themeType="night"
-                  label="Primary Pips"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_PIP_COLOR_SECONDARY"
-                  themeType="night"
-                  label="Secondary Pips"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_RING_STROKE_COLOR"
-                  themeType="night"
-                  label="Ring Stroke"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_RING_NIGHT_COLOR"
-                  themeType="night"
-                  label="Night Ring"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_RING_SUNRISE_COLOR"
-                  themeType="night"
-                  label="Sunrise Ring"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_RING_SUNSET_COLOR"
-                  themeType="night"
-                  label="Sunset Ring"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_SUN_STROKE_COLOR"
-                  themeType="night"
-                  label="Sun Stroke"
-                />
-                <ColorPicker 
-                  colorKey="SETTING_SUN_FILL_COLOR"
-                  themeType="night"
-                  label="Sun Fill"
-                />
+                
+                {/* Night theme colors - only show when night preset is custom */}
+                {nightPreset === 'custom' && (
+                  <div className="color-group">
+                    <h5>Night Theme Colors</h5>
+                    <ColorPicker 
+                      colorKey="SETTING_TIME_COLOR"
+                      themeType="night"
+                      label="Time Color"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_SUBTEXT_PRIMARY_COLOR"
+                      themeType="night"
+                      label="Primary Subtext"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_SUBTEXT_SECONDARY_COLOR"
+                      themeType="night"
+                      label="Secondary Subtext"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_BG_COLOR"
+                      themeType="night"
+                      label="Background"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_PIP_COLOR_PRIMARY"
+                      themeType="night"
+                      label="Primary Pips"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_PIP_COLOR_SECONDARY"
+                      themeType="night"
+                      label="Secondary Pips"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_RING_STROKE_COLOR"
+                      themeType="night"
+                      label="Ring Stroke"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_RING_NIGHT_COLOR"
+                      themeType="night"
+                      label="Night Ring"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_RING_SUNRISE_COLOR"
+                      themeType="night"
+                      label="Sunrise Ring"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_RING_SUNSET_COLOR"
+                      themeType="night"
+                      label="Sunset Ring"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_SUN_STROKE_COLOR"
+                      themeType="night"
+                      label="Sun Stroke"
+                    />
+                    <ColorPicker 
+                      colorKey="SETTING_SUN_FILL_COLOR"
+                      themeType="night"
+                      label="Sun Fill"
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>
         </div>
+
+
 
       <AdditionalSettings themeType="day" />
 

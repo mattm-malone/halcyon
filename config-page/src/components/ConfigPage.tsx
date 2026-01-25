@@ -12,7 +12,7 @@ const ConfigPage: React.FC = () => {
 
   return (
     <div className="config-content">
-      <PreviewSection />
+      {/* <PreviewSection /> */}
       <SettingsForm />
     </div>
   );

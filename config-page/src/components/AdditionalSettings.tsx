@@ -18,7 +18,7 @@ export const AdditionalSettings: React.FC<AdditionalSettingsProps> = ({ themeTyp
   return (
     <div className="form-section">
       <h3>Additional Settings</h3>
-      
+
       <div className="form-group">
         <label className="text-label">
           Pip Visibility
@@ -40,16 +40,16 @@ export const AdditionalSettings: React.FC<AdditionalSettingsProps> = ({ themeTyp
         onChange={(checked) => handleToggleChange('SETTING_SHOW_LEADING_ZERO', checked)}
         label="Show Leading Zero"
         id="leading-zero-toggle"
+        description='Display leading zero for single-digit hours (e.g., 09:00 instead of 9:00)'
       />
-      <p className="description">Display leading zero for single-digit hours (e.g., 09:00 instead of 9:00)</p>
 
       <ToggleSwitch
         checked={settings.SETTING_USE_LARGE_FONTS === 1}
         onChange={(checked) => handleToggleChange('SETTING_USE_LARGE_FONTS', checked)}
         label="Large Fonts"
         id="large-fonts-toggle"
+        description='Use larger font size for better readability'
       />
-      <p className="description">Use larger font size for better readability</p>
     </div>
   );
 };
