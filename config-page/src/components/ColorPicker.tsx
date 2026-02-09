@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { useConfig } from '../context/ConfigContext';
+import { useConfig } from '../context/hooks';
 import { pebbleColors, colorOrder } from '../color-data';
 import { ThemeType } from '../types';
 

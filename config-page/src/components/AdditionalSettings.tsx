@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSettings } from '../context/ConfigContext';
+import { useSettings } from '../context/hooks';
 import ToggleSwitch from './ToggleSwitch';
 import { ThemeType } from '../types';
 

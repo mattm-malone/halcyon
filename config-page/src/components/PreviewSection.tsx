@@ -1,6 +1,6 @@
 import React from 'react';
 import SVGPreview from './SVGPreview';
-import { useTheme } from '../context/ConfigContext';
+import { useTheme } from '../context/hooks';
 
 const PreviewSection: React.FC = () => {
   const { isLoading, isNightThemeEnabled, setNightThemeEnabled } = useTheme();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../context/ConfigContext';
+import { useTheme } from '../context/hooks';
 import PreviewSection from './PreviewSection';
 import SettingsForm from './SettingsForm';
 

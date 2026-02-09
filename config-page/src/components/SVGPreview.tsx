@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useTheme } from '../context/ConfigContext';
+import { useTheme } from '../context/hooks';
 import { ThemeType } from '../types';
 
 interface SVGPreviewProps {

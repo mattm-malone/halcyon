@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useConfig } from '../context/ConfigContext';
+import { useConfig } from '../context/hooks';
 import ThemePreview from './ThemePreview';
 import { ThemeType } from '../types';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useTheme } from '../context/ConfigContext';
+import { useTheme } from '../context/hooks';
 import { PresetSelector } from './PresetSelector';
 import ColorSettings from './ColorSettings';
 import ToggleSwitch from './ToggleSwitch';

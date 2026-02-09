@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import ThemeSettings from './ThemeSettings';
 import AdditionalSettings from './AdditionalSettings';
-import { useTheme, useSettings } from '../context/ConfigContext';
+import { useTheme, useSettings } from '../context/hooks';
 
 const SettingsForm: React.FC = () => {
   const { getCurrentPreset, getThemeState, isLoading: themeLoading, isNightThemeEnabled, setNightThemeEnabled } = useTheme();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConfigProvider } from './context/ConfigContext';
+import { ConfigProvider } from './context/ConfigProvider';
 import ConfigPage from './components/ConfigPage';
 import ErrorBoundary from './components/ErrorBoundary';
 

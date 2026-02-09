@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useTheme } from '../context/ConfigContext';
+import { useTheme } from '../context/hooks';
 
 interface ThemePreviewProps {
   themeName: string;
