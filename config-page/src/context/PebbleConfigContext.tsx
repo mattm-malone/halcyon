@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
+import { Settings, DEFAULT_SETTINGS } from './types';
 
 interface ConfigContextType {
-  settings: Record<string, any>;
+  settings: Settings;
   updateSetting: (key: string, value: any) => void;
   save: () => void;
 }
@@ -15,13 +16,14 @@ export const useConfig = () => {
 };
 
 export const PebbleConfigProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Initialize settings directly from the 'settings' URL parameter
-  const [settings, setSettings] = useState<Record<string, any>>(() => {
+  // Initialize settings directly from the 'settings' URL parameter, merged with defaults
+  const [settings, setSettings] = useState<Settings>(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      return JSON.parse(params.get('settings') || '{}');
+      const urlSettings = JSON.parse(params.get('settings') || '{}');
+      return { ...DEFAULT_SETTINGS, ...urlSettings };
     } catch {
-      return {};
+      return DEFAULT_SETTINGS;
     }
   });
 

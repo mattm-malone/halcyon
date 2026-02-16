@@ -1,5 +1,6 @@
 import React from 'react';
 import { useConfig } from '../context/PebbleConfigContext';
+import { Settings } from '../context/types';
 
 export const PEBBLE_COLORS = [
   '000000', '000055', '0000AA', '0000FF',
@@ -20,10 +21,11 @@ export const PEBBLE_COLORS = [
   'FFFF00', 'FFFF55', 'FFFFAA', 'FFFFFF'
 ];
 
-export const ColorPicker: React.FC<{ label: string; messageKey: string }> = ({ label, messageKey }) => {
+export const ColorPicker: React.FC<{ label: string; messageKey: keyof Settings }> = ({ label, messageKey }) => {
   const { settings, updateSetting } = useConfig();
   const [isOpen, setIsOpen] = React.useState(false);
-  const value = (settings[messageKey] || '000000').toUpperCase().replace('#', '');
+  const rawValue = settings[messageKey];
+  const value = (typeof rawValue === 'string' ? rawValue : '000000').toUpperCase().replace('#', '');
 
   return (
     <div className="pebble-item pebble-color-picker-v2">
