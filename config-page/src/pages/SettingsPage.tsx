@@ -1,11 +1,14 @@
 import React from 'react';
-import { useConfig } from '../context/PebbleConfigContext';
+import { useConfig, useCapabilities, useWatchInfo } from '../context/PebbleConfigContext';
 import { Page, Section, Toggle, ColorPicker, Select, ThemePicker } from '../components';
 import themes from '../data/themes.json';
 import nightThemes from '../data/themes-night.json';
 
 export const SettingsPage: React.FC = () => {
   const { settings } = useConfig();
+  const capabilities = useCapabilities();
+  const watchInfo = useWatchInfo();
+
   return (
     <Page title="Halcyon Settings">
       <Section title="General">
@@ -21,6 +24,14 @@ export const SettingsPage: React.FC = () => {
           ]}
         />
         <Toggle label="Use Night Theme" messageKey="SETTING_USE_NIGHT_THEME" />
+      </Section>
+
+      <Section title="capabilities">
+        {JSON.stringify(capabilities)}
+      </Section>
+
+      <Section title="watchInfo">
+        {JSON.stringify(watchInfo)}
       </Section>
 
       <Section title="Theme">

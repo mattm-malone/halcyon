@@ -66,22 +66,28 @@ Pebble.addEventListener('ready',
 //   Pebble.openURL(url);
 // });
 
-// Listen for when configuration is requested
 Pebble.addEventListener('showConfiguration', function () {
   var url = USE_SERVER_CONFIG ? configLocalUri : configDataUri;
-  
-  // Load persisted settings from localStorage
+
+  var watchInfo = Pebble.getActiveWatchInfo();
+  url += (url.indexOf('?') === -1 ? '?' : '&') + 'watchInfo=' + encodeURIComponent(JSON.stringify({
+    platform: watchInfo.platform,
+    firmware: {
+      major: watchInfo.firmware.major,
+      minor: watchInfo.firmware.minor
+    }
+  }));
+
   var persistedSettings = localStorage.getItem('halcyonSettings');
   if (persistedSettings) {
     try {
       var settings = JSON.parse(persistedSettings);
-      // Append settings as URL param
-      url += (url.indexOf('?') === -1 ? '?' : '&') + 'settings=' + encodeURIComponent(JSON.stringify(settings));
+      url += '&settings=' + encodeURIComponent(JSON.stringify(settings));
     } catch (e) {
       console.log('Error loading persisted settings:', e);
     }
   }
-  
+
   console.log('Opening Config URL: ' + url);
   Pebble.openURL(url);
 });
@@ -126,7 +132,7 @@ Pebble.addEventListener('webviewclosed', function (e) {
 
   // color settings
   var colorKeys = [
-    'SETTING_TIME_COLOR', 'SETTING_BG_COLOR', 
+    'SETTING_TIME_COLOR', 'SETTING_BG_COLOR',
     'SETTING_SUBTEXT_PRIMARY_COLOR', 'SETTING_SUBTEXT_SECONDARY_COLOR',
     'SETTING_PIP_COLOR_PRIMARY', 'SETTING_PIP_COLOR_SECONDARY',
     'SETTING_RING_STROKE_COLOR', 'SETTING_RING_NIGHT_COLOR', 'SETTING_RING_DAY_COLOR',

@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
-import { Settings, DEFAULT_SETTINGS } from './types';
+import React, { createContext, useContext, useMemo } from 'react';
+import { Settings, DEFAULT_SETTINGS, WatchInfo, Capabilities } from './types';
+import { evaluateCapabilities } from '../utils/capabilities';
 
 interface ConfigContextType {
   settings: Settings;
@@ -7,7 +8,13 @@ interface ConfigContextType {
   save: () => void;
 }
 
+interface WatchInfoContextType {
+  watchInfo: WatchInfo | null;
+  capabilities: Capabilities;
+}
+
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
+const WatchInfoContext = createContext<WatchInfoContextType | undefined>(undefined);
 
 export const useConfig = () => {
   const context = useContext(ConfigContext);
@@ -15,9 +22,36 @@ export const useConfig = () => {
   return context;
 };
 
+export const useCapabilities = (): Capabilities => {
+  const context = useContext(WatchInfoContext);
+  if (!context) throw new Error('useCapabilities must be used within a PebbleConfigProvider');
+  return context.capabilities;
+};
+
+export const useWatchInfo = (): WatchInfo | null => {
+  const context = useContext(WatchInfoContext);
+  if (!context) throw new Error('useWatchInfo must be used within a PebbleConfigProvider');
+  return context.watchInfo;
+};
+
+const parseWatchInfo = (): WatchInfo | null => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const watchInfoStr = params.get('watchInfo');
+    if (watchInfoStr) {
+      return JSON.parse(decodeURIComponent(watchInfoStr));
+    }
+  } catch {
+    console.warn('Failed to parse watchInfo from URL');
+  }
+  return null;
+};
+
 export const PebbleConfigProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Initialize settings directly from the 'settings' URL parameter, merged with defaults
-  const [settings, setSettings] = useState<Settings>(() => {
+  const watchInfo = useMemo(() => parseWatchInfo(), []);
+  const capabilities = useMemo(() => evaluateCapabilities(watchInfo), [watchInfo]);
+
+  const [settings, setSettings] = React.useState<Settings>(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       const urlSettings = JSON.parse(params.get('settings') || '{}');
@@ -34,14 +68,14 @@ export const PebbleConfigProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const save = () => {
     const params = new URLSearchParams(window.location.search);
     const returnTo = params.get('return_to') || 'pebblejs://close#';
-    
-    // Pebble expects the response to be appended to the return_to URL
     window.location.href = returnTo + encodeURIComponent(JSON.stringify(settings));
   };
 
   return (
-    <ConfigContext.Provider value={{ settings, updateSetting, save }}>
-      {children}
-    </ConfigContext.Provider>
+    <WatchInfoContext.Provider value={{ watchInfo, capabilities }}>
+      <ConfigContext.Provider value={{ settings, updateSetting, save }}>
+        {children}
+      </ConfigContext.Provider>
+    </WatchInfoContext.Provider>
   );
 };
