@@ -5,6 +5,123 @@ import { PEBBLE_COLORS, getColorName } from '../data/colors';
 
 export type ColorMode = 'color' | 'bw' | 'bw-grey';
 
+const ORDERED_COLOR_GRID: (string | null)[] = [
+  '#000000',
+  '#555555',
+  '#AAAAAA',
+  '#FFFFFF',
+  null,
+  null,
+  null,
+  null,
+  null,
+  '#FF0055',
+  null,
+  null,
+  '#AA5555',
+  '#550000',
+  '#AA0000',
+  '#FF0000',
+  '#FF5555',
+  '#FFAAAA',
+  null,
+  null,
+  null,
+  '#FF5500',
+  null,
+  null,
+  null,
+  null,
+  '#AA5500',
+  '#FFAA00',
+  '#FFAA55',
+  null,
+  '#AAAA55',
+  '#555500',
+  '#AAAA00',
+  '#FFFF00',
+  '#FFFF55',
+  '#FFFFAA',
+  null,
+  null,
+  '#55AA00',
+  '#AAFF00',
+  '#AAFF55',
+  null,
+  null,
+  null,
+  null,
+  '#55FF00',
+  null,
+  null,
+  '#55AA55',
+  '#005500',
+  '#00AA00',
+  '#00FF00',
+  '#55FF55',
+  '#AAFFAA',
+  null,
+  null,
+  null,
+  '#00FF55',
+  null,
+  null,
+  null,
+  null,
+  '#00AA55',
+  '#00FFAA',
+  '#55FFAA',
+  null,
+  '#55AAAA',
+  '#005555',
+  '#00AAAA',
+  '#00FFFF',
+  '#55FFFF',
+  '#AAFFFF',
+  null,
+  null,
+  '#0055AA',
+  '#00AAFF',
+  '#55AAFF',
+  null,
+  null,
+  null,
+  null,
+  '#0055FF',
+  null,
+  null,
+  '#5555AA',
+  '#000055',
+  '#0000AA',
+  '#0000FF',
+  '#5555FF',
+  '#AAAAFF',
+  null,
+  null,
+  null,
+  '#5500FF',
+  null,
+  null,
+  null,
+  null,
+  '#5500AA',
+  '#AA00FF',
+  '#AA55FF',
+  null,
+  '#AA55AA',
+  '#550055',
+  '#AA00AA',
+  '#FF00FF',
+  '#FF55FF',
+  '#FFAAFF',
+  null,
+  null,
+  '#AA0055',
+  '#FF00AA',
+  '#FF55AA',
+  null,
+];
+
 export const COLOR_PALETTES: Record<ColorMode, string[]> = {
   color: PEBBLE_COLORS,
   bw: ['000000', 'FFFFFF'],
@@ -43,19 +160,28 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ label, messageKey, mod
           }}
         >
           <div className="pebble-color-modal-grid" onClick={(e) => e.stopPropagation()}>
-            {palette.map((color) => (
-              <div
-                key={color}
-                className={`pebble-color-swatch ${value === color ? 'active' : ''}`}
-                style={{ backgroundColor: `#${color}` }}
-                title={getColorName(color)}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  updateSetting(messageKey, color);
-                  setIsOpen(false);
-                }}
-              />
-            ))}
+            {ORDERED_COLOR_GRID.map((color, index) => {
+              if (color === null) {
+                return <div key={`blank-${index}`} className="pebble-color-swatch-blank" />;
+              }
+              const colorHex = color.replace('#', '');
+              if (resolvedMode !== 'color' && !palette.includes(colorHex)) {
+                return <div key={`blank-${index}`} className="pebble-color-swatch-blank" />;
+              }
+              return (
+                <div
+                  key={colorHex}
+                  className={`pebble-color-swatch ${value === colorHex ? 'active' : ''}`}
+                  style={{ backgroundColor: color }}
+                  title={getColorName(colorHex)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateSetting(messageKey, colorHex);
+                    setIsOpen(false);
+                  }}
+                />
+              );
+            })}
           </div>
         </div>
       )}

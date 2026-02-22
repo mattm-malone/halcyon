@@ -143,25 +143,29 @@ button {
 
 .pebble-color-modal-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  padding: 8px;
   gap: 4px;
-  padding: 12px;
-  background: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  width: 100vmin;
+  width: 100%;
+  align-content: start;
+  background-color: white;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.pebble-color-swatch-blank {
+  aspect-ratio: 1.618;
 }
 
 .pebble-color-swatch {
-  aspect-ratio: 1;
   cursor: pointer;
-  border-radius: 2px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.pebble-color-swatch:hover {
-  transform: scale(1.1);
-  z-index: 1;
+  aspect-ratio: 1.618;
+  border: 0 none;
+  cursor: pointer;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: inset 0 0 0px 1px #8888;
 }
 
 .pebble-color-swatch.active {
