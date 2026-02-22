@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { Settings, DEFAULT_SETTINGS, WatchInfo, Capabilities } from './types';
+import { Settings, WatchInfo, Capabilities } from './types';
 import { evaluateCapabilities } from '../utils/capabilities';
+import { getDefaultSettings } from '../utils/defaultSettings';
 
 interface ConfigContextType {
   settings: Settings;
@@ -55,9 +56,9 @@ export const PebbleConfigProvider: React.FC<{ children: React.ReactNode }> = ({ 
     try {
       const params = new URLSearchParams(window.location.search);
       const urlSettings = JSON.parse(params.get('settings') || '{}');
-      return { ...DEFAULT_SETTINGS, ...urlSettings };
+      return { ...getDefaultSettings(capabilities), ...urlSettings };
     } catch {
-      return DEFAULT_SETTINGS;
+      return getDefaultSettings(capabilities);
     }
   });
 
