@@ -19,6 +19,9 @@ export const SettingsPage: React.FC = () => {
       <Section title="General">
         <Toggle label="Use Large Fonts" messageKey="SETTING_USE_LARGE_FONTS" />
         <Toggle label="Show Leading Zero" messageKey="SETTING_SHOW_LEADING_ZERO" />
+        <ColorPicker label="Background" mode="color" messageKey="SETTING_BG_COLOR" />
+        <ColorPicker label="Background" mode="bw-grey" messageKey="SETTING_BG_COLOR" />
+        <ColorPicker label="Background" mode="bw" messageKey="SETTING_BG_COLOR" />
         <Select
           label="Dial Markings"
           messageKey="SETTING_PIP_VISIBILITY"

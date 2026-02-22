@@ -143,6 +143,13 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ label, messageKey, mod
 
   const resolvedMode: ColorMode = mode ?? (capabilities.COLOR ? 'color' : 'bw-grey');
   const palette = COLOR_PALETTES[resolvedMode];
+  const useBlanks = resolvedMode === 'color';
+
+  const colorGrid = useBlanks
+    ? ORDERED_COLOR_GRID
+    : ORDERED_COLOR_GRID.filter(
+        (c): c is string => c !== null && palette.includes(c.replace('#', '')),
+      );
 
   return (
     <div className="pebble-item pebble-color-picker-v2" onClick={() => setIsOpen(true)}>
@@ -159,29 +166,34 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ label, messageKey, mod
             setIsOpen(false);
           }}
         >
-          <div className="pebble-color-modal-grid" onClick={(e) => e.stopPropagation()}>
-            {ORDERED_COLOR_GRID.map((color, index) => {
-              if (color === null) {
-                return <div key={`blank-${index}`} className="pebble-color-swatch-blank" />;
-              }
-              const colorHex = color.replace('#', '');
-              if (resolvedMode !== 'color' && !palette.includes(colorHex)) {
-                return <div key={`blank-${index}`} className="pebble-color-swatch-blank" />;
-              }
-              return (
-                <div
-                  key={colorHex}
-                  className={`pebble-color-swatch ${value === colorHex ? 'active' : ''}`}
-                  style={{ backgroundColor: color }}
-                  title={getColorName(colorHex)}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    updateSetting(messageKey, colorHex);
-                    setIsOpen(false);
-                  }}
-                />
-              );
-            })}
+          <div className="pebble-color-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="pebble-color-modal-header">
+              <span>{label}</span>
+              <button className="pebble-color-modal-close" onClick={() => setIsOpen(false)}>
+                ×
+              </button>
+            </div>
+            <div className="pebble-color-modal-grid">
+              {colorGrid.map((color, index) => {
+                if (color === null) {
+                  return <div key={`blank-${index}`} className="pebble-color-swatch-blank" />;
+                }
+                const colorHex = color.replace('#', '');
+                return (
+                  <div
+                    key={colorHex}
+                    className={`pebble-color-swatch ${value === colorHex ? 'active' : ''}`}
+                    style={{ backgroundColor: color }}
+                    title={getColorName(colorHex)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      updateSetting(messageKey, colorHex);
+                      setIsOpen(false);
+                    }}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
