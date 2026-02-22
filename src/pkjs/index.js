@@ -1,6 +1,7 @@
 const USE_SERVER_CONFIG = true;
 // const configDataUri = require('./configDataUri.js');
-const configLocalUri = 'http://localhost:3000/config.html';
+// const configLocalUri = 'http://localhost:3000/config.html';
+const configLocalUri = 'http://10.25.219.24:3000/config.html';
 
 function locationError(err) {
   console.log('location error on the JS side :-(');

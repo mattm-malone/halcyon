@@ -28,7 +28,7 @@ button {
   max-width: 600px;
   margin: 0 auto;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .pebble-header {
@@ -59,6 +59,10 @@ button {
   font-size: 0.9rem;
   color: #666;
   text-transform: uppercase;
+}
+
+.pebble-section-content {
+  word-break: break-word;
 }
 
 .pebble-item {
@@ -102,43 +106,57 @@ button {
 
 /* Specific item styles */
 .pebble-color-picker-v2 {
-  flex-direction: column;
-  align-items: stretch;
+  cursor: pointer;
 }
 
-.pebble-color-label-row {
+.pebble-color-picker-v2 label {
+  flex: 1;
+}
+
+.pebble-color-value {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
-.pebble-color-preview {
-  border: 1px solid #ccc;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-family: monospace;
+.pebble-color-name {
   font-size: 0.9rem;
-  color: white;
-  text-shadow: 0 0 2px rgba(0,0,0,0.5);
-  min-width: 80px;
-  text-align: center;
+  color: #666;
 }
 
-.pebble-color-grid {
+.pebble-color-swatch-small {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pebble-color-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.pebble-color-modal-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   gap: 4px;
-  margin-top: 1rem;
-  padding: 8px;
+  padding: 12px;
   background: #f0f0f0;
-  border-radius: 4px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100vmin;
 }
 
 .pebble-color-swatch {
   aspect-ratio: 1;
   cursor: pointer;
   border-radius: 2px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .pebble-color-swatch:hover {
@@ -158,7 +176,7 @@ select {
   background: white;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 20px;
   height: 20px;
 }
@@ -179,6 +197,6 @@ input[type="checkbox"] {
   color: var(--pebble-orange);
 }
 
-.pebble-slider input[type="range"] {
+.pebble-slider input[type='range'] {
   width: 100%;
 }
