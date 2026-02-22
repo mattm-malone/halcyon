@@ -17,13 +17,37 @@ export const SettingsPage: React.FC = () => {
   return (
     <Page title="Halcyon Settings">
       <Section title="General">
-        <Toggle label="Use Large Fonts" messageKey="SETTING_USE_LARGE_FONTS" />
-        <Toggle label="Show Leading Zero" messageKey="SETTING_SHOW_LEADING_ZERO" />
-        <ColorPicker label="Background" mode="color" messageKey="SETTING_BG_COLOR" />
-        <ColorPicker label="Background" mode="bw-grey" messageKey="SETTING_BG_COLOR" />
-        <ColorPicker label="Background" mode="bw" messageKey="SETTING_BG_COLOR" />
+        <Toggle
+          label="Use Large Fonts"
+          description="Increase text size for better readability"
+          messageKey="SETTING_USE_LARGE_FONTS"
+        />
+        <Toggle
+          label="Show Leading Zero"
+          description="Display time as 09:30 instead of 9:30"
+          messageKey="SETTING_SHOW_LEADING_ZERO"
+        />
+        <ColorPicker
+          label="Background"
+          description="Main background color of the watchface"
+          mode="color"
+          messageKey="SETTING_BG_COLOR"
+        />
+        <ColorPicker
+          label="Background"
+          description="Main background color of the watchface"
+          mode="bw-grey"
+          messageKey="SETTING_BG_COLOR"
+        />
+        <ColorPicker
+          label="Background"
+          description="Main background color of the watchface"
+          mode="bw"
+          messageKey="SETTING_BG_COLOR"
+        />
         <Select
           label="Dial Markings"
+          description="Choose which hour markers appear on the dial"
           messageKey="SETTING_PIP_VISIBILITY"
           options={[
             { label: 'All (Every Hour)', value: 0 },
@@ -31,7 +55,11 @@ export const SettingsPage: React.FC = () => {
             { label: 'None', value: 2 },
           ]}
         />
-        <Toggle label="Use Night Theme" messageKey="SETTING_USE_NIGHT_THEME" />
+        <Toggle
+          label="Use Night Theme"
+          description="Switch to a darker theme during nighttime hours"
+          messageKey="SETTING_USE_NIGHT_THEME"
+        />
       </Section>
 
       <Section title="capabilities">{JSON.stringify(capabilities)}</Section>
@@ -39,22 +67,79 @@ export const SettingsPage: React.FC = () => {
       <Section title="watchInfo">{JSON.stringify(watchInfo)}</Section>
 
       <Section title="Theme">
-        <ThemePicker label="Theme Preset" messageKey="SETTING_PRESET" themes={activeThemes} />
+        <ThemePicker
+          label="Theme Preset"
+          description="Choose a pre-configured color scheme or customize your own"
+          messageKey="SETTING_PRESET"
+          themes={activeThemes}
+        />
         {settings.SETTING_PRESET === 'custom' && (
           <>
-            <ColorPicker label="Background" messageKey="SETTING_BG_COLOR" />
-            <ColorPicker label="Time" messageKey="SETTING_TIME_COLOR" />
-            <ColorPicker label="Primary Subtext" messageKey="SETTING_SUBTEXT_PRIMARY_COLOR" />
-            <ColorPicker label="Secondary Subtext" messageKey="SETTING_SUBTEXT_SECONDARY_COLOR" />
-            <ColorPicker label="Pip Primary" messageKey="SETTING_PIP_COLOR_PRIMARY" />
-            <ColorPicker label="Pip Secondary" messageKey="SETTING_PIP_COLOR_SECONDARY" />
-            <ColorPicker label="Ring Stroke" messageKey="SETTING_RING_STROKE_COLOR" />
-            <ColorPicker label="Ring Day Section" messageKey="SETTING_RING_DAY_COLOR" />
-            <ColorPicker label="Ring Night Section" messageKey="SETTING_RING_NIGHT_COLOR" />
-            <ColorPicker label="Sunrise Marker" messageKey="SETTING_RING_SUNRISE_COLOR" />
-            <ColorPicker label="Sunset Marker" messageKey="SETTING_RING_SUNSET_COLOR" />
-            <ColorPicker label="Sun Stroke" messageKey="SETTING_SUN_STROKE_COLOR" />
-            <ColorPicker label="Sun Fill" messageKey="SETTING_SUN_FILL_COLOR" />
+            <ColorPicker
+              label="Background"
+              description="Main watchface background"
+              messageKey="SETTING_BG_COLOR"
+            />
+            <ColorPicker
+              label="Time"
+              description="Color of the main time display"
+              messageKey="SETTING_TIME_COLOR"
+            />
+            <ColorPicker
+              label="Primary Subtext"
+              description="Main subtitle or date text color"
+              messageKey="SETTING_SUBTEXT_PRIMARY_COLOR"
+            />
+            <ColorPicker
+              label="Secondary Subtext"
+              description="Secondary info text color"
+              messageKey="SETTING_SUBTEXT_SECONDARY_COLOR"
+            />
+            <ColorPicker
+              label="Pip Primary"
+              description="Primary hour marker color"
+              messageKey="SETTING_PIP_COLOR_PRIMARY"
+            />
+            <ColorPicker
+              label="Pip Secondary"
+              description="Secondary hour marker color"
+              messageKey="SETTING_PIP_COLOR_SECONDARY"
+            />
+            <ColorPicker
+              label="Ring Stroke"
+              description="Outer ring border color"
+              messageKey="SETTING_RING_STROKE_COLOR"
+            />
+            <ColorPicker
+              label="Ring Day Section"
+              description="Color for daylight hours on the ring"
+              messageKey="SETTING_RING_DAY_COLOR"
+            />
+            <ColorPicker
+              label="Ring Night Section"
+              description="Color for nighttime hours on the ring"
+              messageKey="SETTING_RING_NIGHT_COLOR"
+            />
+            <ColorPicker
+              label="Sunrise Marker"
+              description="Sunrise indicator color"
+              messageKey="SETTING_RING_SUNRISE_COLOR"
+            />
+            <ColorPicker
+              label="Sunset Marker"
+              description="Sunset indicator color"
+              messageKey="SETTING_RING_SUNSET_COLOR"
+            />
+            <ColorPicker
+              label="Sun Stroke"
+              description="Sun icon outline color"
+              messageKey="SETTING_SUN_STROKE_COLOR"
+            />
+            <ColorPicker
+              label="Sun Fill"
+              description="Sun icon fill color"
+              messageKey="SETTING_SUN_FILL_COLOR"
+            />
           </>
         )}
       </Section>
@@ -63,30 +148,77 @@ export const SettingsPage: React.FC = () => {
         <Section title="Night Theme">
           <ThemePicker
             label="Night Theme Preset"
+            description="Choose a darker color scheme for nighttime viewing"
             messageKey="SETTING_NIGHT_PRESET"
             themes={activeNightThemes}
           />
           {settings.SETTING_NIGHT_PRESET === 'custom' && (
             <>
-              <ColorPicker label="Background" messageKey="SETTING_NIGHT_BG_COLOR" />
-              <ColorPicker label="Time" messageKey="SETTING_NIGHT_TIME_COLOR" />
+              <ColorPicker
+                label="Background"
+                description="Night mode background"
+                messageKey="SETTING_NIGHT_BG_COLOR"
+              />
+              <ColorPicker
+                label="Time"
+                description="Night mode time color"
+                messageKey="SETTING_NIGHT_TIME_COLOR"
+              />
               <ColorPicker
                 label="Primary Subtext"
+                description="Night mode primary subtitle color"
                 messageKey="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR"
               />
               <ColorPicker
                 label="Secondary Subtext"
+                description="Night mode secondary text color"
                 messageKey="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR"
               />
-              <ColorPicker label="Pip Primary" messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY" />
-              <ColorPicker label="Pip Secondary" messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY" />
-              <ColorPicker label="Ring Stroke" messageKey="SETTING_NIGHT_RING_STROKE_COLOR" />
-              <ColorPicker label="Ring Day Section" messageKey="SETTING_NIGHT_RING_DAY_COLOR" />
-              <ColorPicker label="Ring Night Section" messageKey="SETTING_NIGHT_RING_NIGHT_COLOR" />
-              <ColorPicker label="Sunrise Marker" messageKey="SETTING_NIGHT_RING_SUNRISE_COLOR" />
-              <ColorPicker label="Sunset Marker" messageKey="SETTING_NIGHT_RING_SUNSET_COLOR" />
-              <ColorPicker label="Sun Stroke" messageKey="SETTING_NIGHT_SUN_STROKE_COLOR" />
-              <ColorPicker label="Sun Fill" messageKey="SETTING_NIGHT_SUN_FILL_COLOR" />
+              <ColorPicker
+                label="Pip Primary"
+                description="Night mode primary hour markers"
+                messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
+              />
+              <ColorPicker
+                label="Pip Secondary"
+                description="Night mode secondary hour markers"
+                messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
+              />
+              <ColorPicker
+                label="Ring Stroke"
+                description="Night mode ring border"
+                messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
+              />
+              <ColorPicker
+                label="Ring Day Section"
+                description="Night mode daylight section"
+                messageKey="SETTING_NIGHT_RING_DAY_COLOR"
+              />
+              <ColorPicker
+                label="Ring Night Section"
+                description="Night mode dark hours section"
+                messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
+              />
+              <ColorPicker
+                label="Sunrise Marker"
+                description="Night mode sunrise indicator"
+                messageKey="SETTING_NIGHT_RING_SUNRISE_COLOR"
+              />
+              <ColorPicker
+                label="Sunset Marker"
+                description="Night mode sunset indicator"
+                messageKey="SETTING_NIGHT_RING_SUNSET_COLOR"
+              />
+              <ColorPicker
+                label="Sun Stroke"
+                description="Night mode sun outline"
+                messageKey="SETTING_NIGHT_SUN_STROKE_COLOR"
+              />
+              <ColorPicker
+                label="Sun Fill"
+                description="Night mode sun fill"
+                messageKey="SETTING_NIGHT_SUN_FILL_COLOR"
+              />
             </>
           )}
         </Section>

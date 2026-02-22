@@ -73,8 +73,24 @@ button {
   border-bottom: 1px solid #f0f0f0;
 }
 
+.pebble-toggle {
+  cursor: pointer;
+}
+
 .pebble-item label {
   font-weight: 500;
+}
+
+.pebble-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pebble-description {
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 400;
 }
 
 .pebble-footer {
@@ -124,11 +140,8 @@ button {
   color: #666;
 }
 
-.pebble-color-swatch-small {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+.pebble-color-value > .pebble-color-swatch {
+  width: 48px;
 }
 
 .pebble-color-modal-overlay {
@@ -216,6 +229,37 @@ select {
 input[type='checkbox'] {
   width: 20px;
   height: 20px;
+}
+
+.pebble-switch {
+  width: 50px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #ccc;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.pebble-switch-on {
+  background-color: var(--pebble-orange);
+}
+
+.pebble-switch-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.pebble-switch-on .pebble-switch-thumb {
+  transform: translateX(20px);
 }
 
 .pebble-slider {

@@ -1,19 +1,20 @@
 import React from 'react';
 import { useConfig } from '../context/PebbleConfigContext';
 import { Settings } from '../context/types';
+import { FormItem } from './FormItem';
 
 export const ThemePicker: React.FC<{
   label: string;
+  description?: string;
   messageKey: keyof Settings;
   themes: Record<string, Record<string, string>>;
-}> = ({ label, messageKey, themes }) => {
+}> = ({ label, description, messageKey, themes }) => {
   const { settings, updateSetting } = useConfig();
   const currentValue = (settings[messageKey] || '') as string;
 
   const handleThemeChange = (themeName: string) => {
     updateSetting(messageKey, themeName);
 
-    // If it's a known theme (not "custom" or empty), apply its colors
     const theme = themes[themeName];
     if (theme) {
       Object.entries(theme).forEach(([key, value]) => {
@@ -23,8 +24,7 @@ export const ThemePicker: React.FC<{
   };
 
   return (
-    <div className="pebble-item pebble-theme-picker">
-      <label>{label}</label>
+    <FormItem label={label} description={description} className="pebble-theme-picker">
       <select value={currentValue} onChange={(e) => handleThemeChange(e.target.value)}>
         <option value="custom">Custom</option>
         {Object.keys(themes).map((themeName) => (
@@ -33,6 +33,6 @@ export const ThemePicker: React.FC<{
           </option>
         ))}
       </select>
-    </div>
+    </FormItem>
   );
 };

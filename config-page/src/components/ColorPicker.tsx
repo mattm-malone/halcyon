@@ -2,6 +2,7 @@ import React from 'react';
 import { useConfig, useCapabilities } from '../context/PebbleConfigContext';
 import { Settings } from '../context/types';
 import { PEBBLE_COLORS, getColorName } from '../data/colors';
+import { FormItem } from './FormItem';
 
 export type ColorMode = 'color' | 'bw' | 'bw-grey';
 
@@ -130,11 +131,17 @@ export const COLOR_PALETTES: Record<ColorMode, string[]> = {
 
 interface ColorPickerProps {
   label: string;
+  description?: string;
   messageKey: keyof Settings;
   mode?: ColorMode;
 }
 
-export const ColorPicker: React.FC<ColorPickerProps> = ({ label, messageKey, mode }) => {
+export const ColorPicker: React.FC<ColorPickerProps> = ({
+  label,
+  description,
+  messageKey,
+  mode,
+}) => {
   const { settings, updateSetting } = useConfig();
   const capabilities = useCapabilities();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -148,15 +155,19 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ label, messageKey, mod
   const colorGrid = useBlanks
     ? ORDERED_COLOR_GRID
     : ORDERED_COLOR_GRID.filter(
-        (c): c is string => c !== null && palette.includes(c.replace('#', '')),
-      );
+      (c): c is string => c !== null && palette.includes(c.replace('#', '')),
+    );
 
   return (
-    <div className="pebble-item pebble-color-picker-v2" onClick={() => setIsOpen(true)}>
-      <label>{label}</label>
+    <FormItem
+      label={label}
+      description={description}
+      className="pebble-color-picker-v2"
+      onClick={() => setIsOpen(true)}
+    >
       <div className="pebble-color-value">
         <span className="pebble-color-name">{getColorName(value)}</span>
-        <div className="pebble-color-swatch-small" style={{ backgroundColor: `#${value}` }} />
+        <div className="pebble-color-swatch" style={{ backgroundColor: `#${value}` }} />
       </div>
       {isOpen && (
         <div
@@ -197,6 +208,6 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ label, messageKey, mod
           </div>
         </div>
       )}
-    </div>
+    </FormItem>
   );
 };

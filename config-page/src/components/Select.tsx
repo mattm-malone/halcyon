@@ -1,16 +1,21 @@
 import React from 'react';
 import { useConfig } from '../context/PebbleConfigContext';
 import { Settings } from '../context/types';
+import { FormItem } from './FormItem';
 
-export const Select: React.FC<{ label: string; messageKey: keyof Settings; options: { label: string; value: string | number }[] }> = ({ label, messageKey, options }) => {
+export const Select: React.FC<{
+  label: string;
+  description?: string;
+  messageKey: keyof Settings;
+  options: { label: string; value: string | number }[];
+}> = ({ label, description, messageKey, options }) => {
   const { settings, updateSetting } = useConfig();
   const value = settings[messageKey];
 
   return (
-    <div className="pebble-item pebble-select">
-      <label>{label}</label>
-      <select 
-        value={value} 
+    <FormItem label={label} description={description} className="pebble-select">
+      <select
+        value={value}
         onChange={(e) => {
           const val = e.target.value;
           const num = parseInt(val, 10);
@@ -18,9 +23,11 @@ export const Select: React.FC<{ label: string; messageKey: keyof Settings; optio
         }}
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
       </select>
-    </div>
+    </FormItem>
   );
 };
