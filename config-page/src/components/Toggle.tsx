@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch } from 'react-aria-components';
 import { useConfig } from '../context/PebbleConfigContext';
 import { Settings } from '../context/types';
 import { FormItem } from './FormItem';
@@ -9,10 +10,10 @@ export const Toggle: React.FC<{
   messageKey: keyof Settings;
 }> = ({ label, description, messageKey }) => {
   const { settings, updateSetting } = useConfig();
-  const value = !!settings[messageKey];
+  const isSelected = !!settings[messageKey];
 
   const handleToggle = () => {
-    updateSetting(messageKey, value ? 0 : 1);
+    updateSetting(messageKey, isSelected ? 0 : 1);
   };
 
   return (
@@ -22,9 +23,14 @@ export const Toggle: React.FC<{
       className="pebble-toggle"
       onClick={handleToggle}
     >
-      <div className={`pebble-switch ${value ? 'pebble-switch-on' : ''}`}>
+      <Switch
+        isSelected={isSelected}
+        onChange={(selected) => updateSetting(messageKey, selected ? 1 : 0)}
+        className="pebble-switch"
+        aria-label={label}
+      >
         <div className="pebble-switch-thumb" />
-      </div>
+      </Switch>
     </FormItem>
   );
 };
