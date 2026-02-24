@@ -328,3 +328,20 @@ input[type='checkbox'] {
 .pebble-slider input[type='range'] {
   width: 100%;
 }
+
+/* Watch Preview Styles */
+.pebble-watch-preview-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(180deg, #f0f0f0 0%, #fff 100%);
+  border-bottom: 1px solid #eee;
+}
+
+.pebble-watch-preview {
+  width: 144px;
+  height: 168px;
+  background-color: #000;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 4px #333;
+}

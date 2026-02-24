@@ -1,6 +1,6 @@
 import React from 'react';
 import { useConfig, useCapabilities, useWatchInfo } from '../context/PebbleConfigContext';
-import { Page, Section, Toggle, ColorPicker, Select, ThemePicker } from '../components';
+import { Page, Section, Toggle, ColorPicker, Select, ThemePicker, WatchPreview } from '../components';
 import themes from '../data/themes.json';
 import nightThemes from '../data/themes-night.json';
 import themesBw from '../data/themes-bw.json';
@@ -16,7 +16,9 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <Page title="Halcyon Settings">
+      <WatchPreview />
       <Section title="General">
+
         <Toggle
           label="Use Large Fonts"
           description="Increase text size for better readability"
