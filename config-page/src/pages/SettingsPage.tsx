@@ -16,7 +16,7 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <Page title="Halcyon Settings">
-      <WatchPreview />
+      {/* <WatchPreview /> */}
 
       {/* <Section title="capabilities">{JSON.stringify(capabilities)}</Section> */}
       {/**/}
@@ -24,7 +24,6 @@ export const SettingsPage: React.FC = () => {
 
       <Section title="Theme">
         <ThemePicker
-          label="Preset"
           messageKey="SETTING_THEME"
           themes={activeThemes}
         />
@@ -101,15 +100,13 @@ export const SettingsPage: React.FC = () => {
 
       <Section title="Night Theme">
         <Toggle
-          label="Use Night Theme"
-          description="Switch to a darker theme during nighttime hours"
+          label="Enable night theme"
+          description="If enabled, the selected color scheme will be shown after sunset."
           messageKey="SETTING_USE_NIGHT_THEME"
         />
         {settings.SETTING_USE_NIGHT_THEME === 1 && (
           <>
             <ThemePicker
-              label="Night Theme Preset"
-              description="Choose a darker color scheme for nighttime viewing"
               messageKey="SETTING_NIGHT_THEME"
               themes={activeNightThemes}
             />

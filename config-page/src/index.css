@@ -4,6 +4,7 @@
   --pebble-light: #ecf0f1;
   --pebble-white: #ffffff;
   --pebble-gray: #bdc3c7;
+  --bg-color: #ffffff;
 }
 
 body {
@@ -385,21 +386,11 @@ input[type='checkbox'] {
   width: 100%;
 }
 
-/* Watch Preview Styles */
-.pebble-watch-preview-container {
-  display: flex;
-  justify-content: center;
-  padding: 2rem 1rem;
-  background: linear-gradient(180deg, #f0f0f0 0%, #fff 100%);
-  border-bottom: 1px solid #eee;
-}
-
 .pebble-watch-preview {
   width: 144px;
   height: 168px;
   background-color: #000;
   border-radius: 4px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 4px #333;
 }
 
 .pebble-watch-face {
@@ -407,7 +398,6 @@ input[type='checkbox'] {
   width: 144px;
   height: 168px;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 4px #333;
   overflow: hidden;
 }
 
@@ -443,8 +433,7 @@ input[type='checkbox'] {
   font-size: 14px;
 }
 
-.pebble-watch-widget.secondary {
-}
+.pebble-watch-widget.secondary {}
 
 .pebble-watch-time {
   margin: 6px 0;
@@ -456,4 +445,77 @@ input[type='checkbox'] {
 .pebble-watch-time svg {
   width: 80px;
   height: auto;
+}
+
+/* Theme Picker Grid Styles */
+.pebble-theme-picker {
+  flex-direction: column;
+  align-items: flex-start !important;
+  gap: 12px;
+}
+
+.pebble-theme-grid {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  outline: none;
+  width: 100%;
+  scrollbar-width: none;
+  margin-left: -8px;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pebble-theme-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.pebble-theme-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  flex-shrink: 0;
+  width: 92px;
+}
+
+.pebble-theme-card[data-selected="true"] .pebble-theme-card-preview {
+  box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--pebble-orange);
+}
+
+.pebble-theme-card[data-focus-visible="true"] .pebble-theme-card-preview {
+  box-shadow: 0 0 0 3px rgba(255, 71, 0, 0.2);
+}
+
+.pebble-theme-card-preview {
+  border-radius: 6px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  border: 2px solid #000;
+}
+
+.pebble-theme-card-preview .pebble-watch-face {
+  /* zoom: 0.5; */
+  transform: scale(0.5);
+  margin: -42px -36px;
+}
+
+.pebble-theme-card-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pebble-dark);
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+.pebble-theme-card[data-selected="true"] .pebble-theme-card-label {
+  color: var(--pebble-orange);
 }

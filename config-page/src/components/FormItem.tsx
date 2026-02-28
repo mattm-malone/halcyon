@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface FormItemProps {
-  label: string;
+  label?: string;
   description?: string;
   className: string;
   children: React.ReactNode;
@@ -38,7 +38,7 @@ export const FormItem: React.FC<FormItemProps> = ({
   htmlFor,
 }) => (
   <div className={`pebble-item ${className}`} onClick={onClick}>
-    <FormItemLabel label={label} description={description} htmlFor={htmlFor} />
+    {label && <FormItemLabel label={label} description={description} htmlFor={htmlFor} />}
     {children}
   </div>
 );
