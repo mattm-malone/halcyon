@@ -132,12 +132,7 @@ button {
   color: inherit;
   font-family: inherit;
   transition: all 0.2s ease;
-  margin-right: -4px;
-}
-
-.pebble-color-trigger:hover {
-  background-color: #f8f8f8;
-  border-color: var(--pebble-gray);
+  width: 170px;
 }
 
 .pebble-color-trigger:focus {
@@ -152,13 +147,15 @@ button {
 .pebble-color-value {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  justify-content: space-between;
 }
 
 .pebble-color-name {
-  font-size: 0.9rem;
+  font-size: 12px;
   color: #666;
-  font-weight: 500;
+  flex: 1;
+  text-align: right;
 }
 
 .pebble-color-value>.pebble-color-swatch {
@@ -403,4 +400,61 @@ input[type='checkbox'] {
   background-color: #000;
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 4px #333;
+}
+
+.pebble-watch-face {
+  position: relative;
+  width: 144px;
+  height: 168px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 4px #333;
+  overflow: hidden;
+}
+
+.pebble-watch-content {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 112px;
+  height: 136px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  text-align: center;
+  z-index: 10;
+}
+
+.pebble-watch-widget {
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 1px 0;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.pebble-watch-widget.primary {
+  font-size: 9px;
+  opacity: 0.9;
+}
+
+.pebble-watch-widget.secondary {
+  opacity: 0.6;
+}
+
+.pebble-watch-time {
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.pebble-watch-time svg {
+  width: 80px;
+  height: auto;
 }
