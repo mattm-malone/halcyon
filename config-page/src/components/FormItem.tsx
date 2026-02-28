@@ -9,6 +9,26 @@ interface FormItemProps {
   htmlFor?: string;
 }
 
+interface FormItemLabelProps {
+  label: string;
+  description?: string;
+  htmlFor?: string;
+}
+
+export const FormItemLabel: React.FC<FormItemLabelProps> = ({
+  label,
+  description,
+  htmlFor,
+}) => {
+  const Component = htmlFor ? 'label' : 'div';
+  return (
+    <Component className="pebble-label-group" htmlFor={htmlFor}>
+      <span>{label}</span>
+      {description && <span className="pebble-description">{description}</span>}
+    </Component>
+  );
+};
+
 export const FormItem: React.FC<FormItemProps> = ({
   label,
   description,
@@ -18,10 +38,7 @@ export const FormItem: React.FC<FormItemProps> = ({
   htmlFor,
 }) => (
   <div className={`pebble-item ${className}`} onClick={onClick}>
-    <div className="pebble-label-group">
-      <label htmlFor={htmlFor}>{label}</label>
-      {description && <span className="pebble-description">{description}</span>}
-    </div>
+    <FormItemLabel label={label} description={description} htmlFor={htmlFor} />
     {children}
   </div>
 );

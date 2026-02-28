@@ -5,5 +5,4 @@ export * from './Toggle';
 export * from './ColorPicker';
 export * from './Select';
 export * from './ThemePicker';
-export * from './Slider';
 export * from './WatchPreview';

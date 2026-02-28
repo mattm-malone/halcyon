@@ -344,11 +344,11 @@ input[type='checkbox'] {
   outline: none;
 }
 
-.pebble-switch[data-selected] {
+.pebble-toggle[data-selected] .pebble-switch {
   background-color: var(--pebble-orange);
 }
 
-.pebble-switch[data-focus-visible] {
+.pebble-toggle[data-focus-visible] .pebble-switch {
   border-color: var(--pebble-dark);
 }
 
@@ -364,7 +364,7 @@ input[type='checkbox'] {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.pebble-switch[data-selected] .pebble-switch-thumb {
+.pebble-toggle[data-selected] .pebble-switch-thumb {
   transform: translateX(20px);
 }
 
