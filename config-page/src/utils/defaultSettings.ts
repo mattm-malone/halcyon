@@ -1,8 +1,8 @@
 import { Settings, Capabilities } from '../context/types';
 
 export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
-  SETTING_PRESET: 'default',
-  SETTING_NIGHT_PRESET: 'default',
+  SETTING_THEME: 'default',
+  SETTING_NIGHT_THEME: 'default',
   SETTING_TIME_COLOR: '000000',
   SETTING_SUBTEXT_PRIMARY_COLOR: '000000',
   SETTING_SUBTEXT_SECONDARY_COLOR: capabilities.BW ? '000000' : '555555',
@@ -30,7 +30,7 @@ export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
   SETTING_NIGHT_SUN_STROKE_COLOR: '000000',
   SETTING_NIGHT_SUN_FILL_COLOR: capabilities.BW ? 'FFFFFF' : 'FFFF00',
   SETTING_USE_LARGE_FONTS: 0,
-  SETTING_USE_NIGHT_THEME: 0,
+  SETTING_USE_NIGHT_THEME: 1,
   SETTING_PIP_VISIBILITY: 0,
   SETTING_SHOW_LEADING_ZERO: 0,
 });

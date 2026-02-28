@@ -29,8 +29,8 @@ export interface Capabilities {
 }
 
 export interface Settings {
-  SETTING_PRESET: string;
-  SETTING_NIGHT_PRESET: string;
+  SETTING_THEME: string;
+  SETTING_NIGHT_THEME: string;
   SETTING_TIME_COLOR: string;
   SETTING_SUBTEXT_PRIMARY_COLOR: string;
   SETTING_SUBTEXT_SECONDARY_COLOR: string;

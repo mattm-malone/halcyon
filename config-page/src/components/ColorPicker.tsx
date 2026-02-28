@@ -164,12 +164,17 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
       label={label}
       description={description}
       className="pebble-color-picker-v2"
-      onClick={() => setIsOpen(true)}
     >
-      <div className="pebble-color-value">
-        <span className="pebble-color-name">{getColorName(value)}</span>
-        <div className="pebble-color-swatch" style={{ backgroundColor: `#${value}` }} />
-      </div>
+      <Button
+        onPress={() => setIsOpen(true)}
+        className="pebble-color-trigger"
+        aria-label={`Select ${label} color`}
+      >
+        <div className="pebble-color-value">
+          <span className="pebble-color-name">{getColorName(value)}</span>
+          <div className="pebble-color-swatch" style={{ backgroundColor: `#${value}` }} />
+        </div>
+      </Button>
 
       <ModalOverlay
         isOpen={isOpen}

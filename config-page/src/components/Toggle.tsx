@@ -16,14 +16,18 @@ export const Toggle: React.FC<{
     updateSetting(messageKey, isSelected ? 0 : 1);
   };
 
+  const switchId = React.useId();
+
   return (
     <FormItem
       label={label}
       description={description}
       className="pebble-toggle"
       onClick={handleToggle}
+      htmlFor={switchId}
     >
       <Switch
+        id={switchId}
         isSelected={isSelected}
         onChange={(selected) => updateSetting(messageKey, selected ? 1 : 0)}
         className="pebble-switch"

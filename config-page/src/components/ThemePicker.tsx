@@ -11,6 +11,7 @@ export const ThemePicker: React.FC<{
 }> = ({ label, description, messageKey, themes }) => {
   const { settings, updateSetting } = useConfig();
   const currentValue = (settings[messageKey] || '') as string;
+  const selectId = React.useId();
 
   const handleThemeChange = (themeName: string) => {
     updateSetting(messageKey, themeName);
@@ -24,8 +25,8 @@ export const ThemePicker: React.FC<{
   };
 
   return (
-    <FormItem label={label} description={description} className="pebble-theme-picker">
-      <select value={currentValue} onChange={(e) => handleThemeChange(e.target.value)}>
+    <FormItem label={label} description={description} className="pebble-theme-picker" htmlFor={selectId}>
+      <select id={selectId} value={currentValue} onChange={(e) => handleThemeChange(e.target.value)}>
         <option value="custom">Custom</option>
         {Object.keys(themes).map((themeName) => (
           <option key={themeName} value={themeName}>

@@ -6,6 +6,7 @@ interface FormItemProps {
   className: string;
   children: React.ReactNode;
   onClick?: () => void;
+  htmlFor?: string;
 }
 
 export const FormItem: React.FC<FormItemProps> = ({
@@ -14,10 +15,11 @@ export const FormItem: React.FC<FormItemProps> = ({
   className,
   children,
   onClick,
+  htmlFor,
 }) => (
   <div className={`pebble-item ${className}`} onClick={onClick}>
     <div className="pebble-label-group">
-      <label>{label}</label>
+      <label htmlFor={htmlFor}>{label}</label>
       {description && <span className="pebble-description">{description}</span>}
     </div>
     {children}

@@ -17,65 +17,18 @@ export const SettingsPage: React.FC = () => {
   return (
     <Page title="Halcyon Settings">
       <WatchPreview />
-      <Section title="General">
 
-        <Toggle
-          label="Use Large Fonts"
-          description="Increase text size for better readability"
-          messageKey="SETTING_USE_LARGE_FONTS"
-        />
-        <Toggle
-          label="Show Leading Zero"
-          description="Display time as 09:30 instead of 9:30"
-          messageKey="SETTING_SHOW_LEADING_ZERO"
-        />
-        <ColorPicker
-          label="Background"
-          description="Main background color of the watchface"
-          mode="color"
-          messageKey="SETTING_BG_COLOR"
-        />
-        <ColorPicker
-          label="Background"
-          description="Main background color of the watchface"
-          mode="bw-grey"
-          messageKey="SETTING_BG_COLOR"
-        />
-        <ColorPicker
-          label="Background"
-          description="Main background color of the watchface"
-          mode="bw"
-          messageKey="SETTING_BG_COLOR"
-        />
-        <Select
-          label="Dial Markings"
-          description="Choose which hour markers appear on the dial"
-          messageKey="SETTING_PIP_VISIBILITY"
-          options={[
-            { label: 'All (Every Hour)', value: 0 },
-            { label: 'Only major (Every 4 hours)', value: 1 },
-            { label: 'None', value: 2 },
-          ]}
-        />
-        <Toggle
-          label="Use Night Theme"
-          description="Switch to a darker theme during nighttime hours"
-          messageKey="SETTING_USE_NIGHT_THEME"
-        />
-      </Section>
-
-      <Section title="capabilities">{JSON.stringify(capabilities)}</Section>
-
-      <Section title="watchInfo">{JSON.stringify(watchInfo)}</Section>
+      {/* <Section title="capabilities">{JSON.stringify(capabilities)}</Section> */}
+      {/**/}
+      {/* <Section title="watchInfo">{JSON.stringify(watchInfo)}</Section> */}
 
       <Section title="Theme">
         <ThemePicker
-          label="Theme Preset"
-          description="Choose a pre-configured color scheme or customize your own"
-          messageKey="SETTING_PRESET"
+          label="Preset"
+          messageKey="SETTING_THEME"
           themes={activeThemes}
         />
-        {settings.SETTING_PRESET === 'custom' && (
+        {settings.SETTING_THEME === 'custom' && (
           <>
             <ColorPicker
               label="Background"
@@ -146,85 +99,112 @@ export const SettingsPage: React.FC = () => {
         )}
       </Section>
 
-      {settings.SETTING_USE_NIGHT_THEME === 1 && (
-        <Section title="Night Theme">
-          <ThemePicker
-            label="Night Theme Preset"
-            description="Choose a darker color scheme for nighttime viewing"
-            messageKey="SETTING_NIGHT_PRESET"
-            themes={activeNightThemes}
-          />
-          {settings.SETTING_NIGHT_PRESET === 'custom' && (
-            <>
-              <ColorPicker
-                label="Background"
-                description="Night mode background"
-                messageKey="SETTING_NIGHT_BG_COLOR"
-              />
-              <ColorPicker
-                label="Time"
-                description="Night mode time color"
-                messageKey="SETTING_NIGHT_TIME_COLOR"
-              />
-              <ColorPicker
-                label="Primary Subtext"
-                description="Night mode primary subtitle color"
-                messageKey="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR"
-              />
-              <ColorPicker
-                label="Secondary Subtext"
-                description="Night mode secondary text color"
-                messageKey="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR"
-              />
-              <ColorPicker
-                label="Pip Primary"
-                description="Night mode primary hour markers"
-                messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
-              />
-              <ColorPicker
-                label="Pip Secondary"
-                description="Night mode secondary hour markers"
-                messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
-              />
-              <ColorPicker
-                label="Ring Stroke"
-                description="Night mode ring border"
-                messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
-              />
-              <ColorPicker
-                label="Ring Day Section"
-                description="Night mode daylight section"
-                messageKey="SETTING_NIGHT_RING_DAY_COLOR"
-              />
-              <ColorPicker
-                label="Ring Night Section"
-                description="Night mode dark hours section"
-                messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
-              />
-              <ColorPicker
-                label="Sunrise Marker"
-                description="Night mode sunrise indicator"
-                messageKey="SETTING_NIGHT_RING_SUNRISE_COLOR"
-              />
-              <ColorPicker
-                label="Sunset Marker"
-                description="Night mode sunset indicator"
-                messageKey="SETTING_NIGHT_RING_SUNSET_COLOR"
-              />
-              <ColorPicker
-                label="Sun Stroke"
-                description="Night mode sun outline"
-                messageKey="SETTING_NIGHT_SUN_STROKE_COLOR"
-              />
-              <ColorPicker
-                label="Sun Fill"
-                description="Night mode sun fill"
-                messageKey="SETTING_NIGHT_SUN_FILL_COLOR"
-              />
-            </>
-          )}
-        </Section>
-      )}
+      <Section title="Night Theme">
+        <Toggle
+          label="Use Night Theme"
+          description="Switch to a darker theme during nighttime hours"
+          messageKey="SETTING_USE_NIGHT_THEME"
+        />
+        {settings.SETTING_USE_NIGHT_THEME === 1 && (
+          <>
+            <ThemePicker
+              label="Night Theme Preset"
+              description="Choose a darker color scheme for nighttime viewing"
+              messageKey="SETTING_NIGHT_THEME"
+              themes={activeNightThemes}
+            />
+            {settings.SETTING_NIGHT_THEME === 'custom' && (
+              <>
+                <ColorPicker
+                  label="Background"
+                  description="Night mode background"
+                  messageKey="SETTING_NIGHT_BG_COLOR"
+                />
+                <ColorPicker
+                  label="Time"
+                  description="Night mode time color"
+                  messageKey="SETTING_NIGHT_TIME_COLOR"
+                />
+                <ColorPicker
+                  label="Primary Subtext"
+                  description="Night mode primary subtitle color"
+                  messageKey="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR"
+                />
+                <ColorPicker
+                  label="Secondary Subtext"
+                  description="Night mode secondary text color"
+                  messageKey="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR"
+                />
+                <ColorPicker
+                  label="Pip Primary"
+                  description="Night mode primary hour markers"
+                  messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
+                />
+                <ColorPicker
+                  label="Pip Secondary"
+                  description="Night mode secondary hour markers"
+                  messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
+                />
+                <ColorPicker
+                  label="Ring Stroke"
+                  description="Night mode ring border"
+                  messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
+                />
+                <ColorPicker
+                  label="Ring Day Section"
+                  description="Night mode daylight section"
+                  messageKey="SETTING_NIGHT_RING_DAY_COLOR"
+                />
+                <ColorPicker
+                  label="Ring Night Section"
+                  description="Night mode dark hours section"
+                  messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
+                />
+                <ColorPicker
+                  label="Sunrise Marker"
+                  description="Night mode sunrise indicator"
+                  messageKey="SETTING_NIGHT_RING_SUNRISE_COLOR"
+                />
+                <ColorPicker
+                  label="Sunset Marker"
+                  description="Night mode sunset indicator"
+                  messageKey="SETTING_NIGHT_RING_SUNSET_COLOR"
+                />
+                <ColorPicker
+                  label="Sun Stroke"
+                  description="Night mode sun outline"
+                  messageKey="SETTING_NIGHT_SUN_STROKE_COLOR"
+                />
+                <ColorPicker
+                  label="Sun Fill"
+                  description="Night mode sun fill"
+                  messageKey="SETTING_NIGHT_SUN_FILL_COLOR"
+                />
+              </>)}
+          </>)}
+      </Section>
+      <Section title="General">
+        <Toggle
+          label="Use Large Fonts"
+          description="Increase text size for better readability"
+          messageKey="SETTING_USE_LARGE_FONTS"
+        />
+        <Toggle
+          label="Show Leading Zero"
+          description="Display time as 09:30 instead of 9:30"
+          messageKey="SETTING_SHOW_LEADING_ZERO"
+        />
+        <Select
+          label="Dial Markings"
+          description="Choose which hour markers appear on the dial"
+          messageKey="SETTING_PIP_VISIBILITY"
+          options={[
+            { label: 'All (Every Hour)', value: 0 },
+            { label: 'Only major (Every 4 hours)', value: 1 },
+            { label: 'None', value: 2 },
+          ]}
+        />
+      </Section>
     </Page>
   );
 };

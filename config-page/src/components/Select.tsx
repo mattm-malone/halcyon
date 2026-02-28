@@ -11,10 +11,12 @@ export const Select: React.FC<{
 }> = ({ label, description, messageKey, options }) => {
   const { settings, updateSetting } = useConfig();
   const value = settings[messageKey];
+  const selectId = React.useId();
 
   return (
-    <FormItem label={label} description={description} className="pebble-select">
+    <FormItem label={label} description={description} className="pebble-select" htmlFor={selectId}>
       <select
+        id={selectId}
         value={value}
         onChange={(e) => {
           const val = e.target.value;

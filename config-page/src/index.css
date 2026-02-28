@@ -85,6 +85,8 @@ button {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  flex: 1;
+  padding-right: 16px;
 }
 
 .pebble-description {
@@ -121,27 +123,50 @@ button {
 }
 
 /* Specific item styles */
-.pebble-color-picker-v2 {
-  cursor: pointer;
+
+.pebble-color-trigger {
+  background: none;
+  border: 1.5px solid transparent;
+  padding: 6px 12px;
+  border-radius: 10px;
+  color: inherit;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  margin-right: -4px;
 }
 
-.pebble-color-picker-v2 label {
-  flex: 1;
+.pebble-color-trigger:hover {
+  background-color: #f8f8f8;
+  border-color: var(--pebble-gray);
+}
+
+.pebble-color-trigger:focus {
+  outline: none;
+}
+
+.pebble-color-trigger[data-focus-visible] {
+  border-color: var(--pebble-orange);
+  box-shadow: 0 0 0 3px rgba(255, 71, 0, 0.15);
 }
 
 .pebble-color-value {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .pebble-color-name {
   font-size: 0.9rem;
   color: #666;
+  font-weight: 500;
 }
 
 .pebble-color-value>.pebble-color-swatch {
   width: 48px;
+  height: 30px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
 .pebble-color-modal-overlay {
@@ -262,10 +287,44 @@ button {
 }
 
 select {
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background: white;
+  appearance: none;
+  -webkit-appearance: none;
+  /* For Safari */
+  background-color: var(--pebble-white);
+  border: 1.5px solid var(--pebble-gray);
+  border-radius: 10px;
+  padding: 10px 36px 10px 14px;
+  font-size: 16px;
+  /* Prevents auto-zoom on iOS */
+  font-family: inherit;
+  color: var(--pebble-dark);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  transition: all 0.2s ease;
+  min-width: 150px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+select:hover {
+  border-color: #95a5a6;
+  background-color: #fafafa;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--pebble-orange);
+  box-shadow: 0 0 0 3px rgba(255, 71, 0, 0.15);
+}
+
+select:disabled {
+  background-color: #f5f5f5;
+  border-color: #e0e0e0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ccc' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
 
 input[type='checkbox'] {
