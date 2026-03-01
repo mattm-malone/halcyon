@@ -128,7 +128,7 @@ button {
 .pebble-color-trigger {
   background: none;
   border: 1.5px solid transparent;
-  padding: 6px 12px;
+  padding: 6px 0 6px 12px;
   border-radius: 10px;
   color: inherit;
   font-family: inherit;
@@ -449,6 +449,7 @@ input[type='checkbox'] {
 
 /* Theme Picker Grid Styles */
 .pebble-theme-picker {
+  padding-inline: 0;
   flex-direction: column;
   align-items: flex-start !important;
   gap: 12px;
@@ -460,14 +461,8 @@ input[type='checkbox'] {
   overflow-x: auto;
   outline: none;
   width: 100%;
-  scrollbar-width: none;
-  margin-left: -8px;
-  -ms-overflow-style: none;
+  padding-left: 8px;
   -webkit-overflow-scrolling: touch;
-}
-
-.pebble-theme-grid::-webkit-scrollbar {
-  display: none;
 }
 
 .pebble-theme-card {
@@ -476,7 +471,6 @@ input[type='checkbox'] {
   align-items: center;
   gap: 8px;
   padding: 4px;
-  background: #fff;
   cursor: pointer;
   outline: none;
   position: relative;
@@ -518,4 +512,16 @@ input[type='checkbox'] {
 
 .pebble-theme-card[data-selected="true"] .pebble-theme-card-label {
   color: var(--pebble-orange);
+}
+
+.pebble-custom-icon {
+  width: 72px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-image: linear-gradient(to right, #ddd 1px, transparent 1px),
+    linear-gradient(to bottom, #ddd 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-position: center; */
 }

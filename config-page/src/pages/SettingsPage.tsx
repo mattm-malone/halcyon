@@ -30,68 +30,55 @@ export const SettingsPage: React.FC = () => {
         {settings.SETTING_THEME === 'custom' && (
           <>
             <ColorPicker
-              label="Background"
-              description="Main watchface background"
+              label="Background color"
               messageKey="SETTING_BG_COLOR"
             />
             <ColorPicker
-              label="Time"
-              description="Color of the main time display"
+              label="Time color"
               messageKey="SETTING_TIME_COLOR"
             />
             <ColorPicker
-              label="Primary Subtext"
-              description="Main subtitle or date text color"
+              label="Widget text color (primary)"
               messageKey="SETTING_SUBTEXT_PRIMARY_COLOR"
             />
             <ColorPicker
-              label="Secondary Subtext"
-              description="Secondary info text color"
+              label="Widget text color (secondary)"
               messageKey="SETTING_SUBTEXT_SECONDARY_COLOR"
             />
             <ColorPicker
-              label="Pip Primary"
-              description="Primary hour marker color"
+              label="Dial marker color (primary)"
               messageKey="SETTING_PIP_COLOR_PRIMARY"
             />
             <ColorPicker
-              label="Pip Secondary"
-              description="Secondary hour marker color"
+              label="Dial marker color (secondary)"
               messageKey="SETTING_PIP_COLOR_SECONDARY"
             />
             <ColorPicker
-              label="Ring Stroke"
-              description="Outer ring border color"
+              label="Ring outline color"
               messageKey="SETTING_RING_STROKE_COLOR"
             />
             <ColorPicker
-              label="Ring Day Section"
-              description="Color for daylight hours on the ring"
+              label="Ring day section color"
               messageKey="SETTING_RING_DAY_COLOR"
             />
             <ColorPicker
-              label="Ring Night Section"
-              description="Color for nighttime hours on the ring"
+              label="Ring night section color"
               messageKey="SETTING_RING_NIGHT_COLOR"
             />
             <ColorPicker
-              label="Sunrise Marker"
-              description="Sunrise indicator color"
+              label="Ring sunrise section color"
               messageKey="SETTING_RING_SUNRISE_COLOR"
             />
             <ColorPicker
-              label="Sunset Marker"
-              description="Sunset indicator color"
+              label="Ring sunset section color"
               messageKey="SETTING_RING_SUNSET_COLOR"
             />
             <ColorPicker
-              label="Sun Stroke"
-              description="Sun icon outline color"
+              label="Sun outline color"
               messageKey="SETTING_SUN_STROKE_COLOR"
             />
             <ColorPicker
-              label="Sun Fill"
-              description="Sun icon fill color"
+              label="Sun fill color"
               messageKey="SETTING_SUN_FILL_COLOR"
             />
           </>
@@ -109,72 +96,60 @@ export const SettingsPage: React.FC = () => {
             <ThemePicker
               messageKey="SETTING_NIGHT_THEME"
               themes={activeNightThemes}
+              watchPreviewProps={{ isNight: true }}
             />
             {settings.SETTING_NIGHT_THEME === 'custom' && (
               <>
                 <ColorPicker
-                  label="Background"
-                  description="Night mode background"
+                  label="Background color"
                   messageKey="SETTING_NIGHT_BG_COLOR"
                 />
                 <ColorPicker
-                  label="Time"
-                  description="Night mode time color"
+                  label="Time color"
                   messageKey="SETTING_NIGHT_TIME_COLOR"
                 />
                 <ColorPicker
-                  label="Primary Subtext"
-                  description="Night mode primary subtitle color"
+                  label="Widget text color (primary)"
                   messageKey="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR"
                 />
                 <ColorPicker
-                  label="Secondary Subtext"
-                  description="Night mode secondary text color"
+                  label="Widget text color (secondary)"
                   messageKey="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR"
                 />
                 <ColorPicker
-                  label="Pip Primary"
-                  description="Night mode primary hour markers"
+                  label="Dial marker color (primary)"
                   messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
                 />
                 <ColorPicker
-                  label="Pip Secondary"
-                  description="Night mode secondary hour markers"
+                  label="Dial marker color (secondary)"
                   messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
                 />
                 <ColorPicker
-                  label="Ring Stroke"
-                  description="Night mode ring border"
+                  label="Ring outline color"
                   messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
                 />
                 <ColorPicker
-                  label="Ring Day Section"
-                  description="Night mode daylight section"
+                  label="Ring day section color"
                   messageKey="SETTING_NIGHT_RING_DAY_COLOR"
                 />
                 <ColorPicker
-                  label="Ring Night Section"
-                  description="Night mode dark hours section"
+                  label="Ring night section color"
                   messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
                 />
                 <ColorPicker
-                  label="Sunrise Marker"
-                  description="Night mode sunrise indicator"
+                  label="Ring sunrise section color"
                   messageKey="SETTING_NIGHT_RING_SUNRISE_COLOR"
                 />
                 <ColorPicker
-                  label="Sunset Marker"
-                  description="Night mode sunset indicator"
+                  label="Ring sunset section color"
                   messageKey="SETTING_NIGHT_RING_SUNSET_COLOR"
                 />
                 <ColorPicker
-                  label="Sun Stroke"
-                  description="Night mode sun outline"
+                  label="Sun outline color"
                   messageKey="SETTING_NIGHT_SUN_STROKE_COLOR"
                 />
                 <ColorPicker
-                  label="Sun Fill"
-                  description="Night mode sun fill"
+                  label="Sun fill color"
                   messageKey="SETTING_NIGHT_SUN_FILL_COLOR"
                 />
               </>)}
