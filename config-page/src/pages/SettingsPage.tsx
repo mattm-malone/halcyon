@@ -29,6 +29,7 @@ export const SettingsPage: React.FC = () => {
         />
         {settings.SETTING_THEME === 'custom' && (
           <>
+            <WatchPreview />
             <ColorPicker
               label="Background color"
               messageKey="SETTING_BG_COLOR"
@@ -100,6 +101,7 @@ export const SettingsPage: React.FC = () => {
             />
             {settings.SETTING_NIGHT_THEME === 'custom' && (
               <>
+                <WatchPreview />
                 <ColorPicker
                   label="Background color"
                   messageKey="SETTING_NIGHT_BG_COLOR"

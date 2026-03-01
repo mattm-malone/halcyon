@@ -31,7 +31,7 @@ export const ThemePicker: React.FC<{
   };
 
   const themeList = React.useMemo(() => [
-    { id: 'custom', name: 'Custom', settings: {} },
+    { id: 'custom', name: 'Customize', settings: {} },
     ...Object.entries(themes).map(([id, theme]) => ({
       id,
       name: theme.name,

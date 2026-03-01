@@ -390,14 +390,12 @@ input[type='checkbox'] {
   width: 144px;
   height: 168px;
   background-color: #000;
-  border-radius: 4px;
 }
 
 .pebble-watch-face {
   position: relative;
   width: 144px;
   height: 168px;
-  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -525,3 +523,11 @@ input[type='checkbox'] {
   background-size: 16px 16px;
   background-position: center; */
 }
+
+.pebble-watch-preview-container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.pebble-watch-preview-container .pebble-watch-face {}

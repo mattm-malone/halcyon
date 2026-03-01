@@ -39,18 +39,6 @@ export const WatchPreview: React.FC<WatchPreviewProps> = ({ overrideSettings, is
                         d="M0 0h144v82H0z"
                     />
                     <path
-                        id="SETTING_SUN_FILL_COLOR"
-                        fill={getHex(!isNight ? effectiveSettings.SETTING_SUN_FILL_COLOR : effectiveSettings.SETTING_NIGHT_SUN_FILL_COLOR)}
-                        d="M52 8.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z"
-                    />
-                    <path
-                        id="SETTING_SUN_STROKE_COLOR"
-                        fill={getHex(!isNight ? effectiveSettings.SETTING_SUN_STROKE_COLOR : effectiveSettings.SETTING_NIGHT_SUN_STROKE_COLOR)}
-                        fillRule="evenodd"
-                        d="M43.5 14a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Zm0 3a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"
-                        clipRule="evenodd"
-                    />
-                    <path
                         id="SETTING_RING_SUNRISE_COLOR"
                         fill={getHex(!isNight ? effectiveSettings.SETTING_RING_SUNRISE_COLOR : effectiveSettings.SETTING_NIGHT_RING_SUNRISE_COLOR)}
                         d="M19 72v25H0V72h19Z"
@@ -79,6 +67,20 @@ export const WatchPreview: React.FC<WatchPreviewProps> = ({ overrideSettings, is
                         <path d="M125 19H19v130h106V19ZM16 16v136h112V16H16Z" />
                         <path d="M0 97h19V72H0v3h16v19H0v3ZM144 72h-19v25h19v-3h-16V75h16v-3Z" />
                     </g>
+                    <path
+                        id="SETTING_SUN_FILL_COLOR"
+                        transform={isNight ? "translate(53, 151)" : undefined}
+                        fill={getHex(!isNight ? effectiveSettings.SETTING_SUN_FILL_COLOR : effectiveSettings.SETTING_NIGHT_SUN_FILL_COLOR)}
+                        d="M52 8.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z"
+                    />
+                    <path
+                        id="SETTING_SUN_STROKE_COLOR"
+                        transform={isNight ? "translate(53, 151)" : undefined}
+                        fill={getHex(!isNight ? effectiveSettings.SETTING_SUN_STROKE_COLOR : effectiveSettings.SETTING_NIGHT_SUN_STROKE_COLOR)}
+                        fillRule="evenodd"
+                        d="M43.5 14a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Zm0 3a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"
+                        clipRule="evenodd"
+                    />
                 </svg>
                 <div className="pebble-watch-preview-content">
                     <div className="pebble-watch-preview-widget secondary upper" style={{ color: getHex(isNight ? effectiveSettings.SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR : effectiveSettings.SETTING_SUBTEXT_SECONDARY_COLOR) }}>
