@@ -8,13 +8,11 @@ export const Page: React.FC<{ title: string; children: React.ReactNode }> = ({ t
     <div className="pebble-page">
       <header className="pebble-header">
         <h1>{title}</h1>
+        <button className="pebble-save-button" onClick={save}>SAVE</button>
       </header>
       <main className="pebble-content">
         {children}
       </main>
-      <footer className="pebble-footer">
-        <button className="pebble-save-button" onClick={save}>SAVE</button>
-      </footer>
     </div>
   );
 };
