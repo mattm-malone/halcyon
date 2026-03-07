@@ -134,14 +134,14 @@ interface ColorPickerProps {
   label: string;
   description?: string;
   messageKey: keyof Settings;
-  mode?: ColorMode;
+  bwAllowGrey?: boolean;
 }
 
 export const ColorPicker: React.FC<ColorPickerProps> = ({
   label,
   description,
   messageKey,
-  mode,
+  bwAllowGrey = true,
 }) => {
   const { settings, updateSetting } = useConfig();
   const capabilities = useCapabilities();
@@ -149,7 +149,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   const rawValue = settings[messageKey];
   const value = (typeof rawValue === 'string' ? rawValue : '000000').toUpperCase().replace('#', '');
 
-  const resolvedMode: ColorMode = mode ?? (capabilities.COLOR ? 'color' : 'bw-grey');
+  const resolvedMode: ColorMode = capabilities.COLOR ? 'color' : (bwAllowGrey ? 'bw-grey' : 'bw');
   const palette = COLOR_PALETTES[resolvedMode];
   const useBlanks = resolvedMode === 'color';
 

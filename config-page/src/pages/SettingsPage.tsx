@@ -47,14 +47,17 @@ export const SettingsPage: React.FC = () => {
             <ColorPicker
               label="Time color"
               messageKey="SETTING_TIME_COLOR"
+              bwAllowGrey={false}
             />
             <ColorPicker
               label="Widget text color (primary)"
               messageKey="SETTING_SUBTEXT_PRIMARY_COLOR"
+              bwAllowGrey={false}
             />
             <ColorPicker
               label="Widget text color (secondary)"
               messageKey="SETTING_SUBTEXT_SECONDARY_COLOR"
+              bwAllowGrey={false}
             />
             <ColorPicker
               label="Background color"
@@ -79,18 +82,22 @@ export const SettingsPage: React.FC = () => {
             <ColorPicker
               label="Dial marker color (primary)"
               messageKey="SETTING_PIP_COLOR_PRIMARY"
+              bwAllowGrey={false}
             />
             <ColorPicker
               label="Dial marker color (secondary)"
               messageKey="SETTING_PIP_COLOR_SECONDARY"
+              bwAllowGrey={false}
             />
             <ColorPicker
               label="Ring outline color"
               messageKey="SETTING_RING_STROKE_COLOR"
+              bwAllowGrey={false}
             />
             <ColorPicker
               label="Sun outline color"
               messageKey="SETTING_SUN_STROKE_COLOR"
+              bwAllowGrey={false}
             />
             <ColorPicker
               label="Sun fill color"
