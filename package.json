@@ -1,66 +1,80 @@
 {
-    "name": "halcyon-pebble",
-    "author": "Freakified",
-    "version": "1.6.0",
-    "keywords": [
-        "pebble-watchface"
+  "name": "halcyon-pebble",
+  "author": "Freakified",
+  "version": "1.7.0",
+  "keywords": [
+    "pebble-watchface"
+  ],
+  "private": true,
+  "pebble": {
+    "displayName": "Halcyon",
+    "uuid": "c8e97ab8-7c12-45fb-975d-e85d5de61e8b",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery",
+      "flint"
     ],
-    "private": true,
-    "pebble": {
-        "displayName": "Halcyon",
-        "uuid": "c8e97ab8-7c12-45fb-975d-e85d5de61e8b",
-        "sdkVersion": "3",
-        "enableMultiJS": true,
-        "targetPlatforms": [
-            "aplite",
-            "basalt",
-            "chalk",
-            "diorite",
-            "emery"
-        ],
-        "capabilities": [
-            "location",
-            "configurable"
-        ],
-        "watchapp": {
-            "onlyShownOnCommunication": false,
-            "hiddenApp": false,
-            "watchface": true
-        },
-        "messageKeys": [
-            "LOCATION_LAT",
-            "LOCATION_LNG",
-            "LOCATION_GMT_OFFSET",
-            "SETTING_PRESET",
-            "SETTING_TIME_COLOR",
-            "SETTING_SUBTEXT_PRIMARY_COLOR",
-            "SETTING_SUBTEXT_SECONDARY_COLOR",
-            "SETTING_BG_COLOR",
-            "SETTING_PIP_COLOR_PRIMARY",
-            "SETTING_PIP_COLOR_SECONDARY",
-            "SETTING_RING_STROKE_COLOR",
-            "SETTING_RING_NIGHT_COLOR",
-            "SETTING_RING_DAY_COLOR",
-            "SETTING_RING_SUNRISE_COLOR",
-            "SETTING_RING_SUNSET_COLOR",
-            "SETTING_SUN_STROKE_COLOR",
-            "SETTING_SUN_FILL_COLOR",
-            "SETTING_USE_LARGE_FONTS",
-            "SETTING_SHOW_LEADING_ZERO"
-        ],
-        "resources": {
-            "media": [
-                {
-                    "file": "images/menuicon.png",
-                    "menuIcon": true,
-                    "name": "MENU_ICON",
-                    "type": "bitmap"
-                }
-            ]
-        }
+    "capabilities": [
+      "location",
+      "configurable"
+    ],
+    "watchapp": {
+      "onlyShownOnCommunication": false,
+      "hiddenApp": false,
+      "watchface": true
     },
-    "dependencies": {
-        "pebble-clay": "^1.0.4",
-        "pebble-clay-preview-component": "^0.0.2"
+    "messageKeys": [
+      "LOCATION_LAT",
+      "LOCATION_LNG",
+      "LOCATION_GMT_OFFSET",
+      "SETTING_THEME",
+      "SETTING_NIGHT_THEME",
+      "SETTING_TIME_COLOR",
+      "SETTING_SUBTEXT_PRIMARY_COLOR",
+      "SETTING_SUBTEXT_SECONDARY_COLOR",
+      "SETTING_BG_COLOR",
+      "SETTING_PIP_COLOR_PRIMARY",
+      "SETTING_PIP_COLOR_SECONDARY",
+      "SETTING_RING_STROKE_COLOR",
+      "SETTING_RING_NIGHT_COLOR",
+      "SETTING_RING_DAY_COLOR",
+      "SETTING_RING_SUNRISE_COLOR",
+      "SETTING_RING_SUNSET_COLOR",
+      "SETTING_SUN_STROKE_COLOR",
+      "SETTING_SUN_FILL_COLOR",
+      "SETTING_NIGHT_TIME_COLOR",
+      "SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR",
+      "SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR",
+      "SETTING_NIGHT_BG_COLOR",
+      "SETTING_NIGHT_PIP_COLOR_PRIMARY",
+      "SETTING_NIGHT_PIP_COLOR_SECONDARY",
+      "SETTING_NIGHT_RING_STROKE_COLOR",
+      "SETTING_NIGHT_RING_NIGHT_COLOR",
+      "SETTING_NIGHT_RING_DAY_COLOR",
+      "SETTING_NIGHT_RING_SUNRISE_COLOR",
+      "SETTING_NIGHT_RING_SUNSET_COLOR",
+      "SETTING_NIGHT_SUN_STROKE_COLOR",
+      "SETTING_NIGHT_SUN_FILL_COLOR",
+      "SETTING_USE_LARGE_FONTS",
+      "SETTING_USE_NIGHT_THEME",
+      "SETTING_PIP_VISIBILITY",
+      "SETTING_SHOW_LEADING_ZERO"
+    ],
+    "resources": {
+      "media": [
+        {
+          "file": "images/menuicon.png",
+          "menuIcon": true,
+          "name": "MENU_ICON",
+          "type": "bitmap"
+        }
+      ]
     }
+  },
+  "dependencies": {}
 }

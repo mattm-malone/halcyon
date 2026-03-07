@@ -1,5 +1,6 @@
 #pragma once
 #include <pebble.h>
+#include <sys/syslimits.h>
 
 #define CURRENT_SETTINGS_VERSION 1
 #define SETTINGS_VERSION_PERSIST_KEY 1
@@ -7,36 +8,72 @@
 
 // default settings
 #ifdef PBL_COLOR
-  #define DEFAULT_TIME_COLOR              GColorBlack;
-  #define DEFAULT_SUBTEXT_PRIMARY_COLOR   GColorBlack;
-  #define DEFAULT_SUBTEXT_SECONDARY_COLOR GColorDarkGray;
-  #define DEFAULT_BG_COLOR                GColorWhite;
-  #define DEFAULT_PIP_COLOR_PRIMARY       GColorBlack;
-  #define DEFAULT_PIP_COLOR_SECONDARY     GColorLightGray;
-  #define DEFAULT_RING_STROKE_COLOR       GColorBlack;
-  #define DEFAULT_RING_NIGHT_COLOR        GColorCobaltBlue;
-  #define DEFAULT_RING_DAY_COLOR          GColorVividCerulean;
-  #define DEFAULT_RING_SUNRISE_COLOR      GColorMelon;
-  #define DEFAULT_RING_SUNSET_COLOR       GColorChromeYellow;
-  #define DEFAULT_SUN_STROKE_COLOR        GColorBlack;
-  #define DEFAULT_SUN_FILL_COLOR          GColorYellow;
+#define DEFAULT_TIME_COLOR GColorBlack
+#define DEFAULT_SUBTEXT_PRIMARY_COLOR GColorBlack
+#define DEFAULT_SUBTEXT_SECONDARY_COLOR GColorDarkGray
+#define DEFAULT_BG_COLOR GColorWhite
+#define DEFAULT_PIP_COLOR_PRIMARY GColorBlack
+#define DEFAULT_PIP_COLOR_SECONDARY GColorLightGray
+#define DEFAULT_RING_STROKE_COLOR GColorBlack
+#define DEFAULT_RING_NIGHT_COLOR GColorCobaltBlue
+#define DEFAULT_RING_DAY_COLOR GColorVividCerulean
+#define DEFAULT_RING_SUNRISE_COLOR GColorMelon
+#define DEFAULT_RING_SUNSET_COLOR GColorChromeYellow
+#define DEFAULT_SUN_STROKE_COLOR GColorBlack
+#define DEFAULT_SUN_FILL_COLOR GColorYellow
+
+// night theme defaults (same as day for now)
+#define DEFAULT_NIGHT_TIME_COLOR GColorBlack
+#define DEFAULT_NIGHT_SUBTEXT_PRIMARY_COLOR GColorBlack
+#define DEFAULT_NIGHT_SUBTEXT_SECONDARY_COLOR GColorBlack
+#define DEFAULT_NIGHT_BG_COLOR GColorWhite
+#define DEFAULT_NIGHT_PIP_COLOR_PRIMARY GColorBlack
+#define DEFAULT_NIGHT_PIP_COLOR_SECONDARY GColorBlack
+#define DEFAULT_NIGHT_RING_STROKE_COLOR GColorBlack
+#define DEFAULT_NIGHT_RING_NIGHT_COLOR GColorBlack
+#define DEFAULT_NIGHT_RING_DAY_COLOR GColorWhite
+#define DEFAULT_NIGHT_RING_SUNRISE_COLOR GColorLightGray
+#define DEFAULT_NIGHT_RING_SUNSET_COLOR GColorLightGray
+#define DEFAULT_NIGHT_SUN_STROKE_COLOR GColorBlack
+#define DEFAULT_NIGHT_SUN_FILL_COLOR GColorWhite
 #else
-  #define DEFAULT_TIME_COLOR              GColorBlack;
-  #define DEFAULT_SUBTEXT_PRIMARY_COLOR   GColorBlack;
-  #define DEFAULT_SUBTEXT_SECONDARY_COLOR GColorBlack;
-  #define DEFAULT_BG_COLOR                GColorWhite;
-  #define DEFAULT_PIP_COLOR_PRIMARY       GColorBlack;
-  #define DEFAULT_PIP_COLOR_SECONDARY     GColorBlack;
-  #define DEFAULT_RING_STROKE_COLOR       GColorBlack;
-  #define DEFAULT_RING_NIGHT_COLOR        GColorBlack;
-  #define DEFAULT_RING_DAY_COLOR          GColorWhite;
-  #define DEFAULT_RING_SUNRISE_COLOR      GColorLightGray;
-  #define DEFAULT_RING_SUNSET_COLOR       GColorLightGray;
-  #define DEFAULT_SUN_STROKE_COLOR        GColorBlack;
-  #define DEFAULT_SUN_FILL_COLOR          GColorWhite;
+#define DEFAULT_TIME_COLOR GColorBlack
+#define DEFAULT_SUBTEXT_PRIMARY_COLOR GColorBlack
+#define DEFAULT_SUBTEXT_SECONDARY_COLOR GColorBlack
+#define DEFAULT_BG_COLOR GColorWhite
+#define DEFAULT_PIP_COLOR_PRIMARY GColorBlack
+#define DEFAULT_PIP_COLOR_SECONDARY GColorBlack
+#define DEFAULT_RING_STROKE_COLOR GColorBlack
+#define DEFAULT_RING_NIGHT_COLOR GColorBlack
+#define DEFAULT_RING_DAY_COLOR GColorWhite
+#define DEFAULT_RING_SUNRISE_COLOR GColorLightGray
+#define DEFAULT_RING_SUNSET_COLOR GColorLightGray
+#define DEFAULT_SUN_STROKE_COLOR GColorBlack
+#define DEFAULT_SUN_FILL_COLOR GColorWhite
+
+// night theme defaults (same as day for now)
+#define DEFAULT_NIGHT_TIME_COLOR GColorBlack
+#define DEFAULT_NIGHT_SUBTEXT_PRIMARY_COLOR GColorBlack
+#define DEFAULT_NIGHT_SUBTEXT_SECONDARY_COLOR GColorBlack
+#define DEFAULT_NIGHT_BG_COLOR GColorWhite
+#define DEFAULT_NIGHT_PIP_COLOR_PRIMARY GColorBlack
+#define DEFAULT_NIGHT_PIP_COLOR_SECONDARY GColorBlack
+#define DEFAULT_NIGHT_RING_STROKE_COLOR GColorBlack
+#define DEFAULT_NIGHT_RING_NIGHT_COLOR GColorBlack
+#define DEFAULT_NIGHT_RING_DAY_COLOR GColorWhite
+#define DEFAULT_NIGHT_RING_SUNRISE_COLOR GColorLightGray
+#define DEFAULT_NIGHT_RING_SUNSET_COLOR GColorLightGray
+#define DEFAULT_NIGHT_SUN_STROKE_COLOR GColorBlack
+#define DEFAULT_NIGHT_SUN_FILL_COLOR GColorWhite
 #endif
 
 // default settings, black and white
+
+typedef enum {
+  PIP_SHOW_ALL = 0,
+  PIP_SHOW_MAJOR = 1,
+  PIP_HIDDEN = 2
+} PipVisibilityType;
 
 // typedef enum {
 //   NO_VIBE = 0,
@@ -44,6 +81,23 @@
 //   VIBE_EVERY_HALF_HOUR = 2
 // } VibeIntervalType;
 
+// Color theme struct containing just the color fields
+typedef struct {
+  GColor timeColor;
+  GColor subtextPrimaryColor;
+  GColor subtextSecondaryColor;
+  GColor bgColor;
+  GColor pipColorPrimary;
+  GColor pipColorSecondary;
+  GColor ringStrokeColor;
+  GColor ringNightColor;
+  GColor ringDayColor;
+  GColor ringSunriseColor;
+  GColor ringSunsetColor;
+  GColor sunStrokeColor;
+  GColor sunFillColor;
+} ColorTheme;
+
 typedef struct {
   // text colors
   GColor timeColor;
@@ -62,54 +116,27 @@ typedef struct {
   GColor sunStrokeColor;
   GColor sunFillColor;
 
+  // night theme colors
+  GColor nightTimeColor;
+  GColor nightSubtextPrimaryColor;
+  GColor nightSubtextSecondaryColor;
+  GColor nightBgColor;
+  GColor nightPipColorPrimary;
+  GColor nightPipColorSecondary;
+  GColor nightRingStrokeColor;
+  GColor nightRingNightColor;
+  GColor nightRingDayColor;
+  GColor nightRingSunriseColor;
+  GColor nightRingSunsetColor;
+  GColor nightSunStrokeColor;
+  GColor nightSunFillColor;
+
+  bool useNightTheme;
   bool useLargeFonts;
   bool showLeadingZero;
-  
-  // // general settings
-  // uint8_t languageId;
-  // bool showLeadingZero;
-  // uint8_t clockFontId;
-
-  // // vibration settings
-  // bool btVibe;
-  // VibeIntervalType hourlyVibe;
-
-  // // sidebar settings
-  // SidebarWidgetType widgets[3];
-  // bool sidebarOnLeft;
-  // bool useLargeFonts;
-  // bool activateDisconnectIcon;
-  
-  // // weather widget settings
-  // bool useMetric;
-
-  // // battery meter widget settings
-  // bool showBatteryPct;
-  // bool disableAutobattery;
-
-  // // alt tz widget settings
-  // char altclockName[8];
-  // int altclockOffset;
-
-  // // health widget Settings
-  // bool healthUseDistance;
-  // bool healthUseRestfulSleep;
-  // char decimalSeparator;
-
-  // // dynamic settings (calculated based the currently-selected widgets)
-  // bool disableWeather;
-  // bool updateScreenEverySecond;
-  // bool enableAutoBatteryWidget;
-  // bool enableBeats;
-  // bool enableAltTimeZone;
-
-  // GColor iconFillColor;
-  // GColor iconStrokeColor;
+  PipVisibilityType pipVisibility;
 } Settings;
 
-
-// !! all future settings should be added to the bottom of this structure
-// !! do not remove fields from this structure, it will lead to unexpected behaviour
 typedef struct {
   // text colors
   GColor timeColor;
@@ -128,32 +155,31 @@ typedef struct {
   GColor sunStrokeColor;
   GColor sunFillColor;
 
-  uint8_t useLargeFonts:1;
-  uint8_t showLeadingZero:1;
+  // night theme colors
+  GColor nightTimeColor;
+  GColor nightSubtextPrimaryColor;
+  GColor nightSubtextSecondaryColor;
+  GColor nightBgColor;
+  GColor nightPipColorPrimary;
+  GColor nightPipColorSecondary;
+  GColor nightRingStrokeColor;
+  GColor nightRingNightColor;
+  GColor nightRingDayColor;
+  GColor nightRingSunriseColor;
+  GColor nightRingSunsetColor;
+  GColor nightSunStrokeColor;
+  GColor nightSunFillColor;
 
-  // other appearance settings
-  // uint8_t timeShowLeadingZero:1;
+  bool useNightTheme;
+  bool useLargeFonts;
+  bool showLeadingZero;
 
-  // vibration settings
-  // uint8_t btVibe:1;
-  // int8_t hourlyVibe:7;
-
-  // // battery meter widget settings
-  // uint8_t showBatteryPct:1;
-  // uint8_t disableAutobattery:1;
-
-  // // health widget Settings
-  // uint8_t healthUseDistance:1;
-
-  // // alt tz widget settings
-  // char altclockName[8];
-  // int8_t altclockOffset;
-
-  // // bluetooth disconnection icon
-  // int8_t activateDisconnectIcon:1;
+  PipVisibilityType pipVisibility;
 } StoredSettings;
 
 extern Settings globalSettings;
+
+ColorTheme getCurrentColorTheme();
 
 void Settings_init();
 void Settings_deinit();

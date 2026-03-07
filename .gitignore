@@ -2,6 +2,7 @@
 .waf*
 build
 .lock-waf*
+compile_commands.json
 
 # Ignore linked files/directories
 waf
@@ -42,3 +43,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#custom things
+src/pkjs/configDataUri.js

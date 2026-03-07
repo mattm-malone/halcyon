@@ -29,7 +29,13 @@ static char dateText[DATE_STR_LEN];
 static void draw_center_text(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
   bool useLargeFontSetting = globalSettings.useLargeFonts;
-  
+
+  // Get current time in minutes since midnight
+  struct tm *timeInfo = getCurrentTime();
+  int currentMinutes = timeInfo->tm_hour * 60 + timeInfo->tm_min;
+
+  bool useNightColors = globalSettings.useNightTheme && isNightTime(currentMinutes);
+
   GFont time_font = fonts_get_system_font(useLargeFontSetting ? FONT_TIME_LARGE : FONT_TIME_STANDARD);
   GFont date_font = fonts_get_system_font(useLargeFontSetting ? FONT_DATE_LARGE : FONT_DATE_STANDARD);
 
@@ -49,16 +55,19 @@ static void draw_center_text(Layer *layer, GContext *ctx) {
   // graphics_fill_rect(ctx, GRect(0, start_y + time_height + LINE_PADDING, bounds.size.w, date_height), 0, GCornerNone);
 
 
-  graphics_context_set_text_color(ctx, globalSettings.timeColor);
+  GColor timeColor = useNightColors ? globalSettings.nightTimeColor : globalSettings.timeColor;
+  GColor dateColor = useNightColors ? globalSettings.nightSubtextPrimaryColor : globalSettings.subtextPrimaryColor;
+
+  graphics_context_set_text_color(ctx, timeColor);
   graphics_draw_text(ctx, timeText, time_font,
-                     GRect(0, start_y - time_offset, bounds.size.w, time_height),
-                     GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
+                    GRect(0, start_y - time_offset, bounds.size.w, time_height),
+                    GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
 
 
-  graphics_context_set_text_color(ctx, globalSettings.subtextPrimaryColor);
+  graphics_context_set_text_color(ctx, dateColor);
   graphics_draw_text(ctx, dateText, date_font,
-                     GRect(0, start_y + time_height + LINE_PADDING - date_offset, bounds.size.w, date_height),
-                     GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
+                    GRect(0, start_y + time_height + LINE_PADDING - date_offset, bounds.size.w, date_height),
+                    GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
 }
 
 // Resize literally everything on quick view 
@@ -84,6 +93,8 @@ static void quickViewLayerReposition() {
   layer_mark_dirty(centerLayer);
 }
 
+
+
 static void update_clock() {
   struct tm *timeInfo = getCurrentTime();
 
@@ -107,7 +118,7 @@ static void update_clock() {
   }
 
   // ensure colors are updated based on settings
-  window_set_background_color(mainWindow, globalSettings.ringStrokeColor);
+  window_set_background_color(mainWindow, getCurrentColorTheme().ringStrokeColor);
 
   // display the date
   strftime(dateText, DATE_STR_LEN, "%a, %b %e", timeInfo);
@@ -145,7 +156,7 @@ static void onUnobstructedAreaDidChange(void *context) {
 static void main_window_load(Window *window) {
   // get information about the Window
   windowLayer = window_get_root_layer(window);
-  window_set_background_color(window, globalSettings.ringStrokeColor);
+  window_set_background_color(window, getCurrentColorTheme().ringStrokeColor);
   GRect bounds = layer_get_bounds(windowLayer);
 
   shiftingLayer = layer_create(bounds);

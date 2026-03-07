@@ -1,4 +1,5 @@
 #pragma once
+#include <pebble.h>
 
 /*
  * Responsible for managing the sunrise/sunset calculation
@@ -40,3 +41,8 @@ void solarUtils_updateLocation(LocationInfo loc);
 void solarUtils_recalculateSolarData();
 
 extern SolarInfo currentSolarInfo;
+
+/*
+ * Determines if it is night time based on solar data for the given minutes since midnight
+ */
+bool isNightTime(int currentMinutes);

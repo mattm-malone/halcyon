@@ -1,0 +1,31 @@
+{
+  "name": "halcyon-config-page",
+  "version": "1.0.0",
+  "description": "Configuration page for Halcyon Pebble watchface",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.{ts,json}",
+    "clean": "rm -rf dist/"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "esbuild": "^0.27.2",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "~5.3.3",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "react": "^19.2.3",
+    "react-aria-components": "^1.15.1",
+    "react-dom": "^19.2.3"
+  }
+}
