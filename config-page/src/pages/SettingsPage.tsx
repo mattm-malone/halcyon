@@ -18,9 +18,6 @@ export const SettingsPage: React.FC = () => {
   const daySavedThemes = useSavedThemes(false);
   const nightSavedThemes = useSavedThemes(true);
 
-  const isCustomOrSaved = (themeId: string) =>
-    themeId === 'custom' || themeId.startsWith('saved_');
-
   const getDaySavedTheme = () =>
     daySavedThemes.savedThemes.find((t) => t.id === settings.SETTING_THEME);
 
@@ -36,73 +33,69 @@ export const SettingsPage: React.FC = () => {
           savedThemes={daySavedThemes.savedThemes}
           label='Theme preset'
         />
-        {isCustomOrSaved(settings.SETTING_THEME) && (
+        <CustomThemePanel
+          themeId={settings.SETTING_THEME}
+          savedTheme={getDaySavedTheme()}
+          onSave={daySavedThemes.saveTheme}
+          onDelete={daySavedThemes.deleteTheme}
+          onImport={daySavedThemes.importTheme}
+          onExport={daySavedThemes.exportTheme}
+          onSelectTheme={(id) => updateSetting('SETTING_THEME', id)}
+        />
+        {settings.SETTING_THEME === 'custom' && (
           <>
-            <CustomThemePanel
-              themeId={settings.SETTING_THEME}
-              savedTheme={getDaySavedTheme()}
-              onSave={daySavedThemes.saveTheme}
-              onDelete={daySavedThemes.deleteTheme}
-              onImport={daySavedThemes.importTheme}
-              onExport={daySavedThemes.exportTheme}
-              onSelectTheme={(id) => updateSetting('SETTING_THEME', id)}
+            <ColorPicker
+              label="Background color"
+              messageKey="SETTING_BG_COLOR"
             />
-            {settings.SETTING_THEME === 'custom' && (
-              <>
-                <ColorPicker
-                  label="Background color"
-                  messageKey="SETTING_BG_COLOR"
-                />
-                <ColorPicker
-                  label="Time color"
-                  messageKey="SETTING_TIME_COLOR"
-                />
-                <ColorPicker
-                  label="Widget text color (primary)"
-                  messageKey="SETTING_SUBTEXT_PRIMARY_COLOR"
-                />
-                <ColorPicker
-                  label="Widget text color (secondary)"
-                  messageKey="SETTING_SUBTEXT_SECONDARY_COLOR"
-                />
-                <ColorPicker
-                  label="Dial marker color (primary)"
-                  messageKey="SETTING_PIP_COLOR_PRIMARY"
-                />
-                <ColorPicker
-                  label="Dial marker color (secondary)"
-                  messageKey="SETTING_PIP_COLOR_SECONDARY"
-                />
-                <ColorPicker
-                  label="Ring outline color"
-                  messageKey="SETTING_RING_STROKE_COLOR"
-                />
-                <ColorPicker
-                  label="Ring day section color"
-                  messageKey="SETTING_RING_DAY_COLOR"
-                />
-                <ColorPicker
-                  label="Ring night section color"
-                  messageKey="SETTING_RING_NIGHT_COLOR"
-                />
-                <ColorPicker
-                  label="Ring sunrise section color"
-                  messageKey="SETTING_RING_SUNRISE_COLOR"
-                />
-                <ColorPicker
-                  label="Ring sunset section color"
-                  messageKey="SETTING_RING_SUNSET_COLOR"
-                />
-                <ColorPicker
-                  label="Sun outline color"
-                  messageKey="SETTING_SUN_STROKE_COLOR"
-                />
-                <ColorPicker
-                  label="Sun fill color"
-                  messageKey="SETTING_SUN_FILL_COLOR"
-                />
-              </>
-            )}
+            <ColorPicker
+              label="Time color"
+              messageKey="SETTING_TIME_COLOR"
+            />
+            <ColorPicker
+              label="Widget text color (primary)"
+              messageKey="SETTING_SUBTEXT_PRIMARY_COLOR"
+            />
+            <ColorPicker
+              label="Widget text color (secondary)"
+              messageKey="SETTING_SUBTEXT_SECONDARY_COLOR"
+            />
+            <ColorPicker
+              label="Dial marker color (primary)"
+              messageKey="SETTING_PIP_COLOR_PRIMARY"
+            />
+            <ColorPicker
+              label="Dial marker color (secondary)"
+              messageKey="SETTING_PIP_COLOR_SECONDARY"
+            />
+            <ColorPicker
+              label="Ring outline color"
+              messageKey="SETTING_RING_STROKE_COLOR"
+            />
+            <ColorPicker
+              label="Ring day section color"
+              messageKey="SETTING_RING_DAY_COLOR"
+            />
+            <ColorPicker
+              label="Ring night section color"
+              messageKey="SETTING_RING_NIGHT_COLOR"
+            />
+            <ColorPicker
+              label="Ring sunrise section color"
+              messageKey="SETTING_RING_SUNRISE_COLOR"
+            />
+            <ColorPicker
+              label="Ring sunset section color"
+              messageKey="SETTING_RING_SUNSET_COLOR"
+            />
+            <ColorPicker
+              label="Sun outline color"
+              messageKey="SETTING_SUN_STROKE_COLOR"
+            />
+            <ColorPicker
+              label="Sun fill color"
+              messageKey="SETTING_SUN_FILL_COLOR"
+            />
           </>
         )}
       </Section>
@@ -122,77 +115,74 @@ export const SettingsPage: React.FC = () => {
               watchPreviewProps={{ isNight: true }}
               savedThemes={nightSavedThemes.savedThemes}
             />
-            {isCustomOrSaved(settings.SETTING_NIGHT_THEME) && (
+            <CustomThemePanel
+              themeId={settings.SETTING_NIGHT_THEME}
+              savedTheme={getNightSavedTheme()}
+              watchPreviewProps={{ isNight: true }}
+              onSave={nightSavedThemes.saveTheme}
+              onDelete={nightSavedThemes.deleteTheme}
+              onImport={nightSavedThemes.importTheme}
+              onExport={nightSavedThemes.exportTheme}
+              onSelectTheme={(id) => updateSetting('SETTING_NIGHT_THEME', id)}
+            />
+            {settings.SETTING_NIGHT_THEME === 'custom' && (
               <>
-                <CustomThemePanel
-                  themeId={settings.SETTING_NIGHT_THEME}
-                  savedTheme={getNightSavedTheme()}
-                  watchPreviewProps={{ isNight: true }}
-                  onSave={nightSavedThemes.saveTheme}
-                  onDelete={nightSavedThemes.deleteTheme}
-                  onImport={nightSavedThemes.importTheme}
-                  onExport={nightSavedThemes.exportTheme}
-                  onSelectTheme={(id) => updateSetting('SETTING_NIGHT_THEME', id)}
+                <ColorPicker
+                  label="Background color"
+                  messageKey="SETTING_NIGHT_BG_COLOR"
                 />
-                {settings.SETTING_NIGHT_THEME === 'custom' && (
-                  <>
-                    <ColorPicker
-                      label="Background color"
-                      messageKey="SETTING_NIGHT_BG_COLOR"
-                    />
-                    <ColorPicker
-                      label="Time color"
-                      messageKey="SETTING_NIGHT_TIME_COLOR"
-                    />
-                    <ColorPicker
-                      label="Widget text color (primary)"
-                      messageKey="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR"
-                    />
-                    <ColorPicker
-                      label="Widget text color (secondary)"
-                      messageKey="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR"
-                    />
-                    <ColorPicker
-                      label="Dial marker color (primary)"
-                      messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
-                    />
-                    <ColorPicker
-                      label="Dial marker color (secondary)"
-                      messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
-                    />
-                    <ColorPicker
-                      label="Ring outline color"
-                      messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
-                    />
-                    <ColorPicker
-                      label="Ring day section color"
-                      messageKey="SETTING_NIGHT_RING_DAY_COLOR"
-                    />
-                    <ColorPicker
-                      label="Ring night section color"
-                      messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
-                    />
-                    <ColorPicker
-                      label="Ring sunrise section color"
-                      messageKey="SETTING_NIGHT_RING_SUNRISE_COLOR"
-                    />
-                    <ColorPicker
-                      label="Ring sunset section color"
-                      messageKey="SETTING_NIGHT_RING_SUNSET_COLOR"
-                    />
-                    <ColorPicker
-                      label="Sun outline color"
-                      messageKey="SETTING_NIGHT_SUN_STROKE_COLOR"
-                    />
-                    <ColorPicker
-                      label="Sun fill color"
-                      messageKey="SETTING_NIGHT_SUN_FILL_COLOR"
-                    />
-                  </>
-                )}
+                <ColorPicker
+                  label="Time color"
+                  messageKey="SETTING_NIGHT_TIME_COLOR"
+                />
+                <ColorPicker
+                  label="Widget text color (primary)"
+                  messageKey="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR"
+                />
+                <ColorPicker
+                  label="Widget text color (secondary)"
+                  messageKey="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR"
+                />
+                <ColorPicker
+                  label="Dial marker color (primary)"
+                  messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
+                />
+                <ColorPicker
+                  label="Dial marker color (secondary)"
+                  messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
+                />
+                <ColorPicker
+                  label="Ring outline color"
+                  messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
+                />
+                <ColorPicker
+                  label="Ring day section color"
+                  messageKey="SETTING_NIGHT_RING_DAY_COLOR"
+                />
+                <ColorPicker
+                  label="Ring night section color"
+                  messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
+                />
+                <ColorPicker
+                  label="Ring sunrise section color"
+                  messageKey="SETTING_NIGHT_RING_SUNRISE_COLOR"
+                />
+                <ColorPicker
+                  label="Ring sunset section color"
+                  messageKey="SETTING_NIGHT_RING_SUNSET_COLOR"
+                />
+                <ColorPicker
+                  label="Sun outline color"
+                  messageKey="SETTING_NIGHT_SUN_STROKE_COLOR"
+                />
+                <ColorPicker
+                  label="Sun fill color"
+                  messageKey="SETTING_NIGHT_SUN_FILL_COLOR"
+                />
               </>
             )}
-          </>)}
+          </>
+        )}
       </Section>
       <Section title="General">
         <Toggle
@@ -214,6 +204,6 @@ export const SettingsPage: React.FC = () => {
           ]}
         />
       </Section>
-    </Page>
+    </Page >
   );
 };
