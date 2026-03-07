@@ -1,5 +1,5 @@
-{
-  "default": {
+[
+  {
     "name": "Solar Day (Default)",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -17,7 +17,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF00"
     }
   },
-  "solarnight": {
+  {
     "name": "Solar Night",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
@@ -35,7 +35,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFFFF"
     }
   },
-  "orangedreams": {
+  {
     "name": "Orange Dreams",
     "settings": {
       "SETTING_TIME_COLOR": "FF5500",
@@ -53,7 +53,7 @@
       "SETTING_SUN_FILL_COLOR": "FF5500"
     }
   },
-  "terminalgreen": {
+  {
     "name": "Terminal Green",
     "settings": {
       "SETTING_TIME_COLOR": "00FF00",
@@ -71,7 +71,7 @@
       "SETTING_SUN_FILL_COLOR": "00FF00"
     }
   },
-  "lightoceantheme": {
+  {
     "name": "Winter Skies",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -89,7 +89,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFFFF"
     }
   },
-  "luxurytheme": {
+  {
     "name": "Jazzberry Explosion",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -107,7 +107,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF00"
     }
   },
-  "test2": {
+  {
     "name": "Verdancy",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -125,7 +125,7 @@
       "SETTING_SUN_FILL_COLOR": "FFAAAA"
     }
   },
-  "mauvetheme": {
+  {
     "name": "Mauve Alert",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
@@ -143,7 +143,7 @@
       "SETTING_SUN_FILL_COLOR": "FFAAFF"
     }
   },
-  "fireworktheme": {
+  {
     "name": "Firework",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
@@ -161,7 +161,7 @@
       "SETTING_SUN_FILL_COLOR": "FFAA00"
     }
   },
-  "rosetheme": {
+  {
     "name": "Into the Woods",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
@@ -179,7 +179,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF55"
     }
   },
-  "oceantheme": {
+  {
     "name": "Luxury",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
@@ -197,7 +197,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF55"
     }
   },
-  "sandtheme": {
+  {
     "name": "Under the Sea",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
@@ -215,7 +215,7 @@
       "SETTING_SUN_FILL_COLOR": "00FFFF"
     }
   },
-  "test3": {
+  {
     "name": "Thunder Wave",
     "settings": {
       "SETTING_TIME_COLOR": "FFFF00",
@@ -233,7 +233,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF00"
     }
   },
-  "test4": {
+  {
     "name": "Autumn Leaves",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -251,7 +251,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFFAA"
     }
   },
-  "testtheme2": {
+  {
     "name": "Pine needles",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -269,7 +269,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFFAA"
     }
   },
-  "testx122": {
+  {
     "name": "Breakfast Blend",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -287,7 +287,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFFFF"
     }
   },
-  "test122": {
+  {
     "name": "Nightshade",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -305,7 +305,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF55"
     }
   },
-  "test52": {
+  {
     "name": "Spring Blossom",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -323,7 +323,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF55"
     }
   },
-  "test2323": {
+  {
     "name": "Ocean Pier",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
@@ -341,7 +341,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFF55"
     }
   },
-  "greytheme": {
+  {
     "name": "Monochrome",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
@@ -359,7 +359,7 @@
       "SETTING_SUN_FILL_COLOR": "FFFFFF"
     }
   },
-  "userteal1": {
+  {
     "name": "Minimal Teal",
     "settings": {
       "SETTING_TIME_COLOR": "00AAAA",
@@ -377,4 +377,4 @@
       "SETTING_SUN_FILL_COLOR": "FFFF55"
     }
   }
-}
+]

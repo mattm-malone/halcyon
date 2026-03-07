@@ -1,5 +1,5 @@
-{
-  "default": {
+[
+  {
     "name": "Default",
     "settings": {
       "SETTING_NIGHT_TIME_COLOR": "000000",
@@ -17,7 +17,7 @@
       "SETTING_NIGHT_SUN_FILL_COLOR": "FFFFFF"
     }
   },
-  "bwTheme2": {
+  {
     "name": "BW Theme 2",
     "settings": {
       "SETTING_NIGHT_TIME_COLOR": "FFFFFF",
@@ -35,7 +35,7 @@
       "SETTING_NIGHT_SUN_FILL_COLOR": "FFFFFF"
     }
   },
-  "bwTheme3": {
+  {
     "name": "BW Theme 3",
     "settings": {
       "SETTING_NIGHT_TIME_COLOR": "000000",
@@ -53,7 +53,7 @@
       "SETTING_NIGHT_SUN_FILL_COLOR": "FFFFFF"
     }
   },
-  "bwTheme4": {
+  {
     "name": "BW Theme 4",
     "settings": {
       "SETTING_NIGHT_TIME_COLOR": "FFFFFF",
@@ -71,4 +71,4 @@
       "SETTING_NIGHT_SUN_FILL_COLOR": "FFFFFF"
     }
   }
-}
+]

@@ -10,7 +10,7 @@ import customIconUrl from '../assets/custom-icon.svg';
 export const ThemePicker: React.FC<{
   label?: string;
   messageKey: keyof Settings;
-  themes: Record<string, { name: string; settings: Record<string, string> }>;
+  themes: { name: string; settings: Record<string, string> }[];
   watchPreviewProps?: Partial<WatchPreviewProps>;
   savedThemes?: SavedTheme[];
 }> = ({ label, messageKey, themes, watchPreviewProps, savedThemes = [] }) => {
@@ -31,7 +31,7 @@ export const ThemePicker: React.FC<{
       return;
     }
 
-    const theme = themes[themeId];
+    const theme = themes[parseInt(themeId, 10)];
     if (theme) {
       Object.entries(theme.settings).forEach(([key, value]) => {
         updateSetting(key, value);
@@ -47,8 +47,8 @@ export const ThemePicker: React.FC<{
       settings: t.settings,
       isSaved: true,
     })),
-    ...Object.entries(themes).map(([id, theme]) => ({
-      id,
+    ...themes.map((theme, index) => ({
+      id: index.toString(),
       name: theme.name,
       settings: theme.settings,
       isSaved: false,
