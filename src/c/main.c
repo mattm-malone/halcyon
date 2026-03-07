@@ -3,16 +3,16 @@
 // #define USE_FAKE_TIME
 // #define FORCE_BACKLIGHT
 
+#include "drawUtils.h"
 #include "messaging.h"
 #include "settings.h"
 #include "solarUtils.h"
-#include "utils.h"
-#include "drawUtils.h"
 #include "text_metrics.h"
+#include "utils.h"
+#include "widgets.h"
 
 #define FORCE_12H false
 #define TIME_STR_LEN 6
-#define DATE_STR_LEN 25
 
 // windows and layers
 static Window *mainWindow;
@@ -22,95 +22,186 @@ static Layer *centerLayer;
 static Layer *ringLayer;
 static Layer *infoLayer;
 
-// long-lived strings
+// Time string (populated each tick)
 static char timeText[TIME_STR_LEN];
-static char dateText[DATE_STR_LEN];
+
+// ============================================================
+// Slot descriptor — one per visible row in the layout
+// ============================================================
+typedef struct {
+  const char *text;
+  GFont font;
+  int height; // true pixel height from metrics
+  int offset; // top dead-space offset from metrics
+  GColor color;
+} SlotDescriptor;
+
+// Buffer storage for each of the 4 widget slots
+static char widgetTextUS[WIDGET_TEXT_LEN]; // upper secondary
+static char widgetTextUP[WIDGET_TEXT_LEN]; // upper primary
+static char widgetTextLP[WIDGET_TEXT_LEN]; // lower primary
+static char widgetTextLS[WIDGET_TEXT_LEN]; // lower secondary
 
 static void draw_center_text(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
-  bool useLargeFontSetting = globalSettings.useLargeFonts;
+  bool useLargeFont = globalSettings.useLargeFonts;
 
-  // Get current time in minutes since midnight
-  struct tm *timeInfo = getCurrentTime();
-  int currentMinutes = timeInfo->tm_hour * 60 + timeInfo->tm_min;
+  bool useNightColors = false;
+  if (globalSettings.useNightTheme) {
+    struct tm *timeInfo = getCurrentTime();
+    int currentMinutes = timeInfo->tm_hour * 60 + timeInfo->tm_min;
+    useNightColors = isNightTime(currentMinutes);
+  }
 
-  bool useNightColors = globalSettings.useNightTheme && isNightTime(currentMinutes);
+  // ---- Font selection ----
+  GFont time_font = fonts_get_system_font(useLargeFont ? FONT_TIME_LARGE
+                                                       : FONT_TIME_STANDARD);
+  int time_height =
+      useLargeFont ? FONT_TIME_LARGE_HEIGHT : FONT_TIME_STANDARD_HEIGHT;
+  int time_offset =
+      useLargeFont ? FONT_TIME_LARGE_OFFSET : FONT_TIME_STANDARD_OFFSET;
 
-  GFont time_font = fonts_get_system_font(useLargeFontSetting ? FONT_TIME_LARGE : FONT_TIME_STANDARD);
-  GFont date_font = fonts_get_system_font(useLargeFontSetting ? FONT_DATE_LARGE : FONT_DATE_STANDARD);
+  GFont primary_font = fonts_get_system_font(FONT_WIDGET_PRIMARY);
+  int primary_height = FONT_WIDGET_PRIMARY_HEIGHT;
+  int primary_offset = FONT_WIDGET_PRIMARY_OFFSET;
 
-  int time_height = useLargeFontSetting ? FONT_TIME_LARGE_HEIGHT : FONT_TIME_STANDARD_HEIGHT;
-  int time_offset = useLargeFontSetting ? FONT_TIME_LARGE_OFFSET : FONT_TIME_STANDARD_OFFSET;
+  GFont secondary_font = fonts_get_system_font(FONT_WIDGET_SECONDARY);
+  int secondary_height = FONT_WIDGET_SECONDARY_HEIGHT;
+  int secondary_offset = FONT_WIDGET_SECONDARY_OFFSET;
 
-  int date_height = useLargeFontSetting ? FONT_DATE_LARGE_HEIGHT : FONT_DATE_STANDARD_HEIGHT;
-  int date_offset = useLargeFontSetting ? FONT_DATE_LARGE_OFFSET : FONT_DATE_STANDARD_OFFSET;
+  // ---- Color selection ----
+  GColor timeColor =
+      useNightColors ? globalSettings.nightTimeColor : globalSettings.timeColor;
+  GColor primaryColor = useNightColors ? globalSettings.nightSubtextPrimaryColor
+                                       : globalSettings.subtextPrimaryColor;
+  GColor secondaryColor = useNightColors
+                              ? globalSettings.nightSubtextSecondaryColor
+                              : globalSettings.subtextSecondaryColor;
 
-  int total_height = time_height + LINE_PADDING + date_height;
-  int start_y = (bounds.size.h - total_height) / 2;
+  // ---- Build ordered slot list (top to bottom) ----
+  // We use a fixed-size array and fill only active (non-empty) slots.
+#define MAX_SLOTS 5
+  SlotDescriptor slots[MAX_SLOTS];
+  int num_slots = 0;
 
-  // Turn these on to debug graphics layout
-  //  graphics_context_set_fill_color(ctx, GColorRed);
-  // graphics_fill_rect(ctx, GRect(0, start_y, bounds.size.w, time_height), 0, GCornerNone);
-  //    graphics_context_set_fill_color(ctx, GColorGreen);
-  // graphics_fill_rect(ctx, GRect(0, start_y + time_height + LINE_PADDING, bounds.size.w, date_height), 0, GCornerNone);
+// Helper macro to push a slot
+#define PUSH_SLOT(txt, fnt, h, off, col)                                       \
+  do {                                                                         \
+    slots[num_slots].text = (txt);                                             \
+    slots[num_slots].font = (fnt);                                             \
+    slots[num_slots].height = (h);                                             \
+    slots[num_slots].offset = (off);                                           \
+    slots[num_slots].color = (col);                                            \
+    num_slots++;                                                               \
+  } while (0)
 
+  // Upper secondary (topmost)
+  if (globalSettings.widgetUpperSecondary != WIDGET_NONE) {
+    widget_get_text((WidgetType)globalSettings.widgetUpperSecondary,
+                    widgetTextUS, WIDGET_TEXT_LEN);
+    if (widgetTextUS[0] != '\0') {
+      PUSH_SLOT(widgetTextUS, secondary_font, secondary_height,
+                secondary_offset, secondaryColor);
+    }
+  }
 
-  GColor timeColor = useNightColors ? globalSettings.nightTimeColor : globalSettings.timeColor;
-  GColor dateColor = useNightColors ? globalSettings.nightSubtextPrimaryColor : globalSettings.subtextPrimaryColor;
+  // Upper primary
+  if (globalSettings.widgetUpperPrimary != WIDGET_NONE) {
+    widget_get_text((WidgetType)globalSettings.widgetUpperPrimary, widgetTextUP,
+                    WIDGET_TEXT_LEN);
+    if (widgetTextUP[0] != '\0') {
+      PUSH_SLOT(widgetTextUP, primary_font, primary_height, primary_offset,
+                primaryColor);
+    }
+  }
 
-  graphics_context_set_text_color(ctx, timeColor);
-  graphics_draw_text(ctx, timeText, time_font,
-                    GRect(0, start_y - time_offset, bounds.size.w, time_height),
-                    GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
+  // Time (always present)
+  PUSH_SLOT(timeText, time_font, time_height, time_offset, timeColor);
 
+  // Lower primary
+  if (globalSettings.widgetLowerPrimary != WIDGET_NONE) {
+    widget_get_text((WidgetType)globalSettings.widgetLowerPrimary, widgetTextLP,
+                    WIDGET_TEXT_LEN);
+    if (widgetTextLP[0] != '\0') {
+      PUSH_SLOT(widgetTextLP, primary_font, primary_height, primary_offset,
+                primaryColor);
+    }
+  }
 
-  graphics_context_set_text_color(ctx, dateColor);
-  graphics_draw_text(ctx, dateText, date_font,
-                    GRect(0, start_y + time_height + LINE_PADDING - date_offset, bounds.size.w, date_height),
-                    GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
+  // Lower secondary (bottommost)
+  if (globalSettings.widgetLowerSecondary != WIDGET_NONE) {
+    widget_get_text((WidgetType)globalSettings.widgetLowerSecondary,
+                    widgetTextLS, WIDGET_TEXT_LEN);
+    if (widgetTextLS[0] != '\0') {
+      PUSH_SLOT(widgetTextLS, secondary_font, secondary_height,
+                secondary_offset, secondaryColor);
+    }
+  }
+
+#undef PUSH_SLOT
+#undef MAX_SLOTS
+
+  // ---- Compute total height (with padding between each slot) ----
+  int total_height = 0;
+  for (int i = 0; i < num_slots; i++) {
+    total_height += slots[i].height;
+    if (i < num_slots - 1) {
+      total_height += LINE_PADDING;
+    }
+  }
+
+  // ---- Vertically center the block ----
+  int y = (bounds.size.h - total_height) / 2;
+
+  // ---- Draw each slot ----
+  for (int i = 0; i < num_slots; i++) {
+    SlotDescriptor *s = &slots[i];
+    graphics_context_set_text_color(ctx, s->color);
+    graphics_draw_text(ctx, s->text, s->font,
+                       GRect(0, y - s->offset, bounds.size.w, s->height),
+                       GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter,
+                       NULL);
+    y += s->height + LINE_PADDING;
+  }
 }
 
-// Resize literally everything on quick view 
+// Resize literally everything on quick view
 static void quickViewLayerReposition() {
   GRect full_bounds = layer_get_bounds(windowLayer);
   GRect bounds = layer_get_unobstructed_bounds(windowLayer);
 
-  // Resize the shifting and center layer based on the current unobstructed bounds
-  layer_set_frame(shiftingLayer, GRect(0, 0, full_bounds.size.w, bounds.size.h));
+  // Resize the shifting and center layer based on the current unobstructed
+  // bounds
+  layer_set_frame(shiftingLayer,
+                  GRect(0, 0, full_bounds.size.w, bounds.size.h));
   layer_set_frame(ringLayer, GRect(0, 0, full_bounds.size.w, bounds.size.h));
 
-  GRect centerFrame = GRect(
-    EDGE_THICKNESS, EDGE_THICKNESS,
-    full_bounds.size.w - 2 * EDGE_THICKNESS,
-    bounds.size.h - 2 * EDGE_THICKNESS);
+  GRect centerFrame = GRect(EDGE_THICKNESS, EDGE_THICKNESS,
+                            full_bounds.size.w - 2 * EDGE_THICKNESS,
+                            bounds.size.h - 2 * EDGE_THICKNESS);
   layer_set_frame(centerLayer, centerFrame);
 
   // Resize the infoLayer to match the new centerLayer
-  layer_set_frame(infoLayer, GRect(0, 0, centerFrame.size.w, centerFrame.size.h));
+  layer_set_frame(infoLayer,
+                  GRect(0, 0, centerFrame.size.w, centerFrame.size.h));
 
   // Mark everything as dirty to redraw
   layer_mark_dirty(ringLayer);
   layer_mark_dirty(centerLayer);
 }
 
-
-
 static void update_clock() {
   struct tm *timeInfo = getCurrentTime();
 
   // set time string
   if (clock_is_24h_style() && !FORCE_12H) {
-    // use 24 hour format
     strftime(timeText, TIME_STR_LEN, "%H:%M", timeInfo);
   } else {
-    // use 12 hour format
     strftime(timeText, TIME_STR_LEN, "%I:%M", timeInfo);
   }
 
   if (!globalSettings.showLeadingZero) {
-    // now trim leading 0's
     if (timeText[0] == '0') {
-      // shuffle everyone back by 1
       for (int i = 0; i < TIME_STR_LEN; i++) {
         timeText[i] = timeText[i + 1];
       }
@@ -118,14 +209,12 @@ static void update_clock() {
   }
 
   // ensure colors are updated based on settings
-  window_set_background_color(mainWindow, getCurrentColorTheme().ringStrokeColor);
+  window_set_background_color(mainWindow,
+                              getCurrentColorTheme().ringStrokeColor);
 
-  // display the date
-  strftime(dateText, DATE_STR_LEN, "%a, %b %e", timeInfo);
-  to_uppercase(dateText);
-  
   // if sunrise/sunset has not yet been calculated, do that
-  if(currentSolarInfo.sunriseMinute == 0 && currentSolarInfo.sunriseMinute == 0) {
+  if (currentSolarInfo.sunriseMinute == 0 &&
+      currentSolarInfo.sunriseMinute == 0) {
     solarUtils_recalculateSolarData();
   }
 
@@ -136,15 +225,16 @@ static void update_clock() {
 
 // settings might have changed, so recalculate solar data and refresh screen
 void onSettingsChanged() {
-    solarUtils_recalculateSolarData();
+  solarUtils_recalculateSolarData();
 
-    APP_LOG(APP_LOG_LEVEL_INFO, "I guess settings changed");
-    
-    update_clock();
+  APP_LOG(APP_LOG_LEVEL_INFO, "I guess settings changed");
+
+  update_clock();
 }
 
 // Event fires frequently, while obstruction is appearing or disappearing
-static void onUnobstructedAreaChange(AnimationProgress progress, void *context) {
+static void onUnobstructedAreaChange(AnimationProgress progress,
+                                     void *context) {
   quickViewLayerReposition();
 }
 
@@ -181,10 +271,9 @@ static void main_window_load(Window *window) {
   layer_add_child(shiftingLayer, ringLayer);
 
   // subscribe to the unobstructed area events
-  UnobstructedAreaHandlers handlers = {
-    .change = onUnobstructedAreaChange,
-    .did_change = onUnobstructedAreaDidChange
-  };
+  UnobstructedAreaHandlers handlers = {.change = onUnobstructedAreaChange,
+                                       .did_change =
+                                           onUnobstructedAreaDidChange};
   unobstructed_area_service_subscribe(handlers, NULL);
 
   // just in case quick view is open on load
@@ -206,9 +295,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void init() {
-  #ifdef FORCE_BACKLIGHT
+#ifdef FORCE_BACKLIGHT
   light_enable(true);
-  #endif
+#endif
 
   // load those settings
   Settings_init();
@@ -228,7 +317,6 @@ static void init() {
 
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-  // tick_timer_service_subscribe(DAY_UNIT, day_tick_handler);
 }
 
 static void deinit() { window_destroy(mainWindow); }

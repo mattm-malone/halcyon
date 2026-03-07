@@ -15,7 +15,7 @@ void messaging_init(void (*processed_callback)(void)) {
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
 
-  app_message_open(512, 8);
+  app_message_open(640, 8);
 }
 
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
@@ -104,12 +104,21 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 
   Tuple *useLargeFonts_tuple =
       dict_find(iterator, MESSAGE_KEY_SETTING_USE_LARGE_FONTS);
-  
+
   Tuple *showLeadingZero_tuple =
       dict_find(iterator, MESSAGE_KEY_SETTING_SHOW_LEADING_ZERO);
 
-        Tuple *pipVisibility_tuple =
+  Tuple *pipVisibility_tuple =
       dict_find(iterator, MESSAGE_KEY_SETTING_PIP_VISIBILITY);
+
+  Tuple *widgetUpperSecondary_tuple =
+      dict_find(iterator, MESSAGE_KEY_SETTING_WIDGET_UPPER_SECONDARY);
+  Tuple *widgetUpperPrimary_tuple =
+      dict_find(iterator, MESSAGE_KEY_SETTING_WIDGET_UPPER_PRIMARY);
+  Tuple *widgetLowerPrimary_tuple =
+      dict_find(iterator, MESSAGE_KEY_SETTING_WIDGET_LOWER_PRIMARY);
+  Tuple *widgetLowerSecondary_tuple =
+      dict_find(iterator, MESSAGE_KEY_SETTING_WIDGET_LOWER_SECONDARY);
 
   if (timeColor_tuple != NULL) {
     globalSettings.timeColor = GColorFromHEX(timeColor_tuple->value->int32);
@@ -251,11 +260,29 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   if (pipVisibility_tuple != NULL) {
     APP_LOG(APP_LOG_LEVEL_INFO, "Received pipVisibility: %d",
             (int)pipVisibility_tuple->value->int8);
-    globalSettings.pipVisibility = (PipVisibilityType)pipVisibility_tuple->value->int8;
+    globalSettings.pipVisibility =
+        (PipVisibilityType)pipVisibility_tuple->value->int8;
   }
 
-  if(showLeadingZero_tuple != NULL) {
+  if (showLeadingZero_tuple != NULL) {
     globalSettings.showLeadingZero = (bool)showLeadingZero_tuple->value->int8;
+  }
+
+  if (widgetUpperSecondary_tuple != NULL) {
+    globalSettings.widgetUpperSecondary =
+        (uint8_t)widgetUpperSecondary_tuple->value->int8;
+  }
+  if (widgetUpperPrimary_tuple != NULL) {
+    globalSettings.widgetUpperPrimary =
+        (uint8_t)widgetUpperPrimary_tuple->value->int8;
+  }
+  if (widgetLowerPrimary_tuple != NULL) {
+    globalSettings.widgetLowerPrimary =
+        (uint8_t)widgetLowerPrimary_tuple->value->int8;
+  }
+  if (widgetLowerSecondary_tuple != NULL) {
+    globalSettings.widgetLowerSecondary =
+        (uint8_t)widgetLowerSecondary_tuple->value->int8;
   }
 
   Settings_saveToStorage();

@@ -1,4 +1,5 @@
 #pragma once
+#include "widgets.h"
 #include <pebble.h>
 #include <sys/syslimits.h>
 
@@ -135,6 +136,12 @@ typedef struct {
   bool useLargeFonts;
   bool showLeadingZero;
   PipVisibilityType pipVisibility;
+
+  // Widget slots (stored as WidgetType enum values)
+  uint8_t widgetUpperSecondary; // WidgetType for upper secondary slot
+  uint8_t widgetUpperPrimary;   // WidgetType for upper primary slot
+  uint8_t widgetLowerPrimary;   // WidgetType for lower primary slot
+  uint8_t widgetLowerSecondary; // WidgetType for lower secondary slot
 } Settings;
 
 typedef struct {
@@ -175,6 +182,12 @@ typedef struct {
   bool showLeadingZero;
 
   PipVisibilityType pipVisibility;
+
+  // Widget slots
+  uint8_t widgetUpperSecondary;
+  uint8_t widgetUpperPrimary;
+  uint8_t widgetLowerPrimary;
+  uint8_t widgetLowerSecondary;
 } StoredSettings;
 
 extern Settings globalSettings;

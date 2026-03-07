@@ -44,18 +44,24 @@ void Settings_loadFromStorage() {
   globalSettings.nightSunStrokeColor = DEFAULT_NIGHT_SUN_STROKE_COLOR;
   globalSettings.nightSunFillColor = DEFAULT_NIGHT_SUN_FILL_COLOR;
 
-   // various appearance settings
-   globalSettings.useNightTheme = false;
-   globalSettings.useLargeFonts = false;
-   globalSettings.showLeadingZero = false;
-   globalSettings.pipVisibility = PIP_SHOW_ALL;
+  // various appearance settings
+  globalSettings.useNightTheme = false;
+  globalSettings.useLargeFonts = false;
+  globalSettings.showLeadingZero = false;
+  globalSettings.pipVisibility = PIP_SHOW_ALL;
 
-   if (persist_exists(SETTINGS_PERSIST_KEY)) {
-     StoredSettings storedSettings;
-     persist_read_data(SETTINGS_PERSIST_KEY, &storedSettings,
-                       sizeof(StoredSettings));
-     memcpy(&globalSettings, &storedSettings, sizeof(StoredSettings));
-   }
+  // widget slot defaults — match the original layout (time + date below)
+  globalSettings.widgetUpperSecondary = WIDGET_NONE;
+  globalSettings.widgetUpperPrimary = WIDGET_NONE;
+  globalSettings.widgetLowerPrimary = WIDGET_DATE;
+  globalSettings.widgetLowerSecondary = WIDGET_NONE;
+
+  if (persist_exists(SETTINGS_PERSIST_KEY)) {
+    StoredSettings storedSettings;
+    persist_read_data(SETTINGS_PERSIST_KEY, &storedSettings,
+                      sizeof(StoredSettings));
+    memcpy(&globalSettings, &storedSettings, sizeof(StoredSettings));
+  }
 
   Settings_updateDynamicSettings();
 }
@@ -117,7 +123,8 @@ ColorTheme getCurrentColorTheme() {
 
   bool useNight = globalSettings.useNightTheme && isNightTime(currentMinutes);
 
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "getCurrentColorTheme: useNightTheme=%d, useNight=%d", 
+  APP_LOG(APP_LOG_LEVEL_DEBUG,
+          "getCurrentColorTheme: useNightTheme=%d, useNight=%d",
           globalSettings.useNightTheme, useNight);
 
   if (useNight) {
