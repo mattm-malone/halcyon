@@ -34,6 +34,7 @@ export const SettingsPage: React.FC = () => {
           messageKey="SETTING_THEME"
           themes={activeThemes}
           savedThemes={daySavedThemes.savedThemes}
+          label='Theme preset'
         />
         {isCustomOrSaved(settings.SETTING_THEME) && (
           <>
@@ -116,6 +117,7 @@ export const SettingsPage: React.FC = () => {
           <>
             <ThemePicker
               messageKey="SETTING_NIGHT_THEME"
+              label='Night theme preset'
               themes={activeNightThemes}
               watchPreviewProps={{ isNight: true }}
               savedThemes={nightSavedThemes.savedThemes}
@@ -194,17 +196,16 @@ export const SettingsPage: React.FC = () => {
       </Section>
       <Section title="General">
         <Toggle
-          label="Use Large Fonts"
-          description="Increase text size for better readability"
+          label="Use larger fonts"
           messageKey="SETTING_USE_LARGE_FONTS"
         />
         <Toggle
-          label="Show Leading Zero"
+          label="Show leading zero"
           description="Display time as 09:30 instead of 9:30"
           messageKey="SETTING_SHOW_LEADING_ZERO"
         />
         <Select
-          label="Dial Markings"
+          label="Dial markings"
           messageKey="SETTING_PIP_VISIBILITY"
           options={[
             { label: 'All (Every Hour)', value: 0 },

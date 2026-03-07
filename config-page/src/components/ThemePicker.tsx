@@ -9,12 +9,11 @@ import customIconUrl from '../assets/custom-icon.svg';
 
 export const ThemePicker: React.FC<{
   label?: string;
-  description?: string;
   messageKey: keyof Settings;
   themes: Record<string, { name: string; settings: Record<string, string> }>;
   watchPreviewProps?: Partial<WatchPreviewProps>;
   savedThemes?: SavedTheme[];
-}> = ({ label, description, messageKey, themes, watchPreviewProps, savedThemes = [] }) => {
+}> = ({ label, messageKey, themes, watchPreviewProps, savedThemes = [] }) => {
   const { settings, updateSetting } = useConfig();
   const currentValue = settings[messageKey];
 
@@ -57,7 +56,7 @@ export const ThemePicker: React.FC<{
   ], [themes, savedThemes]);
 
   return (
-    <FormItem label={label} description={description} className="pebble-theme-picker">
+    <FormItem className="pebble-theme-picker">
       <GridList
         items={themeList}
         selectionMode="single"
