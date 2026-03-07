@@ -1,7 +1,7 @@
-const USE_SERVER_CONFIG = true;
-// const configDataUri = require('./configDataUri.js');
-// const configLocalUri = 'http://localhost:3000/config.html';
-const configLocalUri = 'http://10.25.219.3:3000/config.html';
+
+const USE_LOCAL_CONFIG = false;
+const configDataUri = 'https://freakified.github.io/halcyon';
+const configLocalUri = 'http://localhost:3000/config.html';
 
 function locationError(err) {
   console.log('location error on the JS side :-(');
@@ -46,7 +46,7 @@ Pebble.addEventListener('ready',
 );
 
 Pebble.addEventListener('showConfiguration', function () {
-  var url = USE_SERVER_CONFIG ? configLocalUri : configDataUri;
+  var url = USE_LOCAL_CONFIG ? configLocalUri : configDataUri;
 
   var watchInfo = Pebble.getActiveWatchInfo();
   url += (url.indexOf('?') === -1 ? '?' : '&') + 'watchInfo=' + encodeURIComponent(JSON.stringify({
