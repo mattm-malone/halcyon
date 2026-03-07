@@ -45,10 +45,6 @@ export const SettingsPage: React.FC = () => {
         {settings.SETTING_THEME === 'custom' && (
           <>
             <ColorPicker
-              label="Background color"
-              messageKey="SETTING_BG_COLOR"
-            />
-            <ColorPicker
               label="Time color"
               messageKey="SETTING_TIME_COLOR"
             />
@@ -61,6 +57,26 @@ export const SettingsPage: React.FC = () => {
               messageKey="SETTING_SUBTEXT_SECONDARY_COLOR"
             />
             <ColorPicker
+              label="Background color"
+              messageKey="SETTING_BG_COLOR"
+            />
+            <ColorPicker
+              label="Ring day section color"
+              messageKey="SETTING_RING_DAY_COLOR"
+            />
+            <ColorPicker
+              label="Ring sunrise section color"
+              messageKey="SETTING_RING_SUNRISE_COLOR"
+            />
+            <ColorPicker
+              label="Ring sunset section color"
+              messageKey="SETTING_RING_SUNSET_COLOR"
+            />
+            <ColorPicker
+              label="Ring night section color"
+              messageKey="SETTING_RING_NIGHT_COLOR"
+            />
+            <ColorPicker
               label="Dial marker color (primary)"
               messageKey="SETTING_PIP_COLOR_PRIMARY"
             />
@@ -71,22 +87,6 @@ export const SettingsPage: React.FC = () => {
             <ColorPicker
               label="Ring outline color"
               messageKey="SETTING_RING_STROKE_COLOR"
-            />
-            <ColorPicker
-              label="Ring day section color"
-              messageKey="SETTING_RING_DAY_COLOR"
-            />
-            <ColorPicker
-              label="Ring night section color"
-              messageKey="SETTING_RING_NIGHT_COLOR"
-            />
-            <ColorPicker
-              label="Ring sunrise section color"
-              messageKey="SETTING_RING_SUNRISE_COLOR"
-            />
-            <ColorPicker
-              label="Ring sunset section color"
-              messageKey="SETTING_RING_SUNSET_COLOR"
             />
             <ColorPicker
               label="Sun outline color"
