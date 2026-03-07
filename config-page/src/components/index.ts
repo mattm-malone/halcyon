@@ -6,3 +6,5 @@ export * from './ColorPicker';
 export * from './Select';
 export * from './ThemePicker';
 export * from './WatchPreview';
+export * from './CustomThemePanel';
+export * from './ImportThemeModal';

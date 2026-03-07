@@ -1,0 +1,154 @@
+import React, { useState } from 'react';
+import { Button } from 'react-aria-components';
+import { WatchPreview, WatchPreviewProps } from './WatchPreview';
+import { ImportThemeModal } from './ImportThemeModal';
+import { SavedTheme } from '../hooks/useSavedThemes';
+import { useConfig } from '../context/PebbleConfigContext';
+import { Settings } from '../context/types';
+import { copyToClipboard } from '../utils/clipboard';
+
+interface CustomThemePanelProps {
+    /** The currently selected theme ID */
+    themeId: string;
+    /** The saved theme object, if a saved theme is selected */
+    savedTheme?: SavedTheme;
+    /** Props forwarded to WatchPreview */
+    watchPreviewProps?: Partial<WatchPreviewProps>;
+    /** Called to save current settings as a new theme */
+    onSave: (settings: Settings) => SavedTheme;
+    /** Called to delete a saved theme */
+    onDelete: (id: string) => void;
+    /** Called to import a theme from JSON */
+    onImport: (json: string) => { success: boolean; error?: string };
+    /** Called to export a theme to JSON string */
+    onExport: (settings: Record<string, string>) => string;
+    /** Called when themes change and we need to select a new one */
+    onSelectTheme: (themeId: string) => void;
+}
+
+const ICONS = {
+    SAVE: 'm352-293 128-76 129 76-34-144 111-95-147-13-59-137-59 137-147 13 112 95zM243-144l63-266L96-589l276-24 108-251 108 252 276 23-210 179 63 266-237-141zm237-333',
+    SHARE: 'M360-240q-29.7 0-50.85-21.15T288-312v-480q0-29.7 21.15-50.85T360-864h384q29.7 0 50.85 21.15T816-792v480q0 29.7-21.15 50.85T744-240zm0-72h384v-480H360zM216-96q-29.7 0-50.85-21.15T144-168v-552h72v552h456v72zm144-216v-480z',
+    IMPORT: 'M444-336v-342L339-573l-51-51 192-192 192 192-51 51-105-105v342zM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85T695.96-192z',
+    DELETE: 'M312-144q-29.7 0-50.85-21.15T240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144zm336-552H312v480h336zM384-288h72v-336h-72zm120 0h72v-336h-72zM312-696v480z',
+};
+
+const Icon: React.FC<{ path: string }> = ({ path }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 -960 960 960">
+        <path d={path} />
+    </svg>
+);
+
+export const CustomThemePanel: React.FC<CustomThemePanelProps> = ({
+    themeId,
+    savedTheme,
+    watchPreviewProps,
+    onSave,
+    onDelete,
+    onImport,
+    onExport,
+    onSelectTheme,
+}) => {
+    const { settings } = useConfig();
+    const [importOpen, setImportOpen] = useState(false);
+    const [copyFeedback, setCopyFeedback] = useState(false);
+
+    const isCustom = themeId === 'custom';
+    const isSaved = !!savedTheme;
+
+    const handleSave = () => {
+        const theme = onSave(settings);
+        onSelectTheme(theme.id);
+    };
+
+    const handleShare = async () => {
+        const settingsToExport = isSaved ? savedTheme!.settings : getVisibleSettings();
+        const json = onExport(settingsToExport);
+        const success = await copyToClipboard(json);
+        if (success) {
+            setCopyFeedback(true);
+            setTimeout(() => setCopyFeedback(false), 2000);
+        } else {
+            // Ultimate fallback
+            prompt('Copy this theme JSON:', json);
+        }
+    };
+
+    const handleDelete = () => {
+        if (savedTheme) {
+            onDelete(savedTheme.id);
+            onSelectTheme('custom');
+        }
+    };
+
+    const handleImport = (json: string) => {
+        const result = onImport(json);
+        if (result.success) {
+            // The imported theme is now in the list
+        }
+        return result;
+    };
+
+    /** Extract color settings from the current live settings */
+    const getVisibleSettings = (): Record<string, string> => {
+        const colorSettings: Record<string, string> = {};
+        const keys = Object.keys(settings).filter(
+            (k) => k.startsWith('SETTING_') && k.includes('COLOR')
+        );
+        // Filter by night/day based on watchPreviewProps
+        const isNight = watchPreviewProps?.isNight;
+        for (const key of keys) {
+            const isNightKey = key.startsWith('SETTING_NIGHT_');
+            if (isNight ? isNightKey : !isNightKey) {
+                colorSettings[key] = String(settings[key as keyof Settings]);
+            }
+        }
+        return colorSettings;
+    };
+
+    return (
+        <div className="pebble-custom-panel">
+            <div className="pebble-custom-panel-preview">
+                <WatchPreview
+                    overrideSettings={isSaved ? savedTheme!.settings : undefined}
+                    {...watchPreviewProps}
+                />
+            </div>
+            <div className="pebble-custom-actions">
+                {isCustom && (
+                    <>
+                        <Button className="pebble-custom-action-btn pebble-custom-action-btn--primary" onPress={handleSave}>
+                            <Icon path={ICONS.SAVE} />
+                            Save
+                        </Button>
+                        <Button className="pebble-custom-action-btn" onPress={handleShare}>
+                            <Icon path={ICONS.SHARE} />
+                            {copyFeedback ? 'Copied!' : 'Share'}
+                        </Button>
+                        <Button className="pebble-custom-action-btn" onPress={() => setImportOpen(true)}>
+                            <Icon path={ICONS.IMPORT} />
+                            Import
+                        </Button>
+                    </>
+                )}
+                {isSaved && (
+                    <>
+                        <Button className="pebble-custom-action-btn" onPress={handleShare}>
+                            <Icon path={ICONS.SHARE} />
+                            {copyFeedback ? 'Copied!' : 'Share'}
+                        </Button>
+                        <Button className="pebble-custom-action-btn pebble-custom-action-btn--danger" onPress={handleDelete}>
+                            <Icon path={ICONS.DELETE} />
+                            Delete
+                        </Button>
+                    </>
+                )}
+            </div>
+            <ImportThemeModal
+                isOpen={importOpen}
+                onOpenChange={setImportOpen}
+                onImport={handleImport}
+            />
+        </div>
+    );
+};

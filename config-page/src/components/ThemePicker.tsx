@@ -2,8 +2,9 @@ import React from 'react';
 import { useConfig } from '../context/PebbleConfigContext';
 import { Settings } from '../context/types';
 import { FormItem } from './FormItem';
-import { GridList, GridListItem, Button, Text } from 'react-aria-components';
+import { GridList, GridListItem, Text } from 'react-aria-components';
 import { WatchPreview, WatchPreviewProps } from './WatchPreview';
+import { SavedTheme } from '../hooks/useSavedThemes';
 import customIconUrl from '../assets/custom-icon.svg';
 
 export const ThemePicker: React.FC<{
@@ -12,7 +13,8 @@ export const ThemePicker: React.FC<{
   messageKey: keyof Settings;
   themes: Record<string, { name: string; settings: Record<string, string> }>;
   watchPreviewProps?: Partial<WatchPreviewProps>;
-}> = ({ label, description, messageKey, themes, watchPreviewProps }) => {
+  savedThemes?: SavedTheme[];
+}> = ({ label, description, messageKey, themes, watchPreviewProps, savedThemes = [] }) => {
   const { settings, updateSetting } = useConfig();
   const currentValue = settings[messageKey];
 
@@ -21,9 +23,17 @@ export const ThemePicker: React.FC<{
 
     if (themeId === 'custom') return;
 
+    // Check saved themes first
+    const saved = savedThemes.find((t) => t.id === themeId);
+    if (saved) {
+      Object.entries(saved.settings).forEach(([key, value]) => {
+        updateSetting(key, value);
+      });
+      return;
+    }
+
     const theme = themes[themeId];
     if (theme) {
-      // Access .settings specifically
       Object.entries(theme.settings).forEach(([key, value]) => {
         updateSetting(key, value);
       });
@@ -31,13 +41,20 @@ export const ThemePicker: React.FC<{
   };
 
   const themeList = React.useMemo(() => [
-    { id: 'custom', name: 'Customize', settings: {} },
+    { id: 'custom', name: 'Custom', settings: {}, isSaved: false },
+    ...savedThemes.map((t) => ({
+      id: t.id,
+      name: t.name,
+      settings: t.settings,
+      isSaved: true,
+    })),
     ...Object.entries(themes).map(([id, theme]) => ({
       id,
       name: theme.name,
       settings: theme.settings,
+      isSaved: false,
     })),
-  ], [themes]);
+  ], [themes, savedThemes]);
 
   return (
     <FormItem label={label} description={description} className="pebble-theme-picker">

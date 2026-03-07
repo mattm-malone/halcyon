@@ -9,9 +9,9 @@
   --bg-color: #f0f2f5;
   --bg-surface: #f0f2f5;
   --bg-surface-elevated: #fff;
-  --bg-surface-hover: #323436;
+  --bg-surface-hover: #f8f9fa;
   --bg-surface-colormodal: #fff;
-  --text-main: #2c3e50;
+  --text-main: #000;
   --text-muted: #6c757d;
   --text-subtle: #adb5bd;
   --border-color: #e9ecef;
@@ -58,6 +58,7 @@ body {
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
@@ -148,7 +149,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
+  flex-grow: 1;
   padding-right: 16px;
 }
 
@@ -368,8 +369,8 @@ select {
   background-position: right 14px center;
   background-size: 14px;
   transition: all 0.2s ease;
-  width: 150px;
   box-shadow: var(--shadow-sm);
+  min-width: 0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -606,4 +607,138 @@ input[type='checkbox'] {
   background-color: var(--bg-surface-elevated);
   border-radius: 4px;
   color: var(--text-muted);
+}
+
+.pebble-custom-panel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.pebble-custom-panel-preview {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 5px solid black;
+  box-shadow: var(--shadow-md);
+}
+
+.pebble-custom-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-width: 120px;
+  flex-direction: column;
+}
+
+.pebble-custom-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-shadow: 0px 1px 3px var(--border-color);
+}
+
+.pebble-custom-action-btn:active {
+  background-color: var(--bg-surface-hover);
+}
+
+.pebble-custom-action-btn[data-focus-visible] {
+  outline: none;
+  border-color: var(--pebble-orange);
+  box-shadow: 0 0 0 3px var(--border-focus);
+}
+
+.pebble-custom-action-btn--danger {
+  color: #e74c3c;
+  border-color: rgba(231, 76, 60, 0.3);
+}
+
+.pebble-custom-action-btn--danger:hover {
+  background-color: rgba(231, 76, 60, 0.08);
+  border-color: rgba(231, 76, 60, 0.5);
+}
+
+/* Import Modal */
+.pebble-import-modal {
+  width: 90%;
+  max-width: 440px;
+}
+
+.pebble-import-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pebble-import-textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 12px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 10px;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.pebble-import-textarea::placeholder {
+  color: var(--text-subtle);
+}
+
+.pebble-import-textarea:focus {
+  outline: none;
+  border-color: var(--pebble-orange);
+  box-shadow: 0 0 0 3px var(--border-focus);
+}
+
+.pebble-import-error {
+  margin: 0;
+  color: #e74c3c;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pebble-import-button {
+  align-self: flex-end;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--pebble-orange);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.pebble-import-button:hover:not([disabled]) {
+  background-color: var(--pebble-orange-active);
+}
+
+.pebble-import-button:active:not([disabled]) {
+  transform: scale(0.97);
+}
+
+.pebble-import-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
