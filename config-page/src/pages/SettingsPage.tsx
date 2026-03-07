@@ -135,40 +135,27 @@ export const SettingsPage: React.FC = () => {
             {settings.SETTING_NIGHT_THEME === 'custom' && (
               <>
                 <ColorPicker
-                  label="Background color"
-                  messageKey="SETTING_NIGHT_BG_COLOR"
-                />
-                <ColorPicker
                   label="Time color"
                   messageKey="SETTING_NIGHT_TIME_COLOR"
+                  bwAllowGrey={false}
                 />
                 <ColorPicker
                   label="Widget text color (primary)"
                   messageKey="SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR"
+                  bwAllowGrey={false}
                 />
                 <ColorPicker
                   label="Widget text color (secondary)"
                   messageKey="SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR"
+                  bwAllowGrey={false}
                 />
                 <ColorPicker
-                  label="Dial marker color (primary)"
-                  messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
-                />
-                <ColorPicker
-                  label="Dial marker color (secondary)"
-                  messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
-                />
-                <ColorPicker
-                  label="Ring outline color"
-                  messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
+                  label="Background color"
+                  messageKey="SETTING_NIGHT_BG_COLOR"
                 />
                 <ColorPicker
                   label="Ring day section color"
                   messageKey="SETTING_NIGHT_RING_DAY_COLOR"
-                />
-                <ColorPicker
-                  label="Ring night section color"
-                  messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
                 />
                 <ColorPicker
                   label="Ring sunrise section color"
@@ -179,8 +166,28 @@ export const SettingsPage: React.FC = () => {
                   messageKey="SETTING_NIGHT_RING_SUNSET_COLOR"
                 />
                 <ColorPicker
+                  label="Ring night section color"
+                  messageKey="SETTING_NIGHT_RING_NIGHT_COLOR"
+                />
+                <ColorPicker
+                  label="Dial marker color (primary)"
+                  messageKey="SETTING_NIGHT_PIP_COLOR_PRIMARY"
+                  bwAllowGrey={false}
+                />
+                <ColorPicker
+                  label="Dial marker color (secondary)"
+                  messageKey="SETTING_NIGHT_PIP_COLOR_SECONDARY"
+                  bwAllowGrey={false}
+                />
+                <ColorPicker
+                  label="Ring outline color"
+                  messageKey="SETTING_NIGHT_RING_STROKE_COLOR"
+                  bwAllowGrey={false}
+                />
+                <ColorPicker
                   label="Sun outline color"
                   messageKey="SETTING_NIGHT_SUN_STROKE_COLOR"
+                  bwAllowGrey={false}
                 />
                 <ColorPicker
                   label="Sun fill color"
