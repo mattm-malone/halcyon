@@ -40,7 +40,7 @@ jobs:
 
       - name: Build with base path
         working-directory: ./config-page
-        run: npx vite build --base=/halcyon/
+        run: npx vite build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
