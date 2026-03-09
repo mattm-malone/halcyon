@@ -1,7 +1,7 @@
 
 const USE_LOCAL_CONFIG = true;
 const configDataUri = 'https://halcyon.freakified.net/';
-const configLocalUri = 'http://localhost:3000/index.html';
+const configLocalUri = 'http://10.25.219.3:3000/index.html';
 
 function locationError(err) {
   console.log('location error on the JS side :-(');

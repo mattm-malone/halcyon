@@ -221,7 +221,7 @@ static void update_clock() {
 
   if (!globalSettings.showLeadingZero) {
     if (timeText[0] == '0') {
-      for (int i = 0; i < TIME_STR_LEN; i++) {
+      for (int i = 0; i < TIME_STR_LEN - 1; i++) {
         timeText[i] = timeText[i + 1];
       }
     }
