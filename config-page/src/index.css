@@ -640,7 +640,8 @@ input[type='checkbox'] {
   flex-wrap: wrap;
 }
 
-.halite-custom-panel-preview {
+.halite-custom-panel-preview,
+.widget-selector-preview {
   border-radius: 8px;
   overflow: hidden;
   border: 4px solid black;
@@ -761,4 +762,65 @@ input[type='checkbox'] {
 .halite-import-button[disabled] {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Widget Selector */
+.widget-selector-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 1.25rem 1rem;
+}
+
+.widget-selector-preview {
+  flex-shrink: 0;
+}
+
+.widget-selector-controls {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.widget-selector-controls .halite-item {
+  padding: 0;
+  border-bottom: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* hide the labels visually, but not to screen readers */
+.widget-selector-controls .halite-label-group {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.widget-selector-controls select {
+  width: 100%;
+}
+
+@media (max-width: 320px) {
+  .widget-selector-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .widget-selector-preview {
+    margin-bottom: 0;
+  }
+
+  .widget-selector-controls {
+    width: 100%;
+  }
 }

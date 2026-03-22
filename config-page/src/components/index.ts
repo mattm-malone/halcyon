@@ -5,6 +5,7 @@ export * from './Toggle';
 export * from './ColorPicker';
 export * from './Select';
 export * from './ThemePicker';
+export * from './WidgetSelector';
 export * from './WatchPreview';
 export * from './CustomThemePanel';
 export * from './ImportThemeModal';

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useConfig, useCapabilities, useWatchInfo } from '../context/PebbleConfigContext';
-import { Page, Section, Toggle, ColorPicker, Select, ThemePicker, CustomThemePanel } from '../components';
+import { Page, Section, Toggle, ColorPicker, Select, ThemePicker, CustomThemePanel, WidgetSelector } from '../components';
 import { useSavedThemes } from '../hooks/useSavedThemes';
 import themes from '../data/themes.json';
 import nightThemes from '../data/themes-night.json';
 import themesBw from '../data/themes-bw.json';
 import themesBwNight from '../data/themes-bw-night.json';
-import { WIDGET_OPTIONS, WIDGET_OPTIONS_NO_HEALTH } from '../data/widgetTypes';
+
 
 export const SettingsPage: React.FC = () => {
   const { settings, updateSetting } = useConfig();
@@ -24,9 +24,6 @@ export const SettingsPage: React.FC = () => {
 
   const getNightSavedTheme = () =>
     nightSavedThemes.savedThemes.find((t) => t.id === settings.SETTING_NIGHT_THEME);
-
-  // Use health-gated widget options based on platform capability
-  const widgetOptions = capabilities.HEALTH ? WIDGET_OPTIONS : WIDGET_OPTIONS_NO_HEALTH;
 
   return (
     <Page title="Halcyon Settings">
@@ -204,30 +201,7 @@ export const SettingsPage: React.FC = () => {
       </Section>
 
       <Section title="Widgets">
-        <Select
-          label="Upper text 2"
-          description="Smaller text shown above everything else"
-          messageKey="SETTING_WIDGET_UPPER_SECONDARY"
-          options={widgetOptions}
-        />
-        <Select
-          label="Upper text 1"
-          description="Text shown directly above the time"
-          messageKey="SETTING_WIDGET_UPPER_PRIMARY"
-          options={widgetOptions}
-        />
-        <Select
-          label="Lower text 1"
-          description="Text shown directly below the time"
-          messageKey="SETTING_WIDGET_LOWER_PRIMARY"
-          options={widgetOptions}
-        />
-        <Select
-          label="Lower text 2"
-          description="Smaller text shown below everything else"
-          messageKey="SETTING_WIDGET_LOWER_SECONDARY"
-          options={widgetOptions}
-        />
+        <WidgetSelector />
       </Section>
 
       <Section title="General">
