@@ -297,15 +297,13 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (weatherSunriseMinute_tuple != NULL) {
-    SolarInfo updated = currentSolarInfo;
-    updated.sunriseMinute = (int)weatherSunriseMinute_tuple->value->int32;
-    currentSolarInfo = updated;
+    solarUtils_setSolarMinutes((int)weatherSunriseMinute_tuple->value->int32,
+                               currentSolarInfo.sunsetMinute);
   }
 
   if (weatherSunsetMinute_tuple != NULL) {
-    SolarInfo updated = currentSolarInfo;
-    updated.sunsetMinute = (int)weatherSunsetMinute_tuple->value->int32;
-    currentSolarInfo = updated;
+    solarUtils_setSolarMinutes(currentSolarInfo.sunriseMinute,
+                               (int)weatherSunsetMinute_tuple->value->int32);
   }
 
   if (tempUnit_tuple != NULL) {

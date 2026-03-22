@@ -6,6 +6,18 @@ SolarInfo currentSolarInfo = {
   .sunsetMinute  = DEFAULT_SUNSET_TIME
 };
 
+void solarUtils_init() {
+  if (persist_exists(SOLAR_DATA_KEY)) {
+    persist_read_data(SOLAR_DATA_KEY, &currentSolarInfo, sizeof(SolarInfo));
+  }
+}
+
+void solarUtils_setSolarMinutes(int sunrise, int sunset) {
+  currentSolarInfo.sunriseMinute = sunrise;
+  currentSolarInfo.sunsetMinute = sunset;
+  persist_write_data(SOLAR_DATA_KEY, &currentSolarInfo, sizeof(SolarInfo));
+}
+
 void solarUtils_updateLocation(LocationInfo loc) {
   // Location is used by JS to compute solar data; persist it for reference
   if (loc.lat != 0 && loc.lng != 0) {

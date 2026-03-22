@@ -87,8 +87,8 @@ function applyJsTokens(formatStr, weather, solar, useFahrenheit, use24h) {
 function sendDataToWatch() {
   var settings = cachedSettings;
   if (!settings) {
-    console.log('No settings cached yet, skipping send');
-    return;
+    console.log('No settings cached yet, sending available data anyway');
+    settings = {};
   }
 
   var useFahrenheit = (settings.SETTING_TEMP_UNIT === 1);
@@ -157,6 +157,9 @@ function locationSuccess(pos) {
   cachedSolar = solar;
   localStorage.setItem('halcyonSolar', JSON.stringify(solar));
   console.log('Solar: sunrise=' + solar.sunriseMinute + ', sunset=' + solar.sunsetMinute);
+
+  // Send to watch immediately (even before weather)
+  sendDataToWatch();
 
   // Fetch weather
   Weather.fetch(lat, lng, function(data) {

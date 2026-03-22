@@ -232,8 +232,8 @@ static void update_clock() {
                               getCurrentColorTheme().ringStrokeColor);
 
   // if sunrise/sunset has not yet been calculated, do that
-  if (currentSolarInfo.sunriseMinute == 0 &&
-      currentSolarInfo.sunriseMinute == 0) {
+  if (currentSolarInfo.sunriseMinute == DEFAULT_SUNRISE_TIME &&
+      currentSolarInfo.sunsetMinute == DEFAULT_SUNSET_TIME) {
     solarUtils_recalculateSolarData();
   }
 
@@ -320,6 +320,9 @@ static void init() {
 
   // load those settings
   Settings_init();
+
+  // init solar stuff
+  solarUtils_init();
 
   // init the messaging thing
   messaging_init(onSettingsChanged);

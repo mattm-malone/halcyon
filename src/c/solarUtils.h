@@ -16,6 +16,7 @@
 
 // persistent storage
 #define LOCATION_DATA_KEY 50
+#define SOLAR_DATA_KEY 51
 
 typedef struct {
   float lat;
@@ -29,15 +30,15 @@ typedef struct {
   int sunriseMinute;
 } SolarInfo;
 
-/*
- * Updates the location, causing the sunrise and sunset values
- * to recalculate.
+/**
+ * Initialize solar utils (loads from persistent storage)
  */
+void solarUtils_init();
+
+void solarUtils_setSolarMinutes(int sunrise, int sunset);
+
 void solarUtils_updateLocation(LocationInfo loc);
 
-/*
- * Recalculates sunrise/sunset times, updating the currentSolarInfo
- */
 void solarUtils_recalculateSolarData();
 
 extern SolarInfo currentSolarInfo;
