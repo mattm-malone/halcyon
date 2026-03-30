@@ -1,6 +1,6 @@
 #include <pebble.h>
 
-// #define USE_FAKE_TIME
+#define USE_FAKE_TIME
 // #define FORCE_BACKLIGHT
 
 #include "drawUtils.h"
