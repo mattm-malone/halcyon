@@ -53,22 +53,16 @@ static void draw_center_text(Layer *layer, GContext *ctx) {
   }
 
   // ---- Font selection ----
-  GFont time_font = fonts_get_system_font(useLargeFont ? FONT_TIME_LARGE
-                                                       : FONT_TIME_STANDARD);
-  int time_height =
-      useLargeFont ? FONT_TIME_LARGE_HEIGHT : FONT_TIME_STANDARD_HEIGHT;
-  int time_offset =
-      useLargeFont ? FONT_TIME_LARGE_OFFSET : FONT_TIME_STANDARD_OFFSET;
+  GFont time_font = fonts_get_system_font(FONT_TIME);
+  int time_height = FONT_TIME_HEIGHT;
+  int time_offset = FONT_TIME_OFFSET;
 
-  GFont primary_font =
-      fonts_get_system_font(useLargeFont ? FONT_WIDGET_PRIMARY_LARGE
-                                         : FONT_WIDGET_PRIMARY);
-  int primary_height = useLargeFont
-                                 ? FONT_WIDGET_PRIMARY_LARGE_HEIGHT
-                                 : FONT_WIDGET_PRIMARY_HEIGHT;
-  int primary_offset = useLargeFont
-                                 ? FONT_WIDGET_PRIMARY_LARGE_OFFSET
-                                 : FONT_WIDGET_PRIMARY_OFFSET;
+  GFont primary_font = fonts_get_system_font(
+      useLargeFont ? FONT_WIDGET_PRIMARY_LARGE : FONT_WIDGET_PRIMARY);
+  int primary_height = useLargeFont ? FONT_WIDGET_PRIMARY_LARGE_HEIGHT
+                                    : FONT_WIDGET_PRIMARY_HEIGHT;
+  int primary_offset = useLargeFont ? FONT_WIDGET_PRIMARY_LARGE_OFFSET
+                                    : FONT_WIDGET_PRIMARY_OFFSET;
 
   GFont secondary_font = fonts_get_system_font(
       useLargeFont ? FONT_WIDGET_SECONDARY_LARGE : FONT_WIDGET_SECONDARY);
@@ -118,8 +112,8 @@ static void draw_center_text(Layer *layer, GContext *ctx) {
     widget_get_text(globalSettings.widgetUpperPrimary, widgetTextUP,
                     WIDGET_TEXT_LEN);
     if (widgetTextUP[0] != '\0') {
-      PUSH_SLOT(widgetTextUP, primary_font, primary_height,
-                primary_offset, primaryColor);
+      PUSH_SLOT(widgetTextUP, primary_font, primary_height, primary_offset,
+                primaryColor);
     }
   }
 
@@ -131,11 +125,10 @@ static void draw_center_text(Layer *layer, GContext *ctx) {
     widget_get_text(globalSettings.widgetLowerPrimary, widgetTextLP,
                     WIDGET_TEXT_LEN);
     if (widgetTextLP[0] != '\0') {
-      PUSH_SLOT(widgetTextLP, primary_font, primary_height,
-                primary_offset, primaryColor);
+      PUSH_SLOT(widgetTextLP, primary_font, primary_height, primary_offset,
+                primaryColor);
     }
   }
-
 
   // Lower secondary (bottommost)
   if (globalSettings.widgetLowerSecondary[0] != '\0') {

@@ -85,10 +85,8 @@ void draw_ring_layer(Layer *layer, GContext *ctx) {
 
   // Calculate sun position using polar coordinates
   GRect sunBoundingRect =
-      GRect(bounds.origin.x + thickness / 2 + (strokeWidth * 2 / 3),
-            bounds.origin.y + thickness / 2 + (strokeWidth * 2 / 3),
-            bounds.size.w - thickness - strokeWidth - strokeWidth / 2,
-            bounds.size.h - thickness - strokeWidth - strokeWidth / 2);
+      GRect(bounds.origin.x + SUN_INSET, bounds.origin.y + SUN_INSET,
+            bounds.size.w - SUN_INSET * 2, bounds.size.h - SUN_INSET * 2);
   int angle = (int)(TRIG_MAX_ANGLE * progress);
   GPoint sunPos =
       gpoint_from_polar(sunBoundingRect, GOvalScaleModeFitCircle, angle);

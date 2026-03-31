@@ -7,31 +7,28 @@
 
 static ColorTheme currentTheme;
 
-GPoint getPipPosition(int id, int numPips, GRect bounds) {
-  int edgePips = numPips / 4;
-  int x, y;
-
-  if (id < edgePips) {
-    // top edge
-    x = bounds.origin.x + (id * bounds.size.w / edgePips);
-    y = bounds.origin.y;
-  } else if (id < 2 * edgePips) {
-    // right edge
-    x = bounds.origin.x + bounds.size.w;
-    y = bounds.origin.y + ((id - edgePips) * bounds.size.h / edgePips);
-  } else if (id < 3 * edgePips) {
-    // bottom edge
-    x = bounds.origin.x + bounds.size.w -
-        ((id - 2 * edgePips) * bounds.size.w / edgePips);
-    y = bounds.origin.y + bounds.size.h;
+GPoint get_rect_position(float progress, GRect bounds) {
+  if (progress < 0.25f) {
+    float t = progress / 0.25f;
+    return GPoint(bounds.origin.x + (int)(t * bounds.size.w), bounds.origin.y);
+  } else if (progress < 0.5f) {
+    float t = (progress - 0.25f) / 0.25f;
+    return GPoint(bounds.origin.x + bounds.size.w,
+                  bounds.origin.y + (int)(t * bounds.size.h));
+  } else if (progress < 0.75f) {
+    float t = (progress - 0.5f) / 0.25f;
+    return GPoint(bounds.origin.x + bounds.size.w - (int)(t * bounds.size.w),
+                  bounds.origin.y + bounds.size.h);
   } else {
-    // left edge
-    x = bounds.origin.x;
-    y = bounds.origin.y + bounds.size.h -
-        ((id - 3 * edgePips) * bounds.size.h / edgePips);
+    float t = (progress - 0.75f) / 0.25f;
+    return GPoint(bounds.origin.x,
+                  bounds.origin.y + bounds.size.h - (int)(t * bounds.size.h));
   }
+}
 
-  return GPoint(x, y);
+GPoint getPipPosition(int id, int numPips, GRect bounds) {
+  float progress = (float)id / (float)numPips;
+  return get_rect_position(progress, bounds);
 }
 
 GRect snap_to_edges(GRect rect, GRect bounds, int thickness) {
@@ -123,6 +120,11 @@ void draw_ring_layer(Layer *layer, GContext *ctx) {
   GRect innerBounds =
       GRect(bounds.origin.x + thickness / 2, bounds.origin.y + thickness / 2,
             bounds.size.w - thickness, bounds.size.h - thickness);
+
+  GRect sunBounds = GRect(bounds.origin.x + SUN_INSET, bounds.origin.y + SUN_INSET,
+                          bounds.size.w - SUN_INSET * 2,
+                          bounds.size.h - SUN_INSET * 2);
+
   int numPositions = 96;
   int width = bounds.size.w;
   int height = bounds.size.h;
@@ -150,10 +152,7 @@ void draw_ring_layer(Layer *layer, GContext *ctx) {
   int shiftedHour = (hour + 15) % 24;
   float progress = ((shiftedHour % 24) + (minute / 60.0f)) / 24.0f;
 
-  // Calculate total perimeter minus the corners
-  int pos = (int)(progress * numPositions);
-
-  GPoint sunPos = getPipPosition(pos, numPositions, innerBounds);
+  GPoint sunPos = get_rect_position(progress, sunBounds);
 
   // Apply the same 15-hour shift to the sunrise and sunset times
   int shiftedSunriseMinute =
