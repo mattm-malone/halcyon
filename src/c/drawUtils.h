@@ -5,19 +5,19 @@
 #if defined(PBL_PLATFORM_GABBRO)
 #define RING_THICKNESS 20
 #define SUN_DIAMETER 8
-#define SUN_INSET 12
+#define SUN_INSET 11
 #elif defined(PBL_PLATFORM_EMERY)
 #define RING_THICKNESS 20
 #define SUN_DIAMETER 8
-#define SUN_INSET 13
+#define SUN_INSET 10
 #elif defined(PBL_PLATFORM_CHALK)
 #define RING_THICKNESS 16
 #define SUN_DIAMETER 6
-#define SUN_INSET 9
+#define SUN_INSET 10
 #else
 #define RING_THICKNESS 16
 #define SUN_DIAMETER 7
-#define SUN_INSET 10
+#define SUN_INSET 8
 #endif
 
 #define RING_STROKE_WIDTH 3

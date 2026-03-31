@@ -65,14 +65,23 @@ void draw_center_layer(Layer *layer, GContext *ctx) {
 void draw_ring_layer(Layer *layer, GContext *ctx) {
   currentTheme = getCurrentColorTheme();
   GRect bounds = layer_get_bounds(layer);
+
+  // Expand bounds to avoid antialiasing artifacts at the screen edge
+  const int expansion = 2;
+  GRect draw_bounds =
+      grect_inset(bounds, GEdgeInsets(-expansion, -expansion, -expansion, -expansion));
+
   int thickness = RING_THICKNESS;
+  int expanded_thickness = thickness + expansion;
+  int expanded_edge_thickness = EDGE_THICKNESS + expansion;
+
   int strokeWidth = RING_STROKE_WIDTH;
   int hourShift = 12;
 
   // Draw outer ring
   graphics_context_set_fill_color(ctx, currentTheme.ringStrokeColor);
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, EDGE_THICKNESS, 0,
-                       TRIG_MAX_ANGLE);
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_edge_thickness, 0, TRIG_MAX_ANGLE);
 
   // Get time and sun position
   struct tm *timeInfo = getCurrentTime();
@@ -83,7 +92,7 @@ void draw_ring_layer(Layer *layer, GContext *ctx) {
   int shiftedHour = (hour + hourShift) % 24;
   float progress = ((shiftedHour % 24) + (minute / 60.0f)) / 24.0f;
 
-  // Calculate sun position using polar coordinates
+  // Calculate sun position using polar coordinates (using original bounds)
   GRect sunBoundingRect =
       GRect(bounds.origin.x + SUN_INSET, bounds.origin.y + SUN_INSET,
             bounds.size.w - SUN_INSET * 2, bounds.size.h - SUN_INSET * 2);
@@ -106,18 +115,18 @@ void draw_ring_layer(Layer *layer, GContext *ctx) {
 
   // Draw the top left area
   graphics_context_set_fill_color(ctx, currentTheme.ringDayColor);
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, thickness, 0,
-                       dayEndAngle);
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_thickness, 0, dayEndAngle);
 
   // Draw the top right area
   graphics_context_set_fill_color(ctx, currentTheme.ringDayColor);
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, thickness,
-                       dayStartAngle, TRIG_MAX_ANGLE);
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_thickness, dayStartAngle, TRIG_MAX_ANGLE);
 
   // Draw the night area
   graphics_context_set_fill_color(ctx, currentTheme.ringNightColor);
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, thickness,
-                       dayEndAngle, dayStartAngle);
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_thickness, dayEndAngle, dayStartAngle);
 
   // Calculate the angle for the sunrise/sunset arcs to be centered around the
   // times
@@ -136,23 +145,23 @@ void draw_ring_layer(Layer *layer, GContext *ctx) {
   graphics_context_set_fill_color(ctx, currentTheme.ringStrokeColor);
 
   // Draw the border behind sunrise
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, thickness,
-                       sunriseStartAngle - arcStroke,
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_thickness, sunriseStartAngle - arcStroke,
                        sunriseEndAngle + arcStroke);
 
   // Draw the border behind sunset
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, thickness,
-                       sunsetStartAngle - arcStroke,
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_thickness, sunsetStartAngle - arcStroke,
                        sunsetEndAngle + arcStroke);
 
   // Draw the sunrise and sunset arcs
   graphics_context_set_fill_color(ctx, currentTheme.ringSunriseColor);
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, thickness,
-                       sunriseStartAngle, sunriseEndAngle);
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_thickness, sunriseStartAngle, sunriseEndAngle);
 
   graphics_context_set_fill_color(ctx, currentTheme.ringSunsetColor);
-  graphics_fill_radial(ctx, bounds, GOvalScaleModeFitCircle, thickness,
-                       sunsetStartAngle, sunsetEndAngle);
+  graphics_fill_radial(ctx, draw_bounds, GOvalScaleModeFitCircle,
+                       expanded_thickness, sunsetStartAngle, sunsetEndAngle);
 
   // Draw the sun position
   graphics_context_set_stroke_width(ctx, strokeWidth);

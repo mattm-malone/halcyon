@@ -18,7 +18,7 @@ struct tm *getCurrentTime() {
     fakeTime.tm_year = 2026 - 1900;
     fakeTime.tm_mon = 2; // 0-indexed (March)
     fakeTime.tm_mday = 31;
-    fakeTime.tm_hour = 19;
+    fakeTime.tm_hour = 6;
     fakeTime.tm_min = 38;
     fakeTime.tm_sec = 0;
     fakeTime.tm_isdst = -1; // Let mktime decide

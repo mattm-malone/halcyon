@@ -517,12 +517,9 @@ input[type='checkbox'] {
   white-space: nowrap;
 }
 
-.halite-watch-preview-widget.primary.lower {
-  font-weight: bold;
-}
-
 .halite-watch-preview-widget.primary {
   font-size: 14px;
+  font-weight: bold;
 }
 
 .halite-watch-time {
