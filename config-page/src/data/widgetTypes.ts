@@ -14,14 +14,14 @@ export const WIDGET_OPTIONS: WidgetOption[] = [
     // Date/time
     { value: '{day_name}, {month_name} {day0}', label: 'Date', preview: 'MON, JAN 01', category: 'Date & Time' },
     { value: '{year}-{month_num}-{day0}', label: 'Numeric Date', preview: '2026-03-22', category: 'Date & Time' },
-    { value: 'DAY {day_of_year}', label: 'Day Number', preview: 'DAY 81', category: 'Date & Time' },
-    { value: 'WEEK {week_of_year}', label: 'Week Number', preview: 'WEEK 23', category: 'Date & Time' },
+    { value: '{day_label} {day_of_year}', label: 'Day Number', preview: 'DAY 81', category: 'Date & Time' },
+    { value: '{week_label} {week_of_year}', label: 'Week Number', preview: 'WEEK 23', category: 'Date & Time' },
     { value: '{year}', label: 'Year', preview: '2026', category: 'Date & Time' },
     // Solar
     { value: 'RISE {sunrise}', label: 'Sunrise Time', preview: 'RISE 6:42 AM', category: 'Solar' },
     { value: 'SET {sunset}', label: 'Sunset Time', preview: 'SET 6:18 PM', category: 'Solar' },
     // Health
-    { value: '{steps} STEPS', label: 'Steps', preview: '1,234 STEPS', category: 'Health' },
+    { value: '{steps} {steps_label}', label: 'Steps', preview: '1,234 STEPS', category: 'Health' },
     { value: '{dist} {dist_unit}', label: 'Distance Walked', preview: '0.8 KM', category: 'Health' },
     // Device
     { value: 'BATTERY {batt}%', label: 'Battery %', preview: 'BATTERY 85%', category: 'Device' },
@@ -40,5 +40,5 @@ export const WIDGET_OPTIONS: WidgetOption[] = [
 
 // Options without health-related widgets (for non-health platforms)
 export const WIDGET_OPTIONS_NO_HEALTH: WidgetOption[] = WIDGET_OPTIONS.filter(
-    (o) => o.value !== '{steps} STEPS' && o.value !== '{dist} {dist_unit}'
+    (o) => o.value !== '{steps} {steps_label}' && o.value !== '{dist} {dist_unit}'
 );

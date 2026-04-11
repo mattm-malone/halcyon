@@ -17,6 +17,7 @@ var configLocalUri = 'http://10.25.219.9:3000/index.html';
 
 var SunCalc = require('./suncalc');
 var Weather = require('./weather');
+var Languages = require('./languages');
 
 // Cached data (in-memory; also persisted to localStorage)
 var cachedWeather = null;
@@ -33,7 +34,7 @@ var DEFAULT_WIDGETS = {
   'SETTING_WIDGET_UPPER_SECONDARY': '{thi}° / {tlo}°',
   'SETTING_WIDGET_UPPER_PRIMARY': '{temp}° {cond}',
   'SETTING_WIDGET_LOWER_PRIMARY': '{day_name}, {month_name} {day0}',
-  'SETTING_WIDGET_LOWER_SECONDARY': '{steps} STEPS'
+  'SETTING_WIDGET_LOWER_SECONDARY': '{steps} {steps_label}'
 };
 
 // ---- Time helpers ----
@@ -59,6 +60,9 @@ function formatMinutes(minutes, use24h) {
  */
 function applyJsTokens(formatStr, weather, solar, useFahrenheit, use24h, lang) {
   if (!formatStr) return formatStr;
+
+  var langIndex = parseInt(lang) || 0;
+  if (langIndex < 0 || langIndex > 36) langIndex = 0;
 
   var result = formatStr;
 
@@ -92,13 +96,24 @@ function applyJsTokens(formatStr, weather, solar, useFahrenheit, use24h, lang) {
     result = result.replace('{pop}', String(Math.round(weather.pop)));
     result = result.replace('{dew}', String(dew));
     result = result.replace('{temp_unit}', useFahrenheit ? '°F' : '°C');
-    result = result.replace('{wind_unit}', useFahrenheit ? 'MPH' : 'KM/H');
-    result = result.replace('{wind_dir}', Weather.getCardinal(weather.wind_dir));
+    result = result.replace('{wind_unit}', useFahrenheit ? Languages.labels[langIndex].WIND_IMPERIAL : Languages.labels[langIndex].WIND_METRIC);
+    result = result.replace('{wind_dir}', Weather.getCardinal(weather.wind_dir, langIndex));
+    result = result.replace('{steps_label}', Languages.labels[langIndex].STEPS);
+    result = result.replace('{week_label}', Languages.labels[langIndex].WEEK);
+    result = result.replace('{day_label}', Languages.labels[langIndex].DAY);
   } else {
     // No weather data yet — replace with placeholders so the watch shows something
     var dash = '--';
-    ['temp', 'thi', 'tlo', 'cond', 'cond_day', 'hum', 'wind', 'uv', 'rain', 'pop', 'dew', 'temp_unit', 'wind_unit', 'wind_dir'].forEach(function (t) {
-      result = result.replace('{' + t + '}', dash);
+    ['temp', 'thi', 'tlo', 'cond', 'cond_day', 'hum', 'wind', 'uv', 'rain', 'pop', 'dew', 'temp_unit', 'wind_unit', 'wind_dir', 'steps_label', 'week_label', 'day_label'].forEach(function (t) {
+      if (t === 'steps_label') {
+        result = result.replace('{' + t + '}', Languages.labels[langIndex].STEPS);
+      } else if (t === 'week_label') {
+        result = result.replace('{' + t + '}', Languages.labels[langIndex].WEEK);
+      } else if (t === 'day_label') {
+        result = result.replace('{' + t + '}', Languages.labels[langIndex].DAY);
+      } else {
+        result = result.replace('{' + t + '}', dash);
+      }
     });
   }
 

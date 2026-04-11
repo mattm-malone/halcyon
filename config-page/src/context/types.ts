@@ -15,6 +15,7 @@ export interface Capabilities {
   DIORITE: boolean;
   EMERY: boolean;
   FLINT: boolean;
+  GABBRO: boolean;
   BW: boolean;
   COLOR: boolean;
   ROUND: boolean;
@@ -22,6 +23,7 @@ export interface Capabilities {
   DISPLAY_144x168: boolean;
   DISPLAY_180x180_ROUND: boolean;
   DISPLAY_200x228: boolean;
+  DISPLAY_260x260_ROUND: boolean;
   MICROPHONE: boolean;
   SMARTSTRAP: boolean;
   SMARTSTRAP_POWER: boolean;

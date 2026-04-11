@@ -37,7 +37,7 @@ export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
   SETTING_WIDGET_UPPER_SECONDARY: '{thi}° / {tlo}°',
   SETTING_WIDGET_UPPER_PRIMARY: '{temp}° {cond}',
   SETTING_WIDGET_LOWER_PRIMARY: '{day_name}, {month_name} {day0}',
-  SETTING_WIDGET_LOWER_SECONDARY: '{steps} STEPS',
+  SETTING_WIDGET_LOWER_SECONDARY: '{steps} {steps_label}',
   SETTING_TEMP_UNIT: 0,
   SETTING_LANGUAGE: 0,
 });

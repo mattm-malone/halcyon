@@ -1,41 +1,15 @@
 
 // ---- OpenMeteo weather code → human-readable label ----
 
-var WEATHER_CODES = {
-  0: ['CLEAR', 'DESPEJADO', 'DÉGAGÉ', 'KLAR'],
-  1: ['MOSTLY CLEAR', 'MAYORMENTE DESP.', 'PLUTÔT DÉGAGÉ', 'MEIST KLAR'],
-  2: ['PARTLY CLOUDY', 'PARCIALMENTE NUB.', 'PART. NUAGEUX', 'TEILW. BEWÖLKT'],
-  3: ['OVERCAST', 'NUBLADO', 'COUVERT', 'STARK BEWÖLKT'],
-  45: ['FOGGY', 'NIEBLA', 'BROUILLARD', 'NEBEL'],
-  48: ['FOGGY', 'NIEBLA', 'BROUILLARD', 'NEBEL'],
-  51: ['DRIZZLE', 'LLOVIZNA', 'BRUINE', 'NIESELREGEN'],
-  53: ['DRIZZLE', 'LLOVIZNA', 'BRUINE', 'NIESELREGEN'],
-  55: ['DRIZZLE', 'LLOVIZNA', 'BRUINE', 'NIESELREGEN'],
-  56: ['FRZG DRIZZLE', 'LLOVIZNA HELADA', 'BRUINE VERGL.', 'GEF. NIESELREGEN'],
-  57: ['FRZG DRIZZLE', 'LLOVIZNA HELADA', 'BRUINE VERGL.', 'GEF. NIESELREGEN'],
-  61: ['LIGHT RAIN', 'LLUVIA LIGERA', 'PLUIE LÉGÈRE', 'LEICHTER REGEN'],
-  63: ['RAIN', 'LLUVIA', 'PLUIE', 'REGEN'],
-  65: ['HEAVY RAIN', 'LLUVIA FUERTE', 'FORTE PLUIE', 'STARKER REGEN'],
-  66: ['FREEZING RAIN', 'LLUVIA HELADA', 'PLUIE VERGL.', 'GEFRIERENDER REGEN'],
-  67: ['FREEZING RAIN', 'LLUVIA HELADA', 'PLUIE VERGL.', 'GEFRIERENDER REGEN'],
-  71: ['LIGHT SNOW', 'NIEVE LIGERA', 'NEIGE LÉGÈRE', 'LEICHTER SCHNEE'],
-  73: ['SNOW', 'NIEVE', 'NEIGE', 'SCHNEE'],
-  75: ['HEAVY SNOW', 'NIEVE FUERTE', 'FORTE NEIGE', 'STARKER SCHNEE'],
-  77: ['SNOW GRAINS', 'GRANOS DE NIEVE', 'NEIGE EN GRAINS', 'SCHNEEGRIESEL'],
-  80: ['SHOWERS', 'CHUBASCOS', 'AVERSES', 'REGENSCHAUER'],
-  81: ['SHOWERS', 'CHUBASCOS', 'AVERSES', 'REGENSCHAUER'],
-  82: ['HEAVY SHOWERS', 'CHUBASCOS FUCRTES', 'FORTES AVERSES', 'STARKE REGENSC.'],
-  85: ['SNOW SHOWERS', 'CHUBASCOS NIEVE', 'AVERSES NEIGE', 'SCHNEESCHAUER'],
-  86: ['SNOW SHOWERS', 'CHUBASCOS NIEVE', 'AVERSES NEIGE', 'SCHNEESCHAUER'],
-  95: ['THUNDERSTORM', 'TORMENTA', 'ORAGE', 'GEWITTER'],
-  96: ['HAIL STORM', 'TORM. GRANIZO', 'ORAGE GRÊLE', 'HAGELSTURM'],
-  99: ['HAIL STORM', 'TORM. GRANIZO', 'ORAGE GRÊLE', 'HAGELSTURM']
-};
+var Languages = require('./languages');
 
 function getCondition(code, lang) {
-  var langIndex = lang || 0;
-  if (WEATHER_CODES[code]) {
-      return WEATHER_CODES[code][langIndex] || WEATHER_CODES[code][0];
+  var langIndex = parseInt(lang) || 0;
+  if (langIndex < 0 || langIndex > 36) langIndex = 0;
+
+  var codes = Languages.weatherCodes;
+  if (codes[code]) {
+      return codes[code][langIndex] || codes[code][0];
   }
   return 'WX' + code;
 }
@@ -119,10 +93,12 @@ function toInch(mm) {
   return (mm * 0.03937).toFixed(2);
 }
 
-function getCardinal(degrees) {
-  var directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+function getCardinal(degrees, lang) {
+  var langIndex = parseInt(lang) || 0;
+  if (langIndex < 0 || langIndex > 36) langIndex = 0;
+
   var index = Math.round(degrees / 45) % 8;
-  return directions[index];
+  return Languages.cardinals[langIndex][index];
 }
 
 module.exports = {
@@ -132,6 +108,6 @@ module.exports = {
   toMPH: toMPH,
   toInch: toInch,
   getCardinal: getCardinal,
-  codes: WEATHER_CODES,
+  codes: Languages.weatherCodes,
   getCondition: getCondition
 };
