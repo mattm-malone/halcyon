@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "languages.h"
 #include "solarUtils.h"
 #include "utils.h"
 #include "widgets.h"
@@ -59,9 +60,11 @@ void Settings_loadFromStorage() {
   strncpy(globalSettings.widgetUpperSecondary, "--° / --°",
           WIDGET_TEXT_LEN);
   strncpy(globalSettings.widgetUpperPrimary, "--° --", WIDGET_TEXT_LEN);
-  strncpy(globalSettings.widgetLowerPrimary, "{day_name}, {month_name} {day0}",
-          WIDGET_TEXT_LEN);
-  strncpy(globalSettings.widgetLowerSecondary, "{steps} STEPS",
+  // Lower-primary defaults to the language-appropriate date format. Persisted
+  // settings (loaded below) override this if the user has saved before.
+  strncpy(globalSettings.widgetLowerPrimary,
+          defaultDateFormat[globalSettings.language], WIDGET_TEXT_LEN);
+  strncpy(globalSettings.widgetLowerSecondary, "{steps} {steps_label}",
           WIDGET_TEXT_LEN);
 
   if (persist_exists(SETTINGS_PERSIST_KEY)) {

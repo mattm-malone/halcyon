@@ -1,0 +1,45 @@
+// Per-language idiomatic default date format string for the lower-primary
+// widget slot. Mirrored in src/c/languages.c (defaultDateFormat) and
+// src/pkjs/languages.js (DEFAULT_DATE_FORMATS) — keep all three in sync.
+export const DEFAULT_DATE_FORMATS: string[] = [
+    /*  0 en */ "{day_name}, {month_name} {day0}",
+    /*  1 fr */ "{day_name} {day0} {month_name}",
+    /*  2 de */ "{day_name}, {day0}. {month_name}",
+    /*  3 es */ "{day_name} {day0} {month_name}",
+    /*  4 it */ "{day_name} {day0} {month_name}",
+    /*  5 nl */ "{day_name} {day0} {month_name}",
+    /*  6 tr */ "{day0} {month_name} {day_name}",
+    /*  7 cs */ "{day_name} {day0}. {month_name}",
+    /*  8 pt */ "{day_name}, {day0} {month_name}",
+    /*  9 el */ "{day_name}, {day0} {month_name}",
+    /* 10 sv */ "{day_name} {day0} {month_name}",
+    /* 11 pl */ "{day_name}, {day0} {month_name}",
+    /* 12 sk */ "{day_name} {day0}. {month_name}",
+    /* 13 vi */ "{day_name}, {day0}/{month_num}",
+    /* 14 ro */ "{day_name}, {day0} {month_name}",
+    /* 15 ca */ "{day_name} {day0} {month_name}",
+    /* 16 no */ "{day_name} {day0}. {month_name}",
+    /* 17 ru */ "{day_name}, {day0} {month_name}",
+    /* 18 et */ "{day_name}, {day0}. {month_name}",
+    /* 19 eu */ "{day_name} {day0} {month_name}",
+    /* 20 fi */ "{day_name} {day0}. {month_name}",
+    /* 21 da */ "{day_name} {day0}. {month_name}",
+    /* 22 lt */ "{day_name}, {day0} {month_name}",
+    /* 23 sl */ "{day_name}, {day0}. {month_name}",
+    /* 24 hu */ "{month_name} {day0}., {day_name}",
+    /* 25 hr */ "{day_name}, {day0}. {month_name}",
+    /* 26 ga */ "{day_name} {day0} {month_name}",
+    /* 27 lv */ "{day_name}, {day0}. {month_name}",
+    /* 28 sr */ "{day_name}, {day0}. {month_name}",
+    /* 29 zh */ "{month_num}月{day}日 {day_name}",
+    /* 30 id */ "{day_name}, {day0} {month_name}",
+    /* 31 uk */ "{day_name}, {day0} {month_name}",
+    /* 32 cy */ "{day_name} {day0} {month_name}",
+    /* 33 gl */ "{day_name} {day0} {month_name}",
+    /* 34 ja */ "{month_num}月{day}日 ({day_name})",
+    /* 35 ko */ "{month_num}월 {day}일 ({day_name})",
+    /* 36 he */ "{day_name} {day0} {month_name}",
+];
+
+export const defaultDateFormat = (langIndex: number): string =>
+    DEFAULT_DATE_FORMATS[langIndex >= 0 && langIndex < 37 ? langIndex : 0];

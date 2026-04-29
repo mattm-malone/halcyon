@@ -1,19 +1,6 @@
-
-// ============================================================
-// Halcyon PebbleKit JS — index.js
-// ============================================================
-// Architecture: Two-pass token substitution.
-//   Pass 1 (here): substitutes JS-side tokens like {temp}, {sunrise}, {cond}
-//   Pass 2 (watch): substitutes C-side tokens like {date}, {steps}, {batt}
-//
-// Refresh mechanism: The watch sends a REQUEST_UPDATE message every 30 min.
-// This replaces the old setInterval approach, which was unreliable in PKJS
-// (the JS runtime can be suspended/killed by the phone OS at any time).
-// ============================================================
-
 var USE_LOCAL_CONFIG = true;
 var configDataUri = 'https://halcyon.freakified.net/';
-var configLocalUri = 'http://10.25.219.9:3000/index.html';
+var configLocalUri = 'http://10.25.219.12:3000/index.html';
 
 var SunCalc = require('./suncalc');
 var Weather = require('./weather');
@@ -29,13 +16,17 @@ var cachedIs24h = false;
 
 // Default widget format strings — used when no settings have been configured yet
 // so that JS can perform token substitution even on first run.
-// These must match the defaults in config-page/src/data/widgetTypes.ts.
-var DEFAULT_WIDGETS = {
-  'SETTING_WIDGET_UPPER_SECONDARY': '{thi}° / {tlo}°',
-  'SETTING_WIDGET_UPPER_PRIMARY': '{temp}° {cond}',
-  'SETTING_WIDGET_LOWER_PRIMARY': '{day_name}, {month_name} {day0}',
-  'SETTING_WIDGET_LOWER_SECONDARY': '{steps} {steps_label}'
-};
+// The lower-primary date format is picked per-language at send time;
+// see Languages.defaultDateFormats and getDefaultWidgets() below.
+function getDefaultWidgets(langIndex) {
+  var idx = (typeof langIndex === 'number' && langIndex >= 0 && langIndex < 37) ? langIndex : 0;
+  return {
+    'SETTING_WIDGET_UPPER_SECONDARY': '{thi}° / {tlo}°',
+    'SETTING_WIDGET_UPPER_PRIMARY': '{temp}° {cond}',
+    'SETTING_WIDGET_LOWER_PRIMARY': Languages.defaultDateFormats[idx],
+    'SETTING_WIDGET_LOWER_SECONDARY': '{steps} {steps_label}'
+  };
+}
 
 // ---- Time helpers ----
 
@@ -132,6 +123,7 @@ function sendDataToWatch() {
   var useFahrenheit = (settings.SETTING_TEMP_UNIT === 1);
   var lang = settings.SETTING_LANGUAGE || 0;
   var use24h = cachedIs24h;
+  var defaultWidgets = getDefaultWidgets(lang);
 
   // Prepare Pass 1 output for each widget slot
   var slotKeys = [
@@ -147,7 +139,7 @@ function sendDataToWatch() {
     // Use configured setting, falling back to default format string
     var fmt = settings[key];
     if (fmt === undefined || fmt === null) {
-      fmt = DEFAULT_WIDGETS[key];
+      fmt = defaultWidgets[key];
     }
     if (fmt !== undefined && fmt !== null) {
       // Apply JS tokens; C tokens pass through untouched

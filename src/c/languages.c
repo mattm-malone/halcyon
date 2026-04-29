@@ -117,4 +117,60 @@ const char monthNames[37][12][8] = {
     {"ינו", "פבר", "מרץ", "אפר", "מאי", "יונ", "יול", "אוג", "ספט", "אוק",
      "נוב", "דצמ"}};
 
+/* Per-language idiomatic default date format string for the lower-primary
+   widget slot. Mirrored in src/pkjs/languages.js (defaultDateFormats) and
+   config-page/src/data/dateFormats.ts — keep all three in sync. */
+const char *const defaultDateFormat[37] = {
+    /*  0 en */ "{day_name}, {month_name} {day0}",
+    /*  1 fr */ "{day_name} {day0} {month_name}",
+    /*  2 de */ "{day_name}, {day0}. {month_name}",
+    /*  3 es */ "{day_name} {day0} {month_name}",
+    /*  4 it */ "{day_name} {day0} {month_name}",
+    /*  5 nl */ "{day_name} {day0} {month_name}",
+    /*  6 tr */ "{day0} {month_name} {day_name}",
+    /*  7 cs */ "{day_name} {day0}. {month_name}",
+    /*  8 pt */ "{day_name}, {day0} {month_name}",
+    /*  9 el */ "{day_name}, {day0} {month_name}",
+    /* 10 sv */ "{day_name} {day0} {month_name}",
+    /* 11 pl */ "{day_name}, {day0} {month_name}",
+    /* 12 sk */ "{day_name} {day0}. {month_name}",
+    /* 13 vi */ "{day_name}, {day0}/{month_num}",
+    /* 14 ro */ "{day_name}, {day0} {month_name}",
+    /* 15 ca */ "{day_name} {day0} {month_name}",
+    /* 16 no */ "{day_name} {day0}. {month_name}",
+    /* 17 ru */ "{day_name}, {day0} {month_name}",
+    /* 18 et */ "{day_name}, {day0}. {month_name}",
+    /* 19 eu */ "{day_name} {day0} {month_name}",
+    /* 20 fi */ "{day_name} {day0}. {month_name}",
+    /* 21 da */ "{day_name} {day0}. {month_name}",
+    /* 22 lt */ "{day_name}, {day0} {month_name}",
+    /* 23 sl */ "{day_name}, {day0}. {month_name}",
+    /* 24 hu */ "{month_name} {day0}., {day_name}",
+    /* 25 hr */ "{day_name}, {day0}. {month_name}",
+    /* 26 ga */ "{day_name} {day0} {month_name}",
+    /* 27 lv */ "{day_name}, {day0}. {month_name}",
+    /* 28 sr */ "{day_name}, {day0}. {month_name}",
+    /* 29 zh */ "{month_num}月{day}日 {day_name}",
+    /* 30 id */ "{day_name}, {day0} {month_name}",
+    /* 31 uk */ "{day_name}, {day0} {month_name}",
+    /* 32 cy */ "{day_name} {day0} {month_name}",
+    /* 33 gl */ "{day_name} {day0} {month_name}",
+    /* 34 ja */ "{month_num}月{day}日 ({day_name})",
+    /* 35 ko */ "{month_num}월 {day}일 ({day_name})",
+    /* 36 he */ "{day_name} {day0} {month_name}"};
+
+/* Per-language decimal separator. Most European languages use ',';
+   English, Asian languages, Irish, Welsh, Hebrew use '.'. */
+const char decimalSeparator[37] = {
+    /*  0 en */ '.', /*  1 fr */ ',', /*  2 de */ ',', /*  3 es */ ',',
+    /*  4 it */ ',', /*  5 nl */ ',', /*  6 tr */ ',', /*  7 cs */ ',',
+    /*  8 pt */ ',', /*  9 el */ ',', /* 10 sv */ ',', /* 11 pl */ ',',
+    /* 12 sk */ ',', /* 13 vi */ ',', /* 14 ro */ ',', /* 15 ca */ ',',
+    /* 16 no */ ',', /* 17 ru */ ',', /* 18 et */ ',', /* 19 eu */ ',',
+    /* 20 fi */ ',', /* 21 da */ ',', /* 22 lt */ ',', /* 23 sl */ ',',
+    /* 24 hu */ ',', /* 25 hr */ ',', /* 26 ga */ '.', /* 27 lv */ ',',
+    /* 28 sr */ ',', /* 29 zh */ '.', /* 30 id */ ',', /* 31 uk */ ',',
+    /* 32 cy */ '.', /* 33 gl */ ',', /* 34 ja */ '.', /* 35 ko */ '.',
+    /* 36 he */ '.'};
+
 

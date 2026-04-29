@@ -1,7 +1,7 @@
 import React from 'react';
 import { useConfig } from '../context/PebbleConfigContext';
 import { Settings } from '../context/types';
-import { WIDGET_OPTIONS } from '../data/widgetTypes';
+import { getPreviewForValue } from '../data/widgetTypes';
 
 export interface WatchPreviewProps {
     overrideSettings?: Partial<Settings>;
@@ -86,12 +86,12 @@ export const WatchPreview: React.FC<WatchPreviewProps> = ({ overrideSettings, is
                 <div className="halite-watch-preview-content">
                     {effectiveSettings.SETTING_WIDGET_UPPER_SECONDARY && (
                         <div className="halite-watch-preview-widget secondary upper" style={{ color: getHex(isNight ? effectiveSettings.SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR : effectiveSettings.SETTING_SUBTEXT_SECONDARY_COLOR) }}>
-                            {WIDGET_OPTIONS.find(o => o.value === effectiveSettings.SETTING_WIDGET_UPPER_SECONDARY)?.preview}
+                            {getPreviewForValue(effectiveSettings.SETTING_WIDGET_UPPER_SECONDARY, Number(effectiveSettings.SETTING_LANGUAGE) || 0)}
                         </div>
                     )}
                     {effectiveSettings.SETTING_WIDGET_UPPER_PRIMARY && (
                         <div className="halite-watch-preview-widget primary upper" style={{ color: getHex(isNight ? effectiveSettings.SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR : effectiveSettings.SETTING_SUBTEXT_PRIMARY_COLOR) }}>
-                            {WIDGET_OPTIONS.find(o => o.value === effectiveSettings.SETTING_WIDGET_UPPER_PRIMARY)?.preview}
+                            {getPreviewForValue(effectiveSettings.SETTING_WIDGET_UPPER_PRIMARY, Number(effectiveSettings.SETTING_LANGUAGE) || 0)}
                         </div>
                     )}
                     <div className="halite-watch-time" style={{ color: getHex(!isNight ? effectiveSettings.SETTING_TIME_COLOR : effectiveSettings.SETTING_NIGHT_TIME_COLOR) }}>
@@ -101,12 +101,12 @@ export const WatchPreview: React.FC<WatchPreviewProps> = ({ overrideSettings, is
                     </div>
                     {effectiveSettings.SETTING_WIDGET_LOWER_PRIMARY && (
                         <div className="halite-watch-preview-widget primary lower" style={{ color: getHex(!isNight ? effectiveSettings.SETTING_SUBTEXT_PRIMARY_COLOR : effectiveSettings.SETTING_NIGHT_SUBTEXT_PRIMARY_COLOR) }}>
-                            {WIDGET_OPTIONS.find(o => o.value === effectiveSettings.SETTING_WIDGET_LOWER_PRIMARY)?.preview}
+                            {getPreviewForValue(effectiveSettings.SETTING_WIDGET_LOWER_PRIMARY, Number(effectiveSettings.SETTING_LANGUAGE) || 0)}
                         </div>
                     )}
                     {effectiveSettings.SETTING_WIDGET_LOWER_SECONDARY && (
                         <div className="halite-watch-preview-widget secondary lower" style={{ color: getHex(!isNight ? effectiveSettings.SETTING_SUBTEXT_SECONDARY_COLOR : effectiveSettings.SETTING_NIGHT_SUBTEXT_SECONDARY_COLOR) }}>
-                            {WIDGET_OPTIONS.find(o => o.value === effectiveSettings.SETTING_WIDGET_LOWER_SECONDARY)?.preview}
+                            {getPreviewForValue(effectiveSettings.SETTING_WIDGET_LOWER_SECONDARY, Number(effectiveSettings.SETTING_LANGUAGE) || 0)}
                         </div>
                     )}
                 </div>

@@ -1,4 +1,5 @@
 import { Settings, Capabilities } from '../context/types';
+import { defaultDateFormat } from '../data/dateFormats';
 
 export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
   SETTING_THEME: '0',
@@ -36,7 +37,7 @@ export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
   // Widget slots default to format strings
   SETTING_WIDGET_UPPER_SECONDARY: '{thi}° / {tlo}°',
   SETTING_WIDGET_UPPER_PRIMARY: '{temp}° {cond}',
-  SETTING_WIDGET_LOWER_PRIMARY: '{day_name}, {month_name} {day0}',
+  SETTING_WIDGET_LOWER_PRIMARY: defaultDateFormat(0),
   SETTING_WIDGET_LOWER_SECONDARY: '{steps} {steps_label}',
   SETTING_TEMP_UNIT: 0,
   SETTING_LANGUAGE: 0,

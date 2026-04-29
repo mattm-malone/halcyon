@@ -42,11 +42,40 @@ typedef struct {
   GColor color;
 } SlotDescriptor;
 
-// Buffer storage for each of the 4 widget slots
+// Buffer storage for each of the 4 widget slots. Populated by
+// update_widget_text() on the minute tick / settings change, then read by
+// draw_center_text() on every redraw — so redraws stay allocation-free.
 static char widgetTextUS[WIDGET_TEXT_LEN]; // upper secondary
 static char widgetTextUP[WIDGET_TEXT_LEN]; // upper primary
 static char widgetTextLP[WIDGET_TEXT_LEN]; // lower primary
 static char widgetTextLS[WIDGET_TEXT_LEN]; // lower secondary
+
+static void update_widget_text(void) {
+  if (globalSettings.widgetUpperSecondary[0] != '\0') {
+    widget_get_text(globalSettings.widgetUpperSecondary, widgetTextUS,
+                    WIDGET_TEXT_LEN);
+  } else {
+    widgetTextUS[0] = '\0';
+  }
+  if (globalSettings.widgetUpperPrimary[0] != '\0') {
+    widget_get_text(globalSettings.widgetUpperPrimary, widgetTextUP,
+                    WIDGET_TEXT_LEN);
+  } else {
+    widgetTextUP[0] = '\0';
+  }
+  if (globalSettings.widgetLowerPrimary[0] != '\0') {
+    widget_get_text(globalSettings.widgetLowerPrimary, widgetTextLP,
+                    WIDGET_TEXT_LEN);
+  } else {
+    widgetTextLP[0] = '\0';
+  }
+  if (globalSettings.widgetLowerSecondary[0] != '\0') {
+    widget_get_text(globalSettings.widgetLowerSecondary, widgetTextLS,
+                    WIDGET_TEXT_LEN);
+  } else {
+    widgetTextLS[0] = '\0';
+  }
+}
 
 static void draw_center_text(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
@@ -105,46 +134,30 @@ static void draw_center_text(Layer *layer, GContext *ctx) {
   } while (0)
 
   // Upper secondary (topmost)
-  if (globalSettings.widgetUpperSecondary[0] != '\0') {
-    widget_get_text(globalSettings.widgetUpperSecondary, widgetTextUS,
-                    WIDGET_TEXT_LEN);
-    if (widgetTextUS[0] != '\0') {
-      PUSH_SLOT(widgetTextUS, secondary_font, secondary_height,
-                secondary_offset, secondaryColor);
-    }
+  if (widgetTextUS[0] != '\0') {
+    PUSH_SLOT(widgetTextUS, secondary_font, secondary_height, secondary_offset,
+              secondaryColor);
   }
 
   // Upper primary
-  if (globalSettings.widgetUpperPrimary[0] != '\0') {
-    widget_get_text(globalSettings.widgetUpperPrimary, widgetTextUP,
-                    WIDGET_TEXT_LEN);
-    if (widgetTextUP[0] != '\0') {
-      PUSH_SLOT(widgetTextUP, primary_font, primary_height, primary_offset,
-                primaryColor);
-    }
+  if (widgetTextUP[0] != '\0') {
+    PUSH_SLOT(widgetTextUP, primary_font, primary_height, primary_offset,
+              primaryColor);
   }
 
   // Time (always present)
   PUSH_SLOT(timeText, time_font, time_height, time_offset, timeColor);
 
   // Lower primary
-  if (globalSettings.widgetLowerPrimary[0] != '\0') {
-    widget_get_text(globalSettings.widgetLowerPrimary, widgetTextLP,
-                    WIDGET_TEXT_LEN);
-    if (widgetTextLP[0] != '\0') {
-      PUSH_SLOT(widgetTextLP, primary_font, primary_height, primary_offset,
-                primaryColor);
-    }
+  if (widgetTextLP[0] != '\0') {
+    PUSH_SLOT(widgetTextLP, primary_font, primary_height, primary_offset,
+              primaryColor);
   }
 
   // Lower secondary (bottommost)
-  if (globalSettings.widgetLowerSecondary[0] != '\0') {
-    widget_get_text(globalSettings.widgetLowerSecondary, widgetTextLS,
-                    WIDGET_TEXT_LEN);
-    if (widgetTextLS[0] != '\0') {
-      PUSH_SLOT(widgetTextLS, secondary_font, secondary_height,
-                secondary_offset, secondaryColor);
-    }
+  if (widgetTextLS[0] != '\0') {
+    PUSH_SLOT(widgetTextLS, secondary_font, secondary_height, secondary_offset,
+              secondaryColor);
   }
 
 #undef PUSH_SLOT
@@ -216,6 +229,11 @@ static void update_clock() {
       }
     }
   }
+
+  // Re-parse widget format strings into static buffers; the layer update
+  // callback only reads them, so redraws (e.g. obstruction animations) don't
+  // re-parse on every frame.
+  update_widget_text();
 
   // ensure colors are updated based on settings
   window_set_background_color(mainWindow,

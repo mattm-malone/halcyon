@@ -1,12 +1,17 @@
 import React from 'react';
 import { WatchPreview } from './WatchPreview';
 import { Select } from './Select';
-import { useCapabilities } from '../context/PebbleConfigContext';
-import { WIDGET_OPTIONS, WIDGET_OPTIONS_NO_HEALTH } from '../data/widgetTypes';
+import { useCapabilities, useConfig } from '../context/PebbleConfigContext';
+import { getWidgetOptions } from '../data/widgetTypes';
 
 export const WidgetSelector: React.FC = () => {
     const capabilities = useCapabilities();
-    const widgetOptions = capabilities.HEALTH ? WIDGET_OPTIONS : WIDGET_OPTIONS_NO_HEALTH;
+    const { settings } = useConfig();
+    const lang = Number(settings.SETTING_LANGUAGE) || 0;
+    const widgetOptions = React.useMemo(
+        () => getWidgetOptions(lang, !!capabilities.HEALTH),
+        [lang, capabilities.HEALTH],
+    );
 
     return (
         <div className="widget-selector-container">
