@@ -4,14 +4,8 @@
 var Languages = require('./languages');
 
 function getCondition(code, lang) {
-  var langIndex = parseInt(lang) || 0;
-  if (langIndex < 0 || langIndex > 36) langIndex = 0;
-
-  var codes = Languages.weatherCodes;
-  if (codes[code]) {
-      return codes[code][langIndex] || codes[code][0];
-  }
-  return 'WX' + code;
+  var L = Languages.getLang(lang);
+  return L.weather[code] || Languages.getLang(0).weather[code] || 'WX' + code;
 }
 
 var OPENMETEO_BASE = 'https://api.open-meteo.com/v1/forecast';
@@ -100,11 +94,8 @@ function toInch(mm) {
 }
 
 function getCardinal(degrees, lang) {
-  var langIndex = parseInt(lang) || 0;
-  if (langIndex < 0 || langIndex > 36) langIndex = 0;
-
   var index = Math.round(degrees / 45) % 8;
-  return Languages.cardinals[langIndex][index];
+  return Languages.getLang(lang).cardinals[index];
 }
 
 module.exports = {
@@ -114,6 +105,5 @@ module.exports = {
   toMPH: toMPH,
   toInch: toInch,
   getCardinal: getCardinal,
-  codes: Languages.weatherCodes,
   getCondition: getCondition
 };

@@ -49,8 +49,7 @@ function formatMinutes(minutes, use24h) {
 function applyJsTokens(formatStr, weather, solar, isImperial, use24h, lang) {
   if (!formatStr) return formatStr;
 
-  var langIndex = parseInt(lang) || 0;
-  if (langIndex < 0 || langIndex > 36) langIndex = 0;
+  var L = Languages.getLang(lang);
 
   var result = formatStr;
 
@@ -84,21 +83,21 @@ function applyJsTokens(formatStr, weather, solar, isImperial, use24h, lang) {
     result = result.replace('{pop}', String(Math.round(weather.pop)));
     result = result.replace('{dew}', String(dew));
     result = result.replace('{temp_unit}', isImperial ? '°F' : '°C');
-    result = result.replace('{wind_unit}', isImperial ? Languages.labels[langIndex].WIND_IMPERIAL : Languages.labels[langIndex].WIND_METRIC);
-    result = result.replace('{wind_dir}', Weather.getCardinal(weather.wind_dir, langIndex));
-    result = result.replace('{steps_label}', Languages.labels[langIndex].STEPS);
-    result = result.replace('{week_label}', Languages.labels[langIndex].WEEK);
-    result = result.replace('{day_label}', Languages.labels[langIndex].DAY);
+    result = result.replace('{wind_unit}', isImperial ? L.labels.WIND_IMPERIAL : L.labels.WIND_METRIC);
+    result = result.replace('{wind_dir}', Weather.getCardinal(weather.wind_dir, lang));
+    result = result.replace('{steps_label}', L.labels.STEPS);
+    result = result.replace('{week_label}', L.labels.WEEK);
+    result = result.replace('{day_label}', L.labels.DAY);
   } else {
     // No weather data yet — replace with placeholders so the watch shows something
     var dash = '--';
     ['temp', 'thi', 'tlo', 'cond', 'cond_day', 'hum', 'wind', 'uv', 'rain', 'pop', 'dew', 'temp_unit', 'wind_unit', 'wind_dir', 'steps_label', 'week_label', 'day_label'].forEach(function (t) {
       if (t === 'steps_label') {
-        result = result.replace('{' + t + '}', Languages.labels[langIndex].STEPS);
+        result = result.replace('{' + t + '}', L.labels.STEPS);
       } else if (t === 'week_label') {
-        result = result.replace('{' + t + '}', Languages.labels[langIndex].WEEK);
+        result = result.replace('{' + t + '}', L.labels.WEEK);
       } else if (t === 'day_label') {
-        result = result.replace('{' + t + '}', Languages.labels[langIndex].DAY);
+        result = result.replace('{' + t + '}', L.labels.DAY);
       } else {
         result = result.replace('{' + t + '}', dash);
       }
