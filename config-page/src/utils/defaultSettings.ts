@@ -34,8 +34,8 @@ export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
   SETTING_PIP_VISIBILITY: 0,
   SETTING_SHOW_LEADING_ZERO: 0,
   // Widget slots default to format strings
-  SETTING_WIDGET_UPPER_SECONDARY: '{thi}° / {tlo}°',
-  SETTING_WIDGET_UPPER_PRIMARY: '{temp}° {cond}',
+  SETTING_WIDGET_UPPER_SECONDARY: '{temp}° ({thi}°/{tlo}°)',
+  SETTING_WIDGET_UPPER_PRIMARY: '{cond}',
   SETTING_WIDGET_LOWER_PRIMARY: '{local_date}',
   SETTING_WIDGET_LOWER_SECONDARY: '{steps} {steps_label}',
   SETTING_TEMP_UNIT: 0,

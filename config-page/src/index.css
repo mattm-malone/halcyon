@@ -147,6 +147,7 @@ button {
 }
 
 .halite-label-group {
+  font-weight: 600;
   display: flex;
   flex-direction: column;
   gap: 4px;

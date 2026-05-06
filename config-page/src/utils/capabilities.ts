@@ -17,9 +17,10 @@ const CAPABILITY_MAP: Record<keyof Capabilities, string[]> = {
   DISPLAY_200x228: ['emery'],
   DISPLAY_260x260_ROUND: ['gabbro'],
   MICROPHONE: ['basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'],
-  SMARTSTRAP: ['basalt', 'chalk', 'diorite', 'emery'],
-  SMARTSTRAP_POWER: ['basalt', 'chalk', 'emery'],
+  SMARTSTRAP: ['basalt', 'chalk', 'diorite'],
+  SMARTSTRAP_POWER: ['basalt', 'chalk'],
   HEALTH: ['basalt', 'chalk', 'diorite', 'emery', 'flint', 'gabbro'],
+  HRM: ['diorite', 'emery'],
 };
 
 export const evaluateCapabilities = (watchInfo: WatchInfo | null): Capabilities => {
