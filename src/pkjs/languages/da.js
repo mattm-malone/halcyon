@@ -49,12 +49,12 @@ module.exports = {
     "DIST_IMPERIAL": "MI",
     "WIND_METRIC": "KM/H",
     "WIND_IMPERIAL": "MPH",
-    "BATTERY": "BATTERY",
-    "HUMIDITY": "HUMIDITY",
+    "BATTERY": "BATTERI",
+    "HUMIDITY": "FUGT",
     "DPT": "DPT",
-    "RISE": "RISE",
-    "SET": "SET",
-    "RAIN": "RAIN",
+    "RISE": "SOL OP",
+    "SET": "SOL NED",
+    "RAIN": "REGN",
     "UV": "UV"
   }
 };

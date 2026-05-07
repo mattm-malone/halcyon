@@ -3,7 +3,7 @@
 module.exports = {
   "weather": {
     "0": "JASNO",
-    "1": "PRETEŽNO JASNO",
+    "1": "PRET. JASNO",
     "2": "DELNO OBLAČNO",
     "3": "OBLAČNO",
     "45": "MEGLA",
@@ -11,8 +11,8 @@ module.exports = {
     "51": "PRŠENJE",
     "53": "PRŠENJE",
     "55": "PRŠENJE",
-    "56": "LEDENO PRŠENJE",
-    "57": "LEDENO PRŠENJE",
+    "56": "LED. PRŠENJE",
+    "57": "LED. PRŠENJE",
     "61": "RAHEL DEŽ",
     "63": "DEŽ",
     "65": "MOČAN DEŽ",
@@ -49,12 +49,12 @@ module.exports = {
     "DIST_IMPERIAL": "MI",
     "WIND_METRIC": "KM/H",
     "WIND_IMPERIAL": "MPH",
-    "BATTERY": "BATTERY",
-    "HUMIDITY": "HUMIDITY",
+    "BATTERY": "BATERIJA",
+    "HUMIDITY": "VLAGA",
     "DPT": "DPT",
-    "RISE": "RISE",
-    "SET": "SET",
-    "RAIN": "RAIN",
+    "RISE": "VZHOD",
+    "SET": "ZAHOD",
+    "RAIN": "DEŽ",
     "UV": "UV"
   }
 };

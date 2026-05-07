@@ -16,8 +16,8 @@ module.exports = {
     "61": "LETT REGN",
     "63": "REGN",
     "65": "KRAFTIG REGN",
-    "66": "UNDERKJØLT REGN",
-    "67": "UNDERKJØLT REGN",
+    "66": "UNDERKJ. REGN",
+    "67": "UNDERKJ. REGN",
     "71": "LETT SNØ",
     "73": "SNØ",
     "75": "KRAFTIG SNØ",
@@ -49,12 +49,12 @@ module.exports = {
     "DIST_IMPERIAL": "MI",
     "WIND_METRIC": "KM/H",
     "WIND_IMPERIAL": "MPH",
-    "BATTERY": "BATTERY",
-    "HUMIDITY": "HUMIDITY",
+    "BATTERY": "BATTERI",
+    "HUMIDITY": "FUKT",
     "DPT": "DPT",
-    "RISE": "RISE",
-    "SET": "SET",
-    "RAIN": "RAIN",
+    "RISE": "SOL OPP",
+    "SET": "SOL NED",
+    "RAIN": "REGN",
     "UV": "UV"
   }
 };

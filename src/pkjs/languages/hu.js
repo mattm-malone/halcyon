@@ -3,8 +3,8 @@
 module.exports = {
   "weather": {
     "0": "TISZTA",
-    "1": "RENSZINT TISZTA",
-    "2": "RÉSZLEGESEN FELHŐS",
+    "1": "TÖBB. TISZTA",
+    "2": "RÉSZB. FELHŐS",
     "3": "BORULT",
     "45": "KÖDÖS",
     "48": "KÖDÖS",
@@ -18,7 +18,7 @@ module.exports = {
     "65": "ERŐS ESŐ",
     "66": "ÓNOS ESŐ",
     "67": "ÓNOS ESŐ",
-    "71": "GYENGE HAVAZÁS",
+    "71": "GYENGE HÓ",
     "73": "HAVAZÁS",
     "75": "ERŐS HAVAZÁS",
     "77": "HÓDARA",
@@ -49,12 +49,12 @@ module.exports = {
     "DIST_IMPERIAL": "MI",
     "WIND_METRIC": "KM/H",
     "WIND_IMPERIAL": "MPH",
-    "BATTERY": "BATTERY",
-    "HUMIDITY": "HUMIDITY",
+    "BATTERY": "AKKU",
+    "HUMIDITY": "PÁRA",
     "DPT": "DPT",
-    "RISE": "RISE",
-    "SET": "SET",
-    "RAIN": "RAIN",
+    "RISE": "NAPKELTE",
+    "SET": "NAPNYUGTA",
+    "RAIN": "ESŐ",
     "UV": "UV"
   }
 };

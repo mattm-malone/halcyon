@@ -4,7 +4,7 @@ module.exports = {
   "weather": {
     "0": "CLARO",
     "1": "MOI CLARO",
-    "2": "PARCIALMENTE NUBRADO",
+    "2": "PARC. NUBRADO",
     "3": "NUBRADO",
     "45": "NÉBOA",
     "48": "NÉBOA",
@@ -21,15 +21,15 @@ module.exports = {
     "71": "NEVE MIÚDA",
     "73": "NEVE",
     "75": "NEVE FORTE",
-    "77": "NEVE GRANULADA",
+    "77": "NEVE GRANUL.",
     "80": "CHUBASCOS",
     "81": "CHUBASCOS",
-    "82": "CHUBASCOS FORTES",
-    "85": "CHUBASCOS DE NEVE",
-    "86": "CHUBASCOS DE NEVE",
+    "82": "CHUB. FORTES",
+    "85": "CHUB. NEVE",
+    "86": "CHUB. NEVE",
     "95": "TORMENTA",
-    "96": "TORMENTA DE SARABIA",
-    "99": "TORMENTA DE SARABIA"
+    "96": "SARABIA",
+    "99": "SARABIA"
   },
   "cardinals": [
     "N",
@@ -49,12 +49,12 @@ module.exports = {
     "DIST_IMPERIAL": "MI",
     "WIND_METRIC": "KM/H",
     "WIND_IMPERIAL": "MPH",
-    "BATTERY": "BATTERY",
-    "HUMIDITY": "HUMIDITY",
+    "BATTERY": "BATERÍA",
+    "HUMIDITY": "HUMIDADE",
     "DPT": "DPT",
-    "RISE": "RISE",
-    "SET": "SET",
-    "RAIN": "RAIN",
+    "RISE": "SAÍDA",
+    "SET": "POSTA",
+    "RAIN": "CHUVIA",
     "UV": "UV"
   }
 };

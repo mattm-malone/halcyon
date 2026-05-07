@@ -4,7 +4,7 @@ module.exports = {
   "weather": {
     "0": "CERAH",
     "1": "CERAH BERAWAN",
-    "2": "BERAWAN SEBAGIAN",
+    "2": "AGAK BERAWAN",
     "3": "MENDUNG",
     "45": "BERKABUT",
     "48": "BERKABUT",
@@ -24,7 +24,7 @@ module.exports = {
     "77": "BUTIRAN SALJU",
     "80": "HUJAN DERAS",
     "81": "HUJAN DERAS",
-    "82": "HUJAN SANGAT DERAS",
+    "82": "HUJAN SGT DRS",
     "85": "SALJU DERAS",
     "86": "SALJU DERAS",
     "95": "BADAI PETIR",
@@ -49,12 +49,12 @@ module.exports = {
     "DIST_IMPERIAL": "MI",
     "WIND_METRIC": "KM/H",
     "WIND_IMPERIAL": "MPH",
-    "BATTERY": "BATTERY",
-    "HUMIDITY": "HUMIDITY",
+    "BATTERY": "BATERAI",
+    "HUMIDITY": "LEMBAP",
     "DPT": "DPT",
-    "RISE": "RISE",
-    "SET": "SET",
-    "RAIN": "RAIN",
+    "RISE": "TERBIT",
+    "SET": "TERBENAM",
+    "RAIN": "HUJAN",
     "UV": "UV"
   }
 };
