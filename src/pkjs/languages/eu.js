@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: eu
+
+module.exports = {
+  "weather": {
+    "0": "GARBI",
+    "1": "GEHIENBAT GARBI",
+    "2": "HODEI KERTSUAK",
+    "3": "ESTALIA",
+    "45": "LAINOA",
+    "48": "LAINOA",
+    "51": "ZIRRIMINA",
+    "53": "ZIRRIMINA",
+    "55": "ZIRRIMINA",
+    "56": "ZIRRIMINA IZOTUA",
+    "57": "ZIRRIMINA IZOTUA",
+    "61": "EURI ARINA",
+    "63": "EURIA",
+    "65": "EURI JASA",
+    "66": "EURI IZOTUA",
+    "67": "EURI IZOTUA",
+    "71": "ELUR ARINA",
+    "73": "ELURRA",
+    "75": "ELUR JASA",
+    "77": "ELUR-GRANULATUAK",
+    "80": "EURI-JASAK",
+    "81": "EURI-JASAK",
+    "82": "EURI-JASA GOGORRA",
+    "85": "ELUR-JASAK",
+    "86": "ELUR-JASAK",
+    "95": "EKRIETA",
+    "96": "RABASSAIREA",
+    "99": "RABASSAIREA"
+  },
+  "cardinals": [
+    "I",
+    "IP",
+    "E",
+    "HE",
+    "H",
+    "HM",
+    "M",
+    "IM"
+  ],
+  "labels": {
+    "STEPS": "URRATSAK",
+    "WEEK": "AST",
+    "DAY": "EGUN",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

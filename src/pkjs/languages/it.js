@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: it
+
+module.exports = {
+  "weather": {
+    "0": "SERENO",
+    "1": "QUASI SERENO",
+    "2": "PARZ. NUVOLOSO",
+    "3": "COPERTO",
+    "45": "NEBBIA",
+    "48": "NEBBIA",
+    "51": "PIOGGERELLA",
+    "53": "PIOGGERELLA",
+    "55": "PIOGGERELLA",
+    "56": "PIOGG. GELATA",
+    "57": "PIOGG. GELATA",
+    "61": "PIOGGIA DEBOLE",
+    "63": "PIOGGIA",
+    "65": "FORTE PIOGGIA",
+    "66": "PIOGGIA GELATA",
+    "67": "PIOGGIA GELATA",
+    "71": "NEVE DEBOLE",
+    "73": "NEVE",
+    "75": "FORTE NEVE",
+    "77": "NEVE GRANULOSA",
+    "80": "ROVESCI",
+    "81": "ROVESCI",
+    "82": "FORTI ROVESCI",
+    "85": "ROVESCI NEVOSI",
+    "86": "ROVESCI NEVOSI",
+    "95": "TEMPORALE",
+    "96": "GRANDINE",
+    "99": "GRANDINE"
+  },
+  "cardinals": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SO",
+    "O",
+    "NO"
+  ],
+  "labels": {
+    "STEPS": "PASSI",
+    "WEEK": "SETT",
+    "DAY": "GIORNO",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERIA",
+    "HUMIDITY": "UMIDITÀ",
+    "DEW": "RUGIADA",
+    "RISE": "ALBA",
+    "SET": "TRAMONTO",
+    "RAIN": "PIOGGIA",
+    "UV": "UV"
+  }
+};

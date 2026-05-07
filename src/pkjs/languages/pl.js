@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: pl
+
+module.exports = {
+  "weather": {
+    "0": "CZYSTO",
+    "1": "PRZEWAŻNIE CZYSTO",
+    "2": "CZĘŚCIOWO ZACHMURZONE",
+    "3": "ZACHMURZONE",
+    "45": "MGLISTO",
+    "48": "MGLISTO",
+    "51": "MŻAWKA",
+    "53": "MŻAWKA",
+    "55": "MŻAWKA",
+    "56": "MARZNĄCA MŻAWKA",
+    "57": "MARZNĄCA MŻAWKA",
+    "61": "LEKKI DESZCZ",
+    "63": "DESZCZ",
+    "65": "SILNY DESZCZ",
+    "66": "MARZNĄCY DESZCZ",
+    "67": "MARZNĄCY DESZCZ",
+    "71": "LEKKI ŚNIEG",
+    "73": "ŚNIEG",
+    "75": "SILNY ŚNIEG",
+    "77": "ŚNIEG ZIARNISTY",
+    "80": "PRZELOTNE OPADY",
+    "81": "PRZELOTNE OPADY",
+    "82": "ULEWA",
+    "85": "PRZELOTNY ŚNIEG",
+    "86": "PRZELOTNY ŚNIEG",
+    "95": "BURZA",
+    "96": "GRAD",
+    "99": "GRAD"
+  },
+  "cardinals": [
+    "Pn",
+    "PnW",
+    "W",
+    "PdW",
+    "Pd",
+    "PdZ",
+    "Z",
+    "PnZ"
+  ],
+  "labels": {
+    "STEPS": "KROKI",
+    "WEEK": "TYDZ",
+    "DAY": "DZIEŃ",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

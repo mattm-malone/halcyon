@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: ga
+
+module.exports = {
+  "weather": {
+    "0": "GLAN",
+    "1": "PÁIRTEACH GLAN",
+    "2": "PÁIRTEACH SCALTA",
+    "3": "SCALTA",
+    "45": "CEOCH",
+    "48": "CEOCH",
+    "51": "DRUCHLÁK",
+    "53": "DRUCHLÁK",
+    "55": "DRUCHLÁK",
+    "56": "DRUCHLÁK REOITE",
+    "57": "DRUCHLÁK REOITE",
+    "61": "BÁISTEACH ÉADROM",
+    "63": "BÁISTEACH",
+    "65": "BÁISTEACH THROM",
+    "66": "BÁISTEACH REOITE",
+    "67": "BÁISTEACH REOITE",
+    "71": "SNEACHTA ÉADROM",
+    "73": "SNEACHTA",
+    "75": "SNEACHTA TROM",
+    "77": "GRÁINNÍ SNEACHTA",
+    "80": "CITHEANNA",
+    "81": "CITHEANNA",
+    "82": "CITHEANNA TROMA",
+    "85": "CITHEANNA SNEACHTA",
+    "86": "CITHEANNA SNEACHTA",
+    "95": "STOIRM THIURNACH",
+    "96": "STOIRM CHLOCHSHNEA.",
+    "99": "STOIRM CHLOCHSHNEA."
+  },
+  "cardinals": [
+    "T",
+    "TO",
+    "O",
+    "DO",
+    "D",
+    "DI",
+    "I",
+    "TI"
+  ],
+  "labels": {
+    "STEPS": "CÉIMEANNA",
+    "WEEK": "SCHT",
+    "DAY": "LÁ",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

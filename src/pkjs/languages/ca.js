@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: ca
+
+module.exports = {
+  "weather": {
+    "0": "CLAR",
+    "1": "MAJORITÀ CLAR",
+    "2": "PARCIALMENT NUBOL",
+    "3": "COBERT",
+    "45": "BOIRA",
+    "48": "BOIRA",
+    "51": "BOREIM",
+    "53": "BOREIM",
+    "55": "BOREIM",
+    "56": "BORIM GELAT",
+    "57": "BORIM GELAT",
+    "61": "PLUJA FEBLE",
+    "63": "PLUJA",
+    "65": "PLUJA FORTA",
+    "66": "PLUJA GELADA",
+    "67": "PLUJA GELADA",
+    "71": "NEU FEBLE",
+    "73": "NEU",
+    "75": "NEU FORTA",
+    "77": "NEU GRANULADA",
+    "80": "XFALUTS",
+    "81": "XFALUTS",
+    "82": "XFALUTS FORTS",
+    "85": "XFALUTS DE NEU",
+    "86": "XFALUTS DE NEU",
+    "95": "TEMPESTA",
+    "96": "PEPEDREGADA",
+    "99": "PEPEDREGADA"
+  },
+  "cardinals": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SO",
+    "O",
+    "NO"
+  ],
+  "labels": {
+    "STEPS": "PASSOS",
+    "WEEK": "SETM",
+    "DAY": "DIA",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: de
+
+module.exports = {
+  "weather": {
+    "0": "KLAR",
+    "1": "MEIST KLAR",
+    "2": "TEILW. BEWÖLKT",
+    "3": "STARK BEWÖLKT",
+    "45": "NEBEL",
+    "48": "NEBEL",
+    "51": "NIESELREGEN",
+    "53": "NIESELREGEN",
+    "55": "NIESELREGEN",
+    "56": "GEF. NIESELREGEN",
+    "57": "GEF. NIESELREGEN",
+    "61": "LEICHTER REGEN",
+    "63": "REGEN",
+    "65": "STARKER REGEN",
+    "66": "GEFRIERENDER REGEN",
+    "67": "GEFRIERENDER REGEN",
+    "71": "LEICHTER SCHNEE",
+    "73": "SCHNEE",
+    "75": "STARKER SCHNEE",
+    "77": "SCHNEEGRIESEL",
+    "80": "REGENSCHAUER",
+    "81": "REGENSCHAUER",
+    "82": "STARKE REGENSC.",
+    "85": "SCHNEESCHAUER",
+    "86": "SCHNEESCHAUER",
+    "95": "GEWITTER",
+    "96": "HAGELSTURM",
+    "99": "HAGELSTURM"
+  },
+  "cardinals": [
+    "N",
+    "NO",
+    "O",
+    "SO",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "labels": {
+    "STEPS": "SCHRITTE",
+    "WEEK": "W",
+    "DAY": "TAG",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "AKKU",
+    "HUMIDITY": "FEUCHT",
+    "DEW": "TAU",
+    "RISE": "AUFGANG",
+    "SET": "UNTERGANG",
+    "RAIN": "REGEN",
+    "UV": "UV"
+  }
+};

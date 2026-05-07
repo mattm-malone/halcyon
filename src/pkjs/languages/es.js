@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: es
+
+module.exports = {
+  "weather": {
+    "0": "DESPEJADO",
+    "1": "MAYORMENTE DESP.",
+    "2": "PARCIALMENTE NUB.",
+    "3": "NUBLADO",
+    "45": "NIEBLA",
+    "48": "NIEBLA",
+    "51": "LLOVIZNA",
+    "53": "LLOVIZNA",
+    "55": "LLOVIZNA",
+    "56": "LLOVIZNA HELADA",
+    "57": "LLOVIZNA HELADA",
+    "61": "LLUVIA LIGERA",
+    "63": "LLUVIA",
+    "65": "LLUVIA FUERTE",
+    "66": "LLUVIA HELADA",
+    "67": "LLUVIA HELADA",
+    "71": "NIEVE LIGERA",
+    "73": "NIEVE",
+    "75": "NIEVE FUERTE",
+    "77": "GRANOS DE NIEVE",
+    "80": "CHUBASCOS",
+    "81": "CHUBASCOS",
+    "82": "CHUBASCOS FUERTES",
+    "85": "CHUBASCOS NIEVE",
+    "86": "CHUBASCOS NIEVE",
+    "95": "TORMENTA",
+    "96": "TORM. GRANIZO",
+    "99": "TORM. GRANIZO"
+  },
+  "cardinals": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SO",
+    "O",
+    "NO"
+  ],
+  "labels": {
+    "STEPS": "PASOS",
+    "WEEK": "SEM",
+    "DAY": "DÍA",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATERÍA",
+    "HUMIDITY": "HUMEDAD",
+    "DEW": "ROCÍO",
+    "RISE": "SALIDA",
+    "SET": "PUESTA",
+    "RAIN": "LLUVIA",
+    "UV": "UV"
+  }
+};

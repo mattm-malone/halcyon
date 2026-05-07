@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: ro
+
+module.exports = {
+  "weather": {
+    "0": "SENIN",
+    "1": "PREA SENIN",
+    "2": "PARȚIAL NOROS",
+    "3": "NOROS",
+    "45": "CEAȚĂ",
+    "48": "CEAȚĂ",
+    "51": "BURNIȚĂ",
+    "53": "BURNIȚĂ",
+    "55": "BURNIȚĂ",
+    "56": "BURNIȚĂ ÎNGHEȚATĂ",
+    "57": "BURNIȚĂ ÎNGHEȚATĂ",
+    "61": "PLOAIE SLABĂ",
+    "63": "PLOAIE",
+    "65": "PLOAIE TORENȚIALĂ",
+    "66": "PLOAIE ÎNGHEȚATĂ",
+    "67": "PLOAIE ÎNGHEȚATĂ",
+    "71": "NINSOARE SLABĂ",
+    "73": "NINSOARE",
+    "75": "NINSOARE PUTERNICĂ",
+    "77": "GRĂUNȚE DE ZĂPADĂ",
+    "80": "AVERSE",
+    "81": "AVERSE",
+    "82": "AVERSE PUTERNICE",
+    "85": "AVERSE DE NINSOARE",
+    "86": "AVERSE DE NINSOARE",
+    "95": "FURTUNĂ",
+    "96": "GRINDINĂ",
+    "99": "GRINDINĂ"
+  },
+  "cardinals": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SV",
+    "V",
+    "NV"
+  ],
+  "labels": {
+    "STEPS": "PAȘI",
+    "WEEK": "SĂPT",
+    "DAY": "ZI",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

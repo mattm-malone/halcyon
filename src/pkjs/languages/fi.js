@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: fi
+
+module.exports = {
+  "weather": {
+    "0": "SELKEÄÄ",
+    "1": "MELKO SELKEÄÄ",
+    "2": "PUOLIPILVISTÄ",
+    "3": "PILVISTÄ",
+    "45": "USVAISTA",
+    "48": "USVAISTA",
+    "51": "TIHKUSADETTA",
+    "53": "TIHKUSADETTA",
+    "55": "TIHKUSADETTA",
+    "56": "JÄÄTÄVÄÄ TIHKUA",
+    "57": "JÄÄTÄVÄÄ TIHKUA",
+    "61": "HEIKKOA SADETTA",
+    "63": "SADETTA",
+    "65": "VOIMAKASTA SADETTA",
+    "66": "JÄÄTÄVÄÄ SADETTA",
+    "67": "JÄÄTÄVÄÄ SADETTA",
+    "71": "HEIKKOA LUMISADETTA",
+    "73": "LUMISADETTA",
+    "75": "VOIMAKASTA LUMISADETTA",
+    "77": "LUMIJYVÄSIÄ",
+    "80": "SADEKUUROJA",
+    "81": "SADEKUUROJA",
+    "82": "RANKKASATEITA",
+    "85": "LUMIKUUROJA",
+    "86": "LUMIKUUROJA",
+    "95": "UKKOSTA",
+    "96": "RAKEITA",
+    "99": "RAKEITA"
+  },
+  "cardinals": [
+    "P",
+    "KO",
+    "I",
+    "KA",
+    "E",
+    "LO",
+    "L",
+    "LU"
+  ],
+  "labels": {
+    "STEPS": "ASKELTA",
+    "WEEK": "VK",
+    "DAY": "PÄIVÄ",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

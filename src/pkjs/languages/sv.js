@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: sv
+
+module.exports = {
+  "weather": {
+    "0": "KLART",
+    "1": "MEST KLART",
+    "2": "HALVKLART",
+    "3": "MUULIT",
+    "45": "DIMMA",
+    "48": "DIMMA",
+    "51": "DUGGREGN",
+    "53": "DUGGREGN",
+    "55": "DUGGREGN",
+    "56": "UNDERKYLT REGN",
+    "57": "UNDERKYLT REGN",
+    "61": "LÄTT REGN",
+    "63": "REGN",
+    "65": "KRAFTIGT REGN",
+    "66": "UNDERKYLT REGN",
+    "67": "UNDERKYLT REGN",
+    "71": "LÄTT SNÖFALL",
+    "73": "SNÖFALL",
+    "75": "KRAFTIGT SNÖFALL",
+    "77": "SNÖKORN",
+    "80": "REGNSKURAR",
+    "81": "REGNSKURAR",
+    "82": "KRAFTIGA SKURAR",
+    "85": "SNÖBYER",
+    "86": "SNÖBYER",
+    "95": "ÅSKA",
+    "96": "HAGELSKURAR",
+    "99": "HAGELSKURAR"
+  },
+  "cardinals": [
+    "N",
+    "NO",
+    "O",
+    "SO",
+    "S",
+    "SV",
+    "V",
+    "NV"
+  ],
+  "labels": {
+    "STEPS": "STEG",
+    "WEEK": "V",
+    "DAY": "DAG",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

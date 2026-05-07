@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: lv
+
+module.exports = {
+  "weather": {
+    "0": "SKAIDRS",
+    "1": "GANDRĪZ SKAIDRS",
+    "2": "DAĻĒJI MĀKOŅAINS",
+    "3": "APMĀCIES",
+    "45": "MIGLAINS",
+    "48": "MIGLAINS",
+    "51": "SMRIDZINĀŠANA",
+    "53": "SMRIDZINĀŠANA",
+    "55": "SMRIDZINĀŠANA",
+    "56": "SALST SMRIDZIN.",
+    "57": "SALST SMRIDZIN.",
+    "61": "VIEGLS LIETUS",
+    "63": "LIETUS",
+    "65": "STIPRS LIETUS",
+    "66": "SALST LIETUS",
+    "67": "SALST LIETUS",
+    "71": "VIEGLS SNIEGS",
+    "73": "SNIEGS",
+    "75": "STIPRS SNIEGS",
+    "77": "SNIEGA GRAUDI",
+    "80": "LIETUS GĀZES",
+    "81": "LIETUS GĀZES",
+    "82": "STIPRAS GĀZES",
+    "85": "SNIEGA GĀZES",
+    "86": "SNIEGA GĀZES",
+    "95": "PĒRKONA NEGAISS",
+    "96": "KRUŠA",
+    "99": "KRUŠA"
+  },
+  "cardinals": [
+    "Z",
+    "ZA",
+    "A",
+    "DA",
+    "D",
+    "DR",
+    "R",
+    "ZR"
+  ],
+  "labels": {
+    "STEPS": "SOĻI",
+    "WEEK": "NED",
+    "DAY": "DIENA",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};

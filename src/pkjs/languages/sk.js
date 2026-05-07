@@ -1,0 +1,60 @@
+// Localized strings for PebbleKit JS: sk
+
+module.exports = {
+  "weather": {
+    "0": "JASNO",
+    "1": "SKORO JASNО",
+    "2": "POLOJASNO",
+    "3": "ZATIAHNUTÉ",
+    "45": "HMLA",
+    "48": "HMLA",
+    "51": "MRHOLENIE",
+    "53": "MRHOLENIE",
+    "55": "MRHOLENIE",
+    "56": "MRZN. MRHOLENIE",
+    "57": "MRZN. MRHOLENIE",
+    "61": "SLABÝ DÁŽĎ",
+    "63": "DÁŽĎ",
+    "65": "SILNÝ DÁŽĎ",
+    "66": "MRZNOUCI DÁŽĎ",
+    "67": "MRZNOUCI DÁŽĎ",
+    "71": "SLABÉ SNĚŽENIE",
+    "73": "SNĚŽENIE",
+    "75": "SILNÉ SNĚŽENIE",
+    "77": "SNEHOVÉ ZRNÁ",
+    "80": "PREHÁNKY",
+    "81": "PREHÁNKY",
+    "82": "SILNÉ PREHÁNKY",
+    "85": "SNEHOVÉ PREHÁNKY",
+    "86": "SNEHOVÉ PREHÁNKY",
+    "95": "BÚRKA",
+    "96": "KRUPOBITIE",
+    "99": "KRUPOBITIE"
+  },
+  "cardinals": [
+    "S",
+    "SV",
+    "V",
+    "JV",
+    "J",
+    "JZ",
+    "Z",
+    "SZ"
+  ],
+  "labels": {
+    "STEPS": "KROKY",
+    "WEEK": "TÝŽ",
+    "DAY": "DEŇ",
+    "DIST_METRIC": "KM",
+    "DIST_IMPERIAL": "MI",
+    "WIND_METRIC": "KM/H",
+    "WIND_IMPERIAL": "MPH",
+    "BATTERY": "BATTERY",
+    "HUMIDITY": "HUMIDITY",
+    "DEW": "DEW",
+    "RISE": "RISE",
+    "SET": "SET",
+    "RAIN": "RAIN",
+    "UV": "UV"
+  }
+};
