@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "DAG",
     "BATTERY": "BATTERI",
     "HUMIDITY": "FUKT",
-    "DPT": "DPT",
+    "DPT": "DUGGPKT",
     "RISE": "SOL OPP",
     "SET": "SOL NED",
     "RAIN": "REGN",

@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "יום",
     "BATTERY": "סוללה",
     "HUMIDITY": "לחות",
-    "DPT": "DPT",
+    "DPT": "נק׳ טל",
     "RISE": "זריחה",
     "SET": "שקיעה",
     "RAIN": "גשם",

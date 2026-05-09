@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "ΗΜΕΡΑ",
     "BATTERY": "ΜΠΑΤΑΡΙΑ",
     "HUMIDITY": "ΥΓΡΑΣΙΑ",
-    "DPT": "DPT",
+    "DPT": "Σ. ΔΡΟΣΟΥ",
     "RISE": "ΑΝΑΤΟΛΗ",
     "SET": "ΔΥΣΗ",
     "RAIN": "ΒΡΟΧΗ",

@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "LÁ",
     "BATTERY": "CEALLRA",
     "HUMIDITY": "TAISE",
-    "DPT": "DPT",
+    "DPT": "DRÚCHT",
     "RISE": "ÉIRÍ",
     "SET": "DUL SÍOS",
     "RAIN": "BÁISTEACH",

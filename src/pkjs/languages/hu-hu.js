@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "NAP",
     "BATTERY": "AKKU",
     "HUMIDITY": "PÁRA",
-    "DPT": "DPT",
+    "DPT": "HARMATP",
     "RISE": "NAPKELTE",
     "SET": "NAPNYUGTA",
     "RAIN": "ESŐ",

@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "PÄEV",
     "BATTERY": "AKU",
     "HUMIDITY": "NIISKUS",
-    "DPT": "DPT",
+    "DPT": "KASTE",
     "RISE": "PÄIK. TÕUS",
     "SET": "LOOJANG",
     "RAIN": "VIHM",

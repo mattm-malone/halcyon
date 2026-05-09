@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "NGÀY",
     "BATTERY": "PIN",
     "HUMIDITY": "ĐỘ ẨM",
-    "DPT": "DPT",
+    "DPT": "SƯƠNG",
     "RISE": "MỌC",
     "SET": "LẶN",
     "RAIN": "MƯA",

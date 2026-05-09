@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "PÄIVÄ",
     "BATTERY": "AKKU",
     "HUMIDITY": "KOSTEUS",
-    "DPT": "DPT",
+    "DPT": "KASTE",
     "RISE": "AUR. NOUSU",
     "SET": "AUR. LASKU",
     "RAIN": "SADE",

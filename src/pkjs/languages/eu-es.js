@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "EGUN",
     "BATTERY": "BATERIA",
     "HUMIDITY": "HEZETASUNA",
-    "DPT": "DPT",
+    "DPT": "IHINTZ",
     "RISE": "EGUNSENTI",
     "SET": "ILUNABAR",
     "RAIN": "EURIA",

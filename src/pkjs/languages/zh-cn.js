@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "天",
     "BATTERY": "电量",
     "HUMIDITY": "湿度",
-    "DPT": "DPT",
+    "DPT": "露点",
     "RISE": "日出",
     "SET": "日落",
     "RAIN": "雨",

@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "PARA",
     "BATTERY": "BATERIJA",
     "HUMIDITY": "DRĖGMĖ",
-    "DPT": "DPT",
+    "DPT": "RASA",
     "RISE": "TEKA",
     "SET": "LEIDŽIASI",
     "RAIN": "LIETUS",

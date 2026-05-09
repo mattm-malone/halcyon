@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "일",
     "BATTERY": "배터리",
     "HUMIDITY": "습도",
-    "DPT": "DPT",
+    "DPT": "이슬점",
     "RISE": "일출",
     "SET": "일몰",
     "RAIN": "비",

@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "DIA",
     "BATTERY": "BATERIA",
     "HUMIDITY": "HUMITAT",
-    "DPT": "DPT",
+    "DPT": "ROSADA",
     "RISE": "SORTIDA",
     "SET": "POSTA",
     "RAIN": "PLUJA",

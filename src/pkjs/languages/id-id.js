@@ -47,7 +47,7 @@ module.exports = {
     "DAY": "HARI",
     "BATTERY": "BATERAI",
     "HUMIDITY": "LEMBAP",
-    "DPT": "DPT",
+    "DPT": "EMBUN",
     "RISE": "TERBIT",
     "SET": "TERBENAM",
     "RAIN": "HUJAN",
