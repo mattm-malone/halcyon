@@ -3,10 +3,10 @@
 import { DEFAULT_DATE_FORMATS } from './dateFormats';
 
 const LOCALE_BY_INDEX: string[] = [
-  'en', 'fr', 'de', 'es', 'it', 'nl', 'tr', 'cs', 'pt', 'el',
-  'sv', 'pl', 'sk', 'vi', 'ro', 'ca', 'no', 'ru', 'et', 'eu',
-  'fi', 'da', 'lt', 'sl', 'hu', 'hr', 'ga', 'lv', 'sr', 'zh-CN',
-  'id', 'uk', 'cy', 'gl', 'ja', 'ko', 'he', 'en-GB',
+  'en-us', 'fr-fr', 'de-de', 'es-es', 'it-it', 'nl-nl', 'tr-tr', 'cs-cz', 'pt-pt', 'el-gr',
+  'sv-se', 'pl-pl', 'sk-sk', 'vi-vn', 'ro-ro', 'ca-es', 'nb-no', 'ru-ru', 'et-ee', 'eu-es',
+  'fi-fi', 'da-dk', 'lt-lt', 'sl-si', 'hu-hu', 'hr-hr', 'ga-ie', 'lv-lv', 'sr-rs', 'zh-cn',
+  'id-id', 'uk-ua', 'cy-gb', 'gl-es', 'ja-jp', 'ko-kr', 'he-il', 'en-gb',
 ];
 
 // Short/uppercase labels per language, mirroring src/pkjs/languages.js LABELS.
