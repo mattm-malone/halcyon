@@ -837,6 +837,200 @@ input[type='checkbox'] {
   width: 100%;
 }
 
+.widget-select-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.widget-select-row select {
+  min-width: 0;
+  flex: 1;
+}
+
+.widget-slot-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.widget-slot-label {
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--text-muted);
+}
+
+.widget-custom-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.widget-custom-edit-button,
+.widget-custom-done-button {
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--bg-surface-elevated);
+  color: var(--text-main);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 650;
+  box-shadow: var(--shadow-sm);
+}
+
+.widget-custom-edit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 42px;
+  width: 42px;
+  min-height: 42px;
+  padding: 0;
+}
+
+.widget-custom-edit-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.widget-custom-input-label {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.widget-custom-done-button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 16px;
+  background: var(--halite-orange);
+  border-color: var(--halite-orange);
+  color: white;
+}
+
+.widget-custom-edit-button:hover,
+.widget-custom-done-button:hover {
+  border-color: var(--text-muted);
+  background: var(--bg-surface-hover);
+}
+
+.widget-custom-footer .widget-custom-done-button:hover {
+  border-color: var(--halite-orange-active);
+  background: var(--halite-orange-active);
+}
+
+.widget-custom-edit-button:focus-visible,
+.widget-custom-done-button:focus-visible {
+  outline: none;
+  border-color: var(--halite-orange);
+  box-shadow: 0 0 0 3px var(--border-focus);
+}
+
+.widget-custom-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.widget-custom-preview strong {
+  min-width: 0;
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget-token-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.widget-token-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.widget-token-group-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.widget-token-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.widget-token-button {
+  min-width: 0;
+  padding: 7px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--bg-surface-elevated), var(--bg-surface-hover));
+  color: var(--text-main);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
+  box-shadow: var(--shadow-sm);
+}
+
+.widget-token-button:hover {
+  border-color: var(--text-muted);
+  background: linear-gradient(180deg, var(--bg-surface-hover), var(--bg-surface-elevated));
+}
+
+.widget-token-button:focus-visible {
+  outline: none;
+  border-color: var(--halite-orange);
+  box-shadow: 0 0 0 3px var(--border-focus);
+}
+
+.widget-token-button span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget-custom-modal {
+  max-width: 520px;
+}
+
+.widget-custom-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 0;
+  overflow: auto;
+}
+
+.widget-custom-footer {
+  position: sticky;
+  bottom: 0;
+  margin: 4px -16px 0;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-surface-colormodal);
+  box-shadow: 0 -8px 18px rgba(0, 0, 0, 0.08);
+}
+
+
 @media (max-width: 320px) {
   .widget-selector-container {
     flex-direction: column;

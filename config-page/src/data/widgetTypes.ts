@@ -11,6 +11,13 @@ export interface WidgetOption {
   category?: string;
 }
 
+export interface WidgetToken {
+  token: string;
+  label: string;
+  category: string;
+  requires?: 'health' | 'hrm';
+}
+
 interface WidgetOptionTemplate {
   value: string;
   label: string;
@@ -34,19 +41,55 @@ const WIDGET_TEMPLATES: WidgetOptionTemplate[] = [
   // Device
   { value: '{t:BATTERY} {batt}%', label: 'Battery %', category: 'Device' },
   // Weather
-  { value: '{temp}° ({tlo}°/{thi}°)', label: 'Temperature (Current & Forecast)', category: 'Weather' },
+  { value: '{temp}° ({thi}°/{tlo}°)', label: 'Temperature (Current & Forecast)', category: 'Weather' },
   { value: '{cond}', label: 'Current Condition', category: 'Weather' },
   { value: '{hum}% {t:HUMIDITY}', label: 'Humidity', category: 'Weather' },
   { value: '{wind} {wind_unit} {wind_dir}', label: 'Wind', category: 'Weather' },
   { value: '{t:UV} {uv}', label: 'UV Index', category: 'Weather' },
-  { value: '{dew}° {t:DPT}', label: 'Dew Point', category: 'Weather' },
-  { value: '{t:RAIN} {pop}%', label: 'Today\'s Chance of Rain', category: 'Weather' },
+  { value: '{t:DPT} {dew}°', label: 'Dew Point', category: 'Weather' },
+  { value: '{t:RAIN} {pop}%', label: 'Chance of Rain', category: 'Weather' },
   // Custom
   { value: '__custom__', label: 'Custom…', category: 'Custom' },
 ];
 
 const HEALTH_LABELS = new Set(['Steps', 'Distance Walked']);
 const HRM_LABELS = new Set(['Current Heart Rate']);
+
+export const WIDGET_TOKENS: WidgetToken[] = [
+  { token: '{local_date}', label: 'Local Date', category: 'Date & Time' },
+  { token: '{day_name}', label: 'Day Name', category: 'Date & Time' },
+  { token: '{month_name}', label: 'Month Name', category: 'Date & Time' },
+  { token: '{day0}', label: 'Day 01', category: 'Date & Time' },
+  { token: '{day}', label: 'Day', category: 'Date & Time' },
+  { token: '{month_num}', label: 'Month No.', category: 'Date & Time' },
+  { token: '{year}', label: 'Year', category: 'Date & Time' },
+  { token: '{day_of_year}', label: 'Day No.', category: 'Date & Time' },
+  { token: '{week_of_year}', label: 'Week No.', category: 'Date & Time' },
+  { token: '{sunrise}', label: 'Sunrise', category: 'Solar' },
+  { token: '{sunset}', label: 'Sunset', category: 'Solar' },
+  { token: '{next_solar}', label: 'Next Solar', category: 'Solar' },
+  { token: '{next_solar_label}', label: 'Solar Label', category: 'Solar' },
+  { token: '{next_solar_time}', label: 'Solar Time', category: 'Solar' },
+  { token: '{steps}', label: 'Steps', category: 'Health & Device', requires: 'health' },
+  { token: '{dist}', label: 'Distance', category: 'Health & Device', requires: 'health' },
+  { token: '{dist_unit}', label: 'Dist. Unit', category: 'Health & Device', requires: 'health' },
+  { token: '{hr}', label: 'Heart Rate', category: 'Health & Device', requires: 'hrm' },
+  { token: '{batt}', label: 'Battery', category: 'Health & Device' },
+  { token: '{temp}', label: 'Temp', category: 'Weather' },
+  { token: '{thi}', label: 'High', category: 'Weather' },
+  { token: '{tlo}', label: 'Low', category: 'Weather' },
+  { token: '{cond}', label: 'Condition', category: 'Weather' },
+  { token: '{cond_day}', label: 'Day Cond.', category: 'Weather' },
+  { token: '{hum}', label: 'Humidity', category: 'Weather' },
+  { token: '{wind}', label: 'Wind', category: 'Weather' },
+  { token: '{wind_unit}', label: 'Wind Unit', category: 'Weather' },
+  { token: '{wind_dir}', label: 'Wind Dir.', category: 'Weather' },
+  { token: '{uv}', label: 'UV', category: 'Weather' },
+  { token: '{rain}', label: 'Rain', category: 'Weather' },
+  { token: '{pop}', label: 'Rain %', category: 'Weather' },
+  { token: '{dew}', label: 'Dew Point', category: 'Weather' },
+  { token: '{temp_unit}', label: 'Temp Unit', category: 'Weather' },
+];
 
 export const getWidgetOptions = (
   lang: number,
