@@ -23,6 +23,9 @@ void widget_get_text(const char *format_string, char *buf, int buf_len) {
   int in_idx = 0;
 
   uint8_t lang = globalSettings.language;
+  if (lang >= LANGUAGE_COUNT) {
+    lang = LANGUAGE_EN;
+  }
   struct tm *t = getCurrentTime();
 #if defined(PBL_HEALTH)
   // Cache day-window times so multiple health-related tokens in the same

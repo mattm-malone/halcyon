@@ -1,6 +1,6 @@
 var USE_LOCAL_CONFIG = true;
 var configDataUri = 'https://halcyon.freakified.net/';
-var configLocalUri = 'http://10.25.219.11:3000/index.html';
+var configLocalUri = 'http://10.25.219.10:3000/index.html';
 
 var SunCalc = require('./suncalc');
 var Weather = require('./weather');
@@ -24,6 +24,20 @@ var DEFAULT_WIDGETS = {
   'SETTING_WIDGET_LOWER_PRIMARY': '{local_date}',
   'SETTING_WIDGET_LOWER_SECONDARY': '{steps} {t:STEPS}'
 };
+
+function getDefaultWidgets() {
+  var defaults = {};
+  Object.keys(DEFAULT_WIDGETS).forEach(function (key) {
+    defaults[key] = DEFAULT_WIDGETS[key];
+  });
+
+  var watchInfo = Pebble.getActiveWatchInfo && Pebble.getActiveWatchInfo();
+  if (watchInfo && watchInfo.platform === 'aplite') {
+    defaults.SETTING_WIDGET_LOWER_SECONDARY = '{t:BATTERY} {batt}%';
+  }
+
+  return defaults;
+}
 
 // ---- Time helpers ----
 
@@ -126,7 +140,7 @@ function applyJsTokens(formatStr, weather, solar, isImperial, use24h, lang) {
   }
 
   // Universal translation token substitution {t:KEY}
-  result = result.replace(/\{t:([A-Z_]+)\}/g, function(match, key) {
+  result = result.replace(/\{t:([A-Z_]+)\}/g, function (match, key) {
     return L.labels[key] || match;
   });
 
@@ -145,7 +159,7 @@ function sendDataToWatch() {
   var isImperial = (settings.SETTING_TEMP_UNIT === 1);
   var lang = settings.SETTING_LANGUAGE || 0;
   var use24h = cachedIs24h;
-  var defaultWidgets = DEFAULT_WIDGETS;
+  var defaultWidgets = getDefaultWidgets();
 
   // Prepare Pass 1 output for each widget slot
   var slotKeys = [

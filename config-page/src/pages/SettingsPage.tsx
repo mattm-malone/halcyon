@@ -1,6 +1,6 @@
 import React from 'react';
 import { useConfig, useCapabilities, useWatchInfo } from '../context/PebbleConfigContext';
-import { Page, Section, Toggle, ColorPicker, Select, ThemePicker, CustomThemePanel, WidgetSelector } from '../components';
+import { Page, Section, Toggle, ColorPicker, Select, ThemePicker, CustomThemePanel, WidgetSelector, DonationLink } from '../components';
 import { useSavedThemes } from '../hooks/useSavedThemes';
 import lightThemes from '../data/light-themes.json';
 import darkThemes from '../data/dark-themes.json';
@@ -290,6 +290,7 @@ export const SettingsPage: React.FC = () => {
           ]}
         />
       </Section>
+      <DonationLink />
     </Page >
   );
 };

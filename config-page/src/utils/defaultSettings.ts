@@ -37,7 +37,7 @@ export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
   SETTING_WIDGET_UPPER_SECONDARY: '{temp}° ({thi}°/{tlo}°)',
   SETTING_WIDGET_UPPER_PRIMARY: '{cond}',
   SETTING_WIDGET_LOWER_PRIMARY: '{local_date}',
-  SETTING_WIDGET_LOWER_SECONDARY: '{steps} {t:STEPS}',
+  SETTING_WIDGET_LOWER_SECONDARY: capabilities.HEALTH ? '{steps} {t:STEPS}' : '{t:BATTERY} {batt}%',
   SETTING_TEMP_UNIT: 0,
   SETTING_LANGUAGE: 0,
 });

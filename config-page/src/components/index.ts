@@ -9,3 +9,4 @@ export * from './WidgetSelector';
 export * from './WatchPreview';
 export * from './CustomThemePanel';
 export * from './ImportThemeModal';
+export * from './DonationLink';

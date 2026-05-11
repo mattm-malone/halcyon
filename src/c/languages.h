@@ -38,16 +38,17 @@
 #define LANGUAGE_KO 35 // Korean
 #define LANGUAGE_HE 36 // Hebrew
 #define LANGUAGE_EN_GB 37 // English (UK)
+#define LANGUAGE_COUNT 38
 
 /* day names in many different languages! */
-extern const char dayNames[38][7][8];
+extern const char dayNames[LANGUAGE_COUNT][7][8];
 
 /* month names in many different languages! */
-extern const char monthNames[38][12][8];
+extern const char monthNames[LANGUAGE_COUNT][12][8];
 
 /* idiomatic date format string per language. Used by widgets.c to expand the
    {local_date} super-token at render time. */
-extern const char *const defaultDateFormat[38];
+extern const char *const defaultDateFormat[LANGUAGE_COUNT];
 
 /* decimal separator per language (e.g. '.' or ',') */
-extern const char decimalSeparator[38];
+extern const char decimalSeparator[LANGUAGE_COUNT];

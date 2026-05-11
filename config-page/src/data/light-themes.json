@@ -180,7 +180,7 @@
     }
   },
   {
-    "name": "PebbleOS 3.x Sleep",
+    "name": "PebbleOS 3 Sleep",
     "settings": {
       "SETTING_TIME_COLOR": "000000",
       "SETTING_SUBTEXT_PRIMARY_COLOR": "000000",

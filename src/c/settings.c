@@ -62,14 +62,24 @@ void Settings_loadFromStorage() {
   // Lower-primary defaults to the {local_date} super-token; widgets.c expands
   // it at render time using the active language's idiomatic format.
   strncpy(globalSettings.widgetLowerPrimary, "{local_date}", WIDGET_TEXT_LEN);
+#if defined(PBL_HEALTH)
   strncpy(globalSettings.widgetLowerSecondary, "{steps} {t:STEPS}",
           WIDGET_TEXT_LEN);
+#else
+  strncpy(globalSettings.widgetLowerSecondary, "{t:BATTERY} {batt}%",
+          WIDGET_TEXT_LEN);
+#endif
 
   if (persist_exists(SETTINGS_PERSIST_KEY)) {
-    StoredSettings storedSettings;
-    persist_read_data(SETTINGS_PERSIST_KEY, &storedSettings,
-                      sizeof(StoredSettings));
-    memcpy(&globalSettings, &storedSettings, sizeof(StoredSettings));
+    const int stored_size = persist_get_size(SETTINGS_PERSIST_KEY);
+    if (stored_size > 0) {
+      // Settings storage is append-only: defaults above cover fields that did
+      // not exist in older persisted blobs.
+      const int read_size = stored_size < (int)sizeof(StoredSettings)
+                                ? stored_size
+                                : (int)sizeof(StoredSettings);
+      persist_read_data(SETTINGS_PERSIST_KEY, &globalSettings, read_size);
+    }
   }
 
   Settings_updateDynamicSettings();
