@@ -29,7 +29,7 @@ void Settings_loadFromStorage() {
   globalSettings.sunStrokeColor = DEFAULT_SUN_STROKE_COLOR;
   globalSettings.sunFillColor = DEFAULT_SUN_FILL_COLOR;
 
-  // night theme colors (same as day by default)
+  // night theme colors
   globalSettings.nightTimeColor = DEFAULT_NIGHT_TIME_COLOR;
   globalSettings.nightSubtextPrimaryColor = DEFAULT_NIGHT_SUBTEXT_PRIMARY_COLOR;
   globalSettings.nightSubtextSecondaryColor =
@@ -46,7 +46,7 @@ void Settings_loadFromStorage() {
   globalSettings.nightSunFillColor = DEFAULT_NIGHT_SUN_FILL_COLOR;
 
   // various appearance settings
-  globalSettings.useNightTheme = false;
+  globalSettings.useNightTheme = true;
   globalSettings.useLargeFonts = false;
   globalSettings.showLeadingZero = false;
   globalSettings.pipVisibility = PIP_SHOW_ALL;
