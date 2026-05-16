@@ -16,7 +16,7 @@ function fetchWeather(lat, lng, callback, errback) {
     '?latitude=' + lat +
     '&longitude=' + lng +
     '&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,precipitation,uv_index,dew_point_2m' +
-    '&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max' +
+    '&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_mean' +
     '&forecast_days=1' +
     '&timezone=auto';
 
