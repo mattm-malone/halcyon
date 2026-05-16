@@ -322,9 +322,6 @@ static void main_window_unload(Window *window) {
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-#ifdef USE_FAKE_TIME
-  tick_fake_time();
-#endif
   update_clock();
 }
 
@@ -383,11 +380,7 @@ static void init() {
   window_stack_push(mainWindow, true);
 
   // Register with TickTimerService
-#ifdef USE_FAKE_TIME
-  tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
-#else
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-#endif
 
 #if defined(PBL_HEALTH)
   health_service_events_subscribe(health_handler, NULL);
@@ -398,6 +391,9 @@ static void init() {
 }
 
 static void deinit() {
+  if (s_update_request_timer) {
+    app_timer_cancel(s_update_request_timer);
+  }
 #if defined(PBL_HEALTH)
   health_service_events_unsubscribe();
 #endif
