@@ -69,10 +69,9 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({
         if (isOpen) {
             requestAnimationFrame(() => {
                 inputRef.current?.focus();
-                inputRef.current?.setSelectionRange(value.length, value.length);
             });
         }
-    }, [isOpen, value.length]);
+    }, [isOpen]);
 
     const insertToken = (token: string) => {
         const input = inputRef.current;

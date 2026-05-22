@@ -11,8 +11,25 @@ var cachedWeather = null;
 var cachedSolar = null;
 var cachedSettings = null;
 
-// 24-hour preference from the watch (updated on each heartbeat)
-var cachedIs24h = false;
+var TIME_FORMAT_STORAGE_KEY = 'halcyonIs24h';
+
+function restoreIs24h() {
+  try {
+    return localStorage.getItem(TIME_FORMAT_STORAGE_KEY) === 'true';
+  } catch (e) {
+    return false;
+  }
+}
+
+function saveIs24h(is24h) {
+  try {
+    localStorage.setItem(TIME_FORMAT_STORAGE_KEY, is24h ? 'true' : 'false');
+  } catch (e) { }
+}
+
+// 24-hour preference from the watch. Restored before the first startup render,
+// then refreshed from WATCH_IS_24H on each watch-initiated heartbeat.
+var cachedIs24h = restoreIs24h();
 
 // Default widget format strings — used when no settings have been configured yet
 // so that JS can perform token substitution even on first run. The lower-primary
@@ -325,6 +342,7 @@ Pebble.addEventListener('appmessage', function (e) {
     // Extract 24h preference from the watch
     if (e.payload['WATCH_IS_24H'] !== undefined) {
       cachedIs24h = !!e.payload['WATCH_IS_24H'];
+      saveIs24h(cachedIs24h);
       console.log('Watch 24h mode: ' + cachedIs24h);
     }
 

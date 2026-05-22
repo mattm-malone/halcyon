@@ -33,7 +33,7 @@ const WIDGET_TEMPLATES: WidgetOptionTemplate[] = [
   { value: '{t:WEEK} {week_of_year}', label: 'Week Number', category: 'Date & Time' },
   { value: '{year}', label: 'Year', category: 'Date & Time' },
   // Solar
-  { value: '{next_solar}', label: 'Next Sunrise/Sunset', category: 'Solar' },
+  { value: '{next_solar}', label: 'Next sunrise/sunset', category: 'Solar' },
   // Health
   { value: '{steps} {t:STEPS}', label: 'Steps', category: 'Health' },
   { value: '{dist} {dist_unit}', label: 'Distance Walked', category: 'Health' },
@@ -67,8 +67,8 @@ export const WIDGET_TOKENS: WidgetToken[] = [
   { token: '{week_of_year}', label: 'Week No.', category: 'Date & Time' },
   { token: '{sunrise}', label: 'Sunrise', category: 'Solar' },
   { token: '{sunset}', label: 'Sunset', category: 'Solar' },
-  { token: '{next_solar}', label: 'Next Solar', category: 'Solar' },
-  { token: '{next_solar_label}', label: 'Solar Label', category: 'Solar' },
+  { token: '{next_solar}', label: 'Next sunrise/sunset', category: 'Solar' },
+  { token: '{next_solar_label}', label: 'Rise/Set Label', category: 'Solar' },
   { token: '{next_solar_time}', label: 'Solar Time', category: 'Solar' },
   { token: '{steps}', label: 'Steps', category: 'Health & Device', requires: 'health' },
   { token: '{dist}', label: 'Distance', category: 'Health & Device', requires: 'health' },

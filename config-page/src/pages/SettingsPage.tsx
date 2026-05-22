@@ -285,7 +285,7 @@ export const SettingsPage: React.FC = () => {
           messageKey="SETTING_PIP_VISIBILITY"
           options={[
             { label: 'All (Every Hour)', value: 0 },
-            { label: 'Only major (Every 4 hours)', value: 1 },
+            { label: 'Only major (Every 3 hours)', value: 1 },
             { label: 'None', value: 2 },
           ]}
         />
