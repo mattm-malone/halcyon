@@ -6,6 +6,7 @@
 #define CURRENT_SETTINGS_VERSION 2
 #define SETTINGS_VERSION_PERSIST_KEY 1
 #define SETTINGS_PERSIST_KEY 2
+#define ALT_CITY_LABEL_LEN 20
 
 // default settings
 #ifdef PBL_COLOR
@@ -149,6 +150,10 @@ typedef struct {
   char widgetUpperPrimary[WIDGET_TEXT_LEN];
   char widgetLowerPrimary[WIDGET_TEXT_LEN];
   char widgetLowerSecondary[WIDGET_TEXT_LEN];
+
+  char altCityLabel[ALT_CITY_LABEL_LEN];
+  int16_t altCityUtcOffset;
+  int16_t localUtcOffset;
 } Settings;
 
 typedef struct {
@@ -197,6 +202,10 @@ typedef struct {
   char widgetUpperPrimary[WIDGET_TEXT_LEN];
   char widgetLowerPrimary[WIDGET_TEXT_LEN];
   char widgetLowerSecondary[WIDGET_TEXT_LEN];
+
+  char altCityLabel[ALT_CITY_LABEL_LEN];
+  int16_t altCityUtcOffset;
+  int16_t localUtcOffset;
 } StoredSettings;
 
 extern Settings globalSettings;

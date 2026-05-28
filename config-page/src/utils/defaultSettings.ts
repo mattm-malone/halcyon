@@ -40,4 +40,6 @@ export const getDefaultSettings = (capabilities: Capabilities): Settings => ({
   SETTING_WIDGET_LOWER_SECONDARY: capabilities.HEALTH ? '{steps} {t:STEPS}' : '{t:BATTERY} {batt}%',
   SETTING_TEMP_UNIT: 0,
   SETTING_LANGUAGE: 0,
+  SETTING_ALT_CITY: 'TOKYO',
+  SETTING_ALT_LABEL: 'TYO',
 });

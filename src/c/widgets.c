@@ -5,6 +5,40 @@
 #include <pebble.h>
 
 
+static void format_alt_time(char *buf, size_t buf_len, struct tm *alt_time) {
+  if (clock_is_24h_style()) {
+    strftime(buf, buf_len, "%H:%M", alt_time);
+  } else {
+    strftime(buf, buf_len, "%I:%M", alt_time);
+  }
+
+  if (!globalSettings.showLeadingZero && buf[0] == '0') {
+    for (size_t i = 0; i < buf_len - 1; i++) {
+      buf[i] = buf[i + 1];
+      if (buf[i] == '\0') break;
+    }
+  }
+}
+
+static void get_alt_time_info(struct tm *local_time, struct tm *alt_time,
+                              char *time_buf, size_t time_buf_len,
+                              char *day_buf, size_t day_buf_len,
+                              bool *different_date) {
+  time_t shifted = time(NULL) +
+                   ((int)globalSettings.altCityUtcOffset -
+                    (int)globalSettings.localUtcOffset) *
+                       60;
+  *alt_time = *localtime(&shifted);
+  format_alt_time(time_buf, time_buf_len, alt_time);
+
+  uint8_t lang = globalSettings.language;
+  if (lang >= LANGUAGE_COUNT) {
+    lang = LANGUAGE_EN;
+  }
+  snprintf(day_buf, day_buf_len, "%s", dayNames[lang][alt_time->tm_wday]);
+  *different_date = local_time->tm_year != alt_time->tm_year ||
+                    local_time->tm_yday != alt_time->tm_yday;
+}
 
 void widget_get_text(const char *format_string, char *buf, int buf_len) {
   if (!format_string || buf_len <= 0)
@@ -48,7 +82,7 @@ void widget_get_text(const char *format_string, char *buf, int buf_len) {
         int token_len = end_brace - in_idx - 1;
         const char *token = &format_string[in_idx + 1];
 
-        char temp[32] = {0};
+        char temp[WIDGET_TEXT_LEN] = {0};
         bool matched = false;
 
         if (strncmp(token, "day_name", token_len) == 0 && token_len == 8) {
@@ -168,6 +202,43 @@ void widget_get_text(const char *format_string, char *buf, int buf_len) {
         } else if (strncmp(token, "batt", token_len) == 0 && token_len == 4) {
           BatteryChargeState state = battery_state_service_peek();
           snprintf(temp, sizeof(temp), "%d", state.charge_percent);
+          matched = true;
+        } else if (strncmp(token, "alt_tz", token_len) == 0 &&
+                   token_len == 6) {
+          struct tm alt_time;
+          char alt_time_text[12] = {0};
+          char alt_day_text[8] = {0};
+          bool different_date = false;
+          get_alt_time_info(t, &alt_time, alt_time_text, sizeof(alt_time_text),
+                            alt_day_text, sizeof(alt_day_text),
+                            &different_date);
+          if (different_date) {
+            snprintf(temp, sizeof(temp), "%s %s %s", globalSettings.altCityLabel,
+                     alt_day_text, alt_time_text);
+          } else {
+            snprintf(temp, sizeof(temp), "%s %s", globalSettings.altCityLabel,
+                     alt_time_text);
+          }
+          matched = true;
+        } else if (strncmp(token, "alt_tz_label", token_len) == 0 &&
+                   token_len == 12) {
+          snprintf(temp, sizeof(temp), "%s", globalSettings.altCityLabel);
+          matched = true;
+        } else if (strncmp(token, "alt_tz_time", token_len) == 0 &&
+                   token_len == 11) {
+          struct tm alt_time;
+          char alt_day_text[8] = {0};
+          bool different_date = false;
+          get_alt_time_info(t, &alt_time, temp, sizeof(temp), alt_day_text,
+                            sizeof(alt_day_text), &different_date);
+          matched = true;
+        } else if (strncmp(token, "alt_tz_day", token_len) == 0 &&
+                   token_len == 10) {
+          struct tm alt_time;
+          char alt_time_text[12] = {0};
+          bool different_date = false;
+          get_alt_time_info(t, &alt_time, alt_time_text, sizeof(alt_time_text),
+                            temp, sizeof(temp), &different_date);
           matched = true;
         }
 

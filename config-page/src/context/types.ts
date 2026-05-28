@@ -70,4 +70,6 @@ export interface Settings {
   SETTING_WIDGET_LOWER_SECONDARY: string;
   SETTING_TEMP_UNIT: number;
   SETTING_LANGUAGE: number;
+  SETTING_ALT_CITY: string;
+  SETTING_ALT_LABEL: string;
 }

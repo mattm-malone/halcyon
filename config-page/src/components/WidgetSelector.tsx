@@ -171,6 +171,7 @@ const WidgetSlotControl: React.FC<WidgetSlotControlProps> = ({
     const { settings, updateSetting } = useConfig();
     const selectId = React.useId();
     const value = String(settings[messageKey] ?? '');
+    const altLabel = String(settings.SETTING_ALT_LABEL || 'TYO');
     const matchesPreset = isPresetValue(value, options);
     const [isCustom, setIsCustom] = React.useState(() => value !== '' && !matchesPreset);
     const [isEditorOpen, setIsEditorOpen] = React.useState(false);
@@ -183,7 +184,7 @@ const WidgetSlotControl: React.FC<WidgetSlotControlProps> = ({
     }, [options, value]);
 
     const selectValue = isCustom || !matchesPreset ? CUSTOM_VALUE : value;
-    const preview = renderPreview(value, lang, isImperial);
+    const preview = renderPreview(value, lang, isImperial, altLabel);
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const nextValue = event.target.value;
@@ -272,10 +273,11 @@ export const WidgetSelector: React.FC = () => {
     const { settings } = useConfig();
     const lang = Number(settings.SETTING_LANGUAGE) || 0;
     const isImperial = Number(settings.SETTING_TEMP_UNIT) === 1;
+    const altLabel = String(settings.SETTING_ALT_LABEL || 'TYO');
     const isRound = capabilities.ROUND && !capabilities.RECT;
     const widgetOptions = React.useMemo(
-        () => getWidgetOptions(lang, !!capabilities.HEALTH, !!capabilities.HRM, isImperial),
-        [lang, capabilities.HEALTH, capabilities.HRM, isImperial],
+        () => getWidgetOptions(lang, !!capabilities.HEALTH, !!capabilities.HRM, isImperial, altLabel),
+        [lang, capabilities.HEALTH, capabilities.HRM, isImperial, altLabel],
     );
     const widgetTokens = React.useMemo(
         () => getVisibleTokens(!!capabilities.HEALTH, !!capabilities.HRM),

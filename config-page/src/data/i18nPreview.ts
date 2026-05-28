@@ -109,6 +109,7 @@ export const renderPreview = (
   formatStr: string,
   lang: number,
   isImperial: boolean = false,
+  altLabel: string = 'TYO',
 ): string => {
   if (!formatStr) return '';
   const idx = safeIdx(lang);
@@ -124,6 +125,7 @@ export const renderPreview = (
   const dayName = intlFmt(now, lang, { weekday: 'short' }).toUpperCase().replace(/\.$/, '');
   const monthName = intlFmt(now, lang, { month: 'short' }).toUpperCase().replace(/\.$/, '');
   const dec = getDecimalSeparator(lang);
+  const safeAltLabel = altLabel || 'TYO';
 
   const replacements: Record<string, string> = {
     // Date / time tokens (C-side)
@@ -135,6 +137,10 @@ export const renderPreview = (
     '{year}': String(now.getFullYear()),
     '{day_of_year}': String(dayOfYear(now)),
     '{week_of_year}': String(isoWeek(now)),
+    '{alt_tz}': `${safeAltLabel} 7:38`,
+    '{alt_tz_label}': safeAltLabel,
+    '{alt_tz_time}': '7:38',
+    '{alt_tz_day}': 'FRI',
     // Health / device (C-side)
     '{steps}': '1234',
     '{dist}': '0' + dec + '8',

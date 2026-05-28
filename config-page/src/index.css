@@ -945,6 +945,11 @@ input[type='checkbox'] {
   width: 100%;
 }
 
+.halite-alt-time-control select,
+.halite-alt-time-control .halite-input {
+  max-width: 14rem;
+}
+
 .widget-select-row {
   display: flex;
   align-items: center;

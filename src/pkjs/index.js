@@ -1,10 +1,11 @@
-var USE_LOCAL_CONFIG = false;
+var USE_LOCAL_CONFIG = true;
 var configDataUri = 'https://halcyon.freakified.net/';
-var configLocalUri = 'http://10.25.219.10:3000/index.html';
+var configLocalUri = 'http://10.25.219.23:3000/index.html';
 
 var SunCalc = require('./suncalc');
 var Weather = require('./weather');
 var Languages = require('./languages');
+var Cities = require('./cities');
 
 // Cached data (in-memory; also persisted to localStorage)
 var cachedWeather = null;
@@ -12,6 +13,7 @@ var cachedSolar = null;
 var cachedSettings = null;
 
 var TIME_FORMAT_STORAGE_KEY = 'halcyonIs24h';
+var DEFAULT_ALT_CITY = 'TOKYO';
 
 function restoreIs24h() {
   try {
@@ -92,6 +94,22 @@ function getNextSolarEvent(solar, use24h, labels) {
     time: time,
     text: label + ' ' + time
   };
+}
+
+function getSelectedAltCity(settings) {
+  var cityName = settings.SETTING_ALT_CITY || DEFAULT_ALT_CITY;
+  return Cities.findCity(cityName) || Cities.findCity('UTC');
+}
+
+function applyAltCityMessage(msg, settings) {
+  var now = new Date();
+  var city = getSelectedAltCity(settings || {});
+  if (!city) return;
+
+  var label = settings.SETTING_ALT_LABEL || city.label || city.name;
+  msg.SETTING_ALT_CITY_LABEL = String(label).toUpperCase().slice(0, 3);
+  msg.ALT_CITY_UTC_OFFSET = Cities.cityOffsetMinutes(city, now);
+  msg.LOCAL_UTC_OFFSET = -now.getTimezoneOffset();
 }
 
 // ---- Pass 1: token substitution ----
@@ -206,6 +224,8 @@ function sendDataToWatch() {
       msg[key] = processed;
     }
   });
+
+  applyAltCityMessage(msg, settings);
 
   // Send solar minutes for the ring
   if (cachedSolar) {
@@ -447,7 +467,8 @@ Pebble.addEventListener('webviewclosed', function (e) {
 
   // Process non-color, non-widget settings
   Object.keys(configData).forEach(function (key) {
-    if (colorKeys.indexOf(key) === -1 && widgetKeys.indexOf(key) === -1) {
+    if (colorKeys.indexOf(key) === -1 && widgetKeys.indexOf(key) === -1 &&
+        key !== 'SETTING_ALT_CITY' && key !== 'SETTING_ALT_LABEL') {
       var value = configData[key];
       if (typeof value === 'boolean') {
         dict[key] = value ? 1 : 0;

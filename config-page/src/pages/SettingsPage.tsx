@@ -1,18 +1,46 @@
 import React from 'react';
 import { useConfig, useCapabilities, useWatchInfo } from '../context/PebbleConfigContext';
-import { Page, Section, Toggle, ColorPicker, Select, ThemePicker, CustomThemePanel, WidgetSelector, DonationLink } from '../components';
+import { Page, Section, Toggle, ColorPicker, Select, ThemePicker, CustomThemePanel, WidgetSelector, DonationLink, FormItem } from '../components';
 import { useSavedThemes } from '../hooks/useSavedThemes';
 import lightThemes from '../data/light-themes.json';
 import darkThemes from '../data/dark-themes.json';
 import lightThemesBw from '../data/light-themes-bw.json';
 import darkThemesBw from '../data/dark-themes-bw.json';
 import { prepareThemes } from '../utils/themeUtils';
+import { CITIES, formatStandardOffset, getCityByName } from '../data/cities';
 
+const ALT_TOKEN_RE = /\{alt_tz(?:_label|_time|_day)?\}/;
+
+const normalizeAltLabel = (value: string) =>
+  value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 3);
 
 export const SettingsPage: React.FC = () => {
   const { settings, updateSetting } = useConfig();
   const capabilities = useCapabilities();
   const watchInfo = useWatchInfo();
+  const altLabelInputId = React.useId();
+  const altCity = getCityByName(settings.SETTING_ALT_CITY);
+  const altWidgetSelected = [
+    settings.SETTING_WIDGET_UPPER_SECONDARY,
+    settings.SETTING_WIDGET_UPPER_PRIMARY,
+    settings.SETTING_WIDGET_LOWER_PRIMARY,
+    settings.SETTING_WIDGET_LOWER_SECONDARY,
+  ].some((value) => ALT_TOKEN_RE.test(value || ''));
+
+  React.useEffect(() => {
+    if (!settings.SETTING_ALT_LABEL) {
+      updateSetting('SETTING_ALT_LABEL', altCity.abbreviation);
+    }
+  }, [altCity.abbreviation, settings.SETTING_ALT_LABEL, updateSetting]);
+
+  const handleAltCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const previousDefault = altCity.abbreviation;
+    const nextCity = getCityByName(event.target.value);
+    updateSetting('SETTING_ALT_CITY', nextCity.name);
+    if (!settings.SETTING_ALT_LABEL || settings.SETTING_ALT_LABEL === previousDefault) {
+      updateSetting('SETTING_ALT_LABEL', nextCity.abbreviation);
+    }
+  };
 
   const activeThemes = React.useMemo(() =>
     capabilities.BW
@@ -215,6 +243,34 @@ export const SettingsPage: React.FC = () => {
       <Section title="Widgets">
         <WidgetSelector />
       </Section>
+
+      {altWidgetSelected && (
+        <Section title="Widget: Alternate Time Zone">
+          <FormItem label="City" className="halite-select halite-alt-time-control">
+            <select value={altCity.name} onChange={handleAltCityChange}>
+              {CITIES.map((city) => (
+                <option key={city.name} value={city.name}>
+                  {city.displayName} ({formatStandardOffset(city.offset)})
+                </option>
+              ))}
+            </select>
+          </FormItem>
+          <FormItem
+            label="Label"
+            className="halite-text-input halite-alt-time-control"
+            htmlFor={altLabelInputId}
+          >
+            <input
+              id={altLabelInputId}
+              className="halite-input"
+              value={settings.SETTING_ALT_LABEL || altCity.abbreviation}
+              maxLength={3}
+              onChange={(event) => updateSetting('SETTING_ALT_LABEL', normalizeAltLabel(event.target.value))}
+              spellCheck={false}
+            />
+          </FormItem>
+        </Section>
+      )}
 
       <Section title="General">
         <Select
