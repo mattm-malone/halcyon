@@ -11,6 +11,7 @@ import { CITIES, formatStandardOffset, getCityByName } from '../data/cities';
 
 const ALT_TOKEN_RE = /\{alt_tz(?:_label|_time|_day)?\}/;
 const ALT2_TOKEN_RE = /\{alt_tz2(?:_label|_time|_day)?\}/;
+const WEATHER_TOKEN_RE = /\{(?:temp|thi|tlo|cond|cond_day|hum|wind|wind_unit|wind_dir|uv|rain|pop|dew|temp_unit)\}/;
 const ALT_LABEL_MAX_LENGTH = 6;
 
 const normalizeAltLabel = (value: string) =>
@@ -33,6 +34,7 @@ export const SettingsPage: React.FC = () => {
   ];
   const altWidgetSelected = widgetValues.some((value) => ALT_TOKEN_RE.test(value || ''));
   const alt2WidgetSelected = widgetValues.some((value) => ALT2_TOKEN_RE.test(value || ''));
+  const weatherWidgetSelected = widgetValues.some((value) => WEATHER_TOKEN_RE.test(value || ''));
 
   const handleAltCityChange = (value: string) => {
     const previousDefault = altCity.abbreviation;
@@ -255,7 +257,7 @@ export const SettingsPage: React.FC = () => {
       </Section>
 
       {altWidgetSelected && (
-        <Section title="Widget: Alternate Time Zone 1">
+        <Section title="Alternate Time Zone 1">
           <Select
             label="City"
             messageKey="SETTING_ALT_CITY"
@@ -277,7 +279,7 @@ export const SettingsPage: React.FC = () => {
       )}
 
       {alt2WidgetSelected && (
-        <Section title="Widget: Alternate Time Zone 2">
+        <Section title="Alternate Time Zone 2">
           <Select
             label="City"
             messageKey="SETTING_ALT_CITY2"
@@ -298,10 +300,36 @@ export const SettingsPage: React.FC = () => {
         </Section>
       )}
 
+      {weatherWidgetSelected && (
+        <Section title="Weather">
+          <Select
+            label="Weather Units"
+            messageKey="SETTING_TEMP_UNIT"
+            options={[
+              { label: 'Metric (Celsius, KM/H)', value: 0 },
+              { label: 'Imperial (Fahrenheit, MPH)', value: 1 },
+            ]}
+          />
+        </Section>
+      )}
+
+      <Section title="Widget Appearance">
+        <Toggle
+          label="Uniform font size"
+          description="Use the same font size for all widgets"
+          messageKey="SETTING_USE_PRIMARY_WIDGET_FONT"
+        />
+        <Toggle
+          label="Larger font sizes"
+          description="Increases the size of widget text"
+          messageKey="SETTING_USE_LARGE_FONTS"
+        />
+      </Section>
+
       <Section title="General">
         <Select
           label="Language (Experimental)"
-          description="Controls language and formatting for widgets"
+          description="Controls the language displayed on the watchface"
           messageKey="SETTING_LANGUAGE"
           options={[
             { label: 'English (US)', value: 0 },
@@ -344,26 +372,13 @@ export const SettingsPage: React.FC = () => {
             { label: '한국어', value: 35, category: 'Requires language pack' },
           ]}
         />
-        <Select
-          label="Weather Units"
-          messageKey="SETTING_TEMP_UNIT"
-          options={[
-            { label: 'Metric (Celsius, KM/H)', value: 0 },
-            { label: 'Imperial (Fahrenheit, MPH)', value: 1 },
-          ]}
-        />
-        <Toggle
-          label="Use larger fonts"
-          description="Increase the size of widget text"
-          messageKey="SETTING_USE_LARGE_FONTS"
-        />
         <Toggle
           label="Show leading zero"
           description="Display time as 09:30 instead of 9:30"
           messageKey="SETTING_SHOW_LEADING_ZERO"
         />
         <Select
-          label="Dial markings"
+          label="Dial Markings"
           messageKey="SETTING_PIP_VISIBILITY"
           options={[
             { label: 'All (Every Hour)', value: 0 },

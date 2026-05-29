@@ -631,11 +631,11 @@ input[type='checkbox'] {
   letter-spacing: -0.5px;
   margin: 1px 0;
   white-space: nowrap;
+  font-weight: bold;
 }
 
 .halite-watch-preview-widget.primary {
   font-size: 14px;
-  font-weight: bold;
 }
 
 .halite-watch-time {

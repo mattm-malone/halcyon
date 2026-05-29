@@ -156,6 +156,7 @@ typedef struct {
   char altCity2Label[ALT_CITY_LABEL_LEN];
   int16_t altCity2UtcOffset;
   int16_t localUtcOffset;
+  bool usePrimaryFontForAllWidgets;
 } Settings;
 
 typedef struct {
@@ -210,6 +211,7 @@ typedef struct {
   char altCity2Label[ALT_CITY_LABEL_LEN];
   int16_t altCity2UtcOffset;
   int16_t localUtcOffset;
+  bool usePrimaryFontForAllWidgets;
 } StoredSettings;
 
 extern Settings globalSettings;

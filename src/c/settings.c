@@ -76,6 +76,7 @@ void Settings_loadFromStorage() {
   globalSettings.altCity2Label[ALT_CITY_LABEL_LEN - 1] = '\0';
   globalSettings.altCity2UtcOffset = 0;
   globalSettings.localUtcOffset = 0;
+  globalSettings.usePrimaryFontForAllWidgets = false;
 
   if (persist_exists(SETTINGS_PERSIST_KEY)) {
     const int stored_size = persist_get_size(SETTINGS_PERSIST_KEY);

@@ -137,7 +137,13 @@ static void draw_center_text(Layer *layer, GContext *ctx) {
 
   // Upper secondary (topmost)
   if (!s_quick_view_visible && widgetTextUS[0] != '\0') {
-    PUSH_SLOT(widgetTextUS, secondary_font, secondary_height, secondary_offset,
+    PUSH_SLOT(widgetTextUS,
+              globalSettings.usePrimaryFontForAllWidgets ? primary_font
+                                                          : secondary_font,
+              globalSettings.usePrimaryFontForAllWidgets ? primary_height
+                                                          : secondary_height,
+              globalSettings.usePrimaryFontForAllWidgets ? primary_offset
+                                                          : secondary_offset,
               secondaryColor);
   }
 
@@ -158,7 +164,13 @@ static void draw_center_text(Layer *layer, GContext *ctx) {
 
   // Lower secondary (bottommost)
   if (!s_quick_view_visible && widgetTextLS[0] != '\0') {
-    PUSH_SLOT(widgetTextLS, secondary_font, secondary_height, secondary_offset,
+    PUSH_SLOT(widgetTextLS,
+              globalSettings.usePrimaryFontForAllWidgets ? primary_font
+                                                          : secondary_font,
+              globalSettings.usePrimaryFontForAllWidgets ? primary_height
+                                                          : secondary_height,
+              globalSettings.usePrimaryFontForAllWidgets ? primary_offset
+                                                          : secondary_offset,
               secondaryColor);
   }
 

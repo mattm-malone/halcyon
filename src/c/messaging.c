@@ -81,6 +81,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   Tuple *useLargeFonts_tuple =
       dict_find(iterator, MESSAGE_KEY_SETTING_USE_LARGE_FONTS);
 
+  Tuple *usePrimaryFontForAllWidgets_tuple =
+      dict_find(iterator, MESSAGE_KEY_SETTING_USE_PRIMARY_WIDGET_FONT);
+
   Tuple *showLeadingZero_tuple =
       dict_find(iterator, MESSAGE_KEY_SETTING_SHOW_LEADING_ZERO);
 
@@ -246,6 +249,11 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 
   if (useLargeFonts_tuple != NULL) {
     globalSettings.useLargeFonts = (bool)useLargeFonts_tuple->value->int8;
+  }
+
+  if (usePrimaryFontForAllWidgets_tuple != NULL) {
+    globalSettings.usePrimaryFontForAllWidgets =
+        (bool)usePrimaryFontForAllWidgets_tuple->value->int8;
   }
 
   if (useNightTheme_tuple != NULL) {

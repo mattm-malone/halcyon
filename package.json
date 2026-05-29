@@ -83,7 +83,8 @@
       "ALT_CITY2_UTC_OFFSET",
       "LOCAL_UTC_OFFSET",
       "REQUEST_UPDATE",
-      "WATCH_IS_24H"
+      "WATCH_IS_24H",
+      "SETTING_USE_PRIMARY_WIDGET_FONT"
     ],
     "resources": {
       "media": [
