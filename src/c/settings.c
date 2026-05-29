@@ -101,7 +101,30 @@ void Settings_saveToStorage() {
   persist_write_int(SETTINGS_VERSION_PERSIST_KEY, CURRENT_SETTINGS_VERSION);
 }
 
-void Settings_updateDynamicSettings() {}
+static int16_t get_local_utc_offset(void) {
+  time_t now = time(NULL);
+  struct tm local_time = *localtime(&now);
+  struct tm utc_time = *gmtime(&now);
+
+  int day_delta = local_time.tm_yday - utc_time.tm_yday;
+  if (local_time.tm_year > utc_time.tm_year) {
+    day_delta = 1;
+  } else if (local_time.tm_year < utc_time.tm_year) {
+    day_delta = -1;
+  } else if (day_delta > 1) {
+    day_delta = -1;
+  } else if (day_delta < -1) {
+    day_delta = 1;
+  }
+
+  return (int16_t)((day_delta * 24 + local_time.tm_hour - utc_time.tm_hour) *
+                       60 +
+                   local_time.tm_min - utc_time.tm_min);
+}
+
+void Settings_updateDynamicSettings() {
+  globalSettings.localUtcOffset = get_local_utc_offset();
+}
 
 ColorTheme getCurrentColorTheme() {
   ColorTheme theme;

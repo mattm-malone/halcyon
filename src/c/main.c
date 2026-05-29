@@ -217,6 +217,8 @@ static void quickViewLayerReposition() {
 }
 
 static void update_clock() {
+  Settings_updateDynamicSettings();
+
   struct tm *timeInfo = getCurrentTime();
 
   // set time string

@@ -56,7 +56,7 @@ static void render_alt_time_token(const char *token, int token_len,
                       sizeof(alt_time_text), alt_day_text,
                       sizeof(alt_day_text), &different_date, utc_offset);
     if (different_date) {
-      snprintf(temp, temp_len, "%s %s %s", label, alt_day_text, alt_time_text);
+      snprintf(temp, temp_len, "%s %s %s", label, alt_time_text, alt_day_text);
     } else {
       snprintf(temp, temp_len, "%s %s", label, alt_time_text);
     }
