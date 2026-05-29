@@ -1,21 +1,21 @@
 #include "widgets.h"
+#include "languages.h"
 #include "settings.h"
 #include "utils.h"
-#include "languages.h"
 #include <pebble.h>
-
 
 static void format_alt_time(char *buf, size_t buf_len, struct tm *alt_time) {
   if (clock_is_24h_style()) {
     strftime(buf, buf_len, "%H:%M", alt_time);
   } else {
-    strftime(buf, buf_len, "%I:%M", alt_time);
+    strftime(buf, buf_len, "%I:%M %p", alt_time);
   }
 
   if (!globalSettings.showLeadingZero && buf[0] == '0') {
     for (size_t i = 0; i < buf_len - 1; i++) {
       buf[i] = buf[i + 1];
-      if (buf[i] == '\0') break;
+      if (buf[i] == '\0')
+        break;
     }
   }
 }
@@ -24,9 +24,8 @@ static void get_alt_time_info(struct tm *local_time, struct tm *alt_time,
                               char *time_buf, size_t time_buf_len,
                               char *day_buf, size_t day_buf_len,
                               bool *different_date, int16_t utc_offset) {
-  time_t shifted = time(NULL) +
-                   ((int)utc_offset - (int)globalSettings.localUtcOffset) *
-                       60;
+  time_t shifted =
+      time(NULL) + ((int)utc_offset - (int)globalSettings.localUtcOffset) * 60;
   *alt_time = *localtime(&shifted);
   format_alt_time(time_buf, time_buf_len, alt_time);
 
@@ -44,8 +43,8 @@ static void render_alt_time_token(const char *token, int token_len,
                                   size_t temp_len, const char *label,
                                   int16_t utc_offset, const char *full_token,
                                   const char *label_token,
-                                  const char *time_token,
-                                  const char *day_token, bool *matched) {
+                                  const char *time_token, const char *day_token,
+                                  bool *matched) {
   if (strncmp(token, full_token, token_len) == 0 &&
       token_len == (int)strlen(full_token)) {
     struct tm alt_time;
@@ -53,8 +52,8 @@ static void render_alt_time_token(const char *token, int token_len,
     char alt_day_text[8] = {0};
     bool different_date = false;
     get_alt_time_info(local_time, &alt_time, alt_time_text,
-                      sizeof(alt_time_text), alt_day_text,
-                      sizeof(alt_day_text), &different_date, utc_offset);
+                      sizeof(alt_time_text), alt_day_text, sizeof(alt_day_text),
+                      &different_date, utc_offset);
     if (different_date) {
       snprintf(temp, temp_len, "%s %s %s", label, alt_time_text, alt_day_text);
     } else {
@@ -133,7 +132,8 @@ void widget_get_text(const char *format_string, char *buf, int buf_len) {
         if (strncmp(token, "day_name", token_len) == 0 && token_len == 8) {
           snprintf(temp, sizeof(temp), "%s", dayNames[lang][t->tm_wday]);
           matched = true;
-        } else if (strncmp(token, "month_name", token_len) == 0 && token_len == 10) {
+        } else if (strncmp(token, "month_name", token_len) == 0 &&
+                   token_len == 10) {
           snprintf(temp, sizeof(temp), "%s", monthNames[lang][t->tm_mon]);
           matched = true;
         } else if (strncmp(token, "day0", token_len) == 0 && token_len == 4) {
@@ -142,30 +142,35 @@ void widget_get_text(const char *format_string, char *buf, int buf_len) {
         } else if (strncmp(token, "day", token_len) == 0 && token_len == 3) {
           snprintf(temp, sizeof(temp), "%d", t->tm_mday);
           matched = true;
-        } else if (strncmp(token, "month_num", token_len) == 0 && token_len == 9) {
+        } else if (strncmp(token, "month_num", token_len) == 0 &&
+                   token_len == 9) {
           snprintf(temp, sizeof(temp), "%02d", t->tm_mon + 1);
           matched = true;
         } else if (strncmp(token, "year", token_len) == 0 && token_len == 4) {
           snprintf(temp, sizeof(temp), "%d", t->tm_year + 1900);
           matched = true;
-        } else if (strncmp(token, "day_of_year", token_len) == 0 && token_len == 11) {
+        } else if (strncmp(token, "day_of_year", token_len) == 0 &&
+                   token_len == 11) {
           snprintf(temp, sizeof(temp), "%d", t->tm_yday + 1);
           matched = true;
-        } else if (strncmp(token, "week_of_year", token_len) == 0 && token_len == 12) {
+        } else if (strncmp(token, "week_of_year", token_len) == 0 &&
+                   token_len == 12) {
           strftime(temp, sizeof(temp), "%V", t);
           matched = true;
-        } else if (strncmp(token, "date:", (token_len > 5 ? 5 : token_len)) == 0 &&
-            token_len > 5) {
+        } else if (strncmp(token, "date:", (token_len > 5 ? 5 : token_len)) ==
+                       0 &&
+                   token_len > 5) {
           const char *fmt_start = token + 5;
           int fmt_len = token_len - 5;
           char fmt[32] = {0};
-            if (fmt_len < (int)sizeof(fmt)) {
+          if (fmt_len < (int)sizeof(fmt)) {
             memcpy(fmt, fmt_start, fmt_len);
             strftime(temp, sizeof(temp), fmt, t);
             to_uppercase(temp);
             matched = true;
           }
-        } else if (strncmp(token, "local_date", token_len) == 0 && token_len == 10) {
+        } else if (strncmp(token, "local_date", token_len) == 0 &&
+                   token_len == 10) {
           // Expand to the active language's idiomatic date format and recurse
           // to substitute the inner tokens. defaultDateFormat[] entries must
           // not contain {local_date} themselves — recursion is bounded at 1.
@@ -189,8 +194,8 @@ void widget_get_text(const char *format_string, char *buf, int buf_len) {
         } else if (strncmp(token, "dist", token_len) == 0 && token_len == 4) {
 #if defined(PBL_HEALTH)
           HealthServiceAccessibilityMask mask =
-              health_service_metric_accessible(
-                  HealthMetricWalkedDistanceMeters, today_start, now);
+              health_service_metric_accessible(HealthMetricWalkedDistanceMeters,
+                                               today_start, now);
           char dec = decimalSeparator[lang];
           if (mask & HealthServiceAccessibilityMaskAvailable) {
             HealthValue meters =
@@ -249,11 +254,10 @@ void widget_get_text(const char *format_string, char *buf, int buf_len) {
           snprintf(temp, sizeof(temp), "%d", state.charge_percent);
           matched = true;
         } else if (strncmp(token, "alt_tz", 6) == 0) {
-          render_alt_time_token(token, token_len, t, temp, sizeof(temp),
-                                globalSettings.altCityLabel,
-                                globalSettings.altCityUtcOffset, "alt_tz",
-                                "alt_tz_label", "alt_tz_time", "alt_tz_day",
-                                &matched);
+          render_alt_time_token(
+              token, token_len, t, temp, sizeof(temp),
+              globalSettings.altCityLabel, globalSettings.altCityUtcOffset,
+              "alt_tz", "alt_tz_label", "alt_tz_time", "alt_tz_day", &matched);
           if (!matched) {
             render_alt_time_token(token, token_len, t, temp, sizeof(temp),
                                   globalSettings.altCity2Label,
