@@ -144,24 +144,6 @@
     }
   },
   {
-    "name": "Prepare for Takeoff",
-    "settings": {
-      "SETTING_TIME_COLOR": "FFFFFF",
-      "SETTING_SUBTEXT_PRIMARY_COLOR": "FFFFFF",
-      "SETTING_SUBTEXT_SECONDARY_COLOR": "FFFF00",
-      "SETTING_BG_COLOR": "0055FF",
-      "SETTING_PIP_COLOR_PRIMARY": "55FFFF",
-      "SETTING_PIP_COLOR_SECONDARY": "55AAAA",
-      "SETTING_RING_STROKE_COLOR": "FFFFFF",
-      "SETTING_RING_NIGHT_COLOR": "AA5500",
-      "SETTING_RING_DAY_COLOR": "00AAFF",
-      "SETTING_RING_SUNRISE_COLOR": "FFAA55",
-      "SETTING_RING_SUNSET_COLOR": "FFAA55",
-      "SETTING_SUN_STROKE_COLOR": "000000",
-      "SETTING_SUN_FILL_COLOR": "FFFF00"
-    }
-  },
-  {
     "name": "Silver Oxide",
     "settings": {
       "SETTING_TIME_COLOR": "FFFFFF",
