@@ -4,7 +4,7 @@ import { Settings } from '../context/types';
 import { FormItem } from './FormItem';
 import { GridList, GridListItem, Text } from 'react-aria-components';
 import { WatchPreview, WatchPreviewProps } from './WatchPreview';
-import { SavedTheme } from '../hooks/useSavedThemes';
+import { SavedTheme, remapToNightKeys } from '../hooks/useSavedThemes';
 import customIconUrl from '../assets/custom-icon.svg';
 
 export const ThemePicker: React.FC<{
@@ -18,6 +18,7 @@ export const ThemePicker: React.FC<{
   const capabilities = useCapabilities();
   const currentValue = settings[messageKey];
   const isRound = capabilities.ROUND && !capabilities.RECT;
+  const isNight = watchPreviewProps?.isNight ?? false;
 
   const handleThemeChange = (themeId: string) => {
     updateSetting(messageKey, themeId);
@@ -27,7 +28,8 @@ export const ThemePicker: React.FC<{
     // Check saved themes first
     const saved = savedThemes.find((t) => t.id === themeId);
     if (saved) {
-      Object.entries(saved.settings).forEach(([key, value]) => {
+      const settingsToApply = isNight ? remapToNightKeys(saved.settings) : saved.settings;
+      Object.entries(settingsToApply).forEach(([key, value]) => {
         updateSetting(key, value);
       });
       return;
@@ -46,7 +48,8 @@ export const ThemePicker: React.FC<{
     ...savedThemes.map((t) => ({
       id: t.id,
       name: t.name,
-      settings: t.settings,
+      // Remap to night keys so the preview card renders correctly in night mode
+      settings: isNight ? remapToNightKeys(t.settings) : t.settings,
       isSaved: true,
     })),
     ...themes.map((theme, index) => ({
@@ -55,7 +58,7 @@ export const ThemePicker: React.FC<{
       settings: theme.settings,
       isSaved: false,
     })),
-  ], [themes, savedThemes]);
+  ], [themes, savedThemes, isNight]);
 
   return (
     <FormItem className="halite-theme-picker">

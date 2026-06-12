@@ -54,14 +54,13 @@ export const SettingsPage: React.FC = () => {
     [capabilities.BW],
   );
 
-  const daySavedThemes = useSavedThemes(false);
-  const nightSavedThemes = useSavedThemes(true);
+  const savedThemes = useSavedThemes();
 
   const getDaySavedTheme = () =>
-    daySavedThemes.savedThemes.find((t) => t.id === settings.SETTING_THEME);
+    savedThemes.savedThemes.find((t) => t.id === settings.SETTING_THEME);
 
   const getNightSavedTheme = () =>
-    nightSavedThemes.savedThemes.find((t) => t.id === settings.SETTING_NIGHT_THEME);
+    savedThemes.savedThemes.find((t) => t.id === settings.SETTING_NIGHT_THEME);
 
   return (
     <Page title="Halcyon Settings">
@@ -69,16 +68,16 @@ export const SettingsPage: React.FC = () => {
         <ThemePicker
           messageKey="SETTING_THEME"
           themes={activeThemes}
-          savedThemes={daySavedThemes.savedThemes}
+          savedThemes={savedThemes.savedThemes}
           label="Theme preset"
         />
         <CustomThemePanel
           themeId={settings.SETTING_THEME}
           savedTheme={getDaySavedTheme()}
-          onSave={daySavedThemes.saveTheme}
-          onDelete={daySavedThemes.deleteTheme}
-          onImport={daySavedThemes.importTheme}
-          onExport={daySavedThemes.exportTheme}
+          onSave={(s) => savedThemes.saveTheme(s, false)}
+          onDelete={savedThemes.deleteTheme}
+          onImport={savedThemes.importTheme}
+          onExport={savedThemes.exportTheme}
           onSelectTheme={(id) => updateSetting('SETTING_THEME', id)}
         />
         {settings.SETTING_THEME === 'custom' && (
@@ -140,16 +139,16 @@ export const SettingsPage: React.FC = () => {
               label="Night theme preset"
               themes={activeNightThemes}
               watchPreviewProps={{ isNight: true }}
-              savedThemes={nightSavedThemes.savedThemes}
+              savedThemes={savedThemes.savedThemes}
             />
             <CustomThemePanel
               themeId={settings.SETTING_NIGHT_THEME}
               savedTheme={getNightSavedTheme()}
               watchPreviewProps={{ isNight: true }}
-              onSave={nightSavedThemes.saveTheme}
-              onDelete={nightSavedThemes.deleteTheme}
-              onImport={nightSavedThemes.importTheme}
-              onExport={nightSavedThemes.exportTheme}
+              onSave={(s) => savedThemes.saveTheme(s, true)}
+              onDelete={savedThemes.deleteTheme}
+              onImport={savedThemes.importTheme}
+              onExport={savedThemes.exportTheme}
               onSelectTheme={(id) => updateSetting('SETTING_NIGHT_THEME', id)}
             />
             {settings.SETTING_NIGHT_THEME === 'custom' && (

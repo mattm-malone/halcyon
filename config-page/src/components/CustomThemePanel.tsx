@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-aria-components';
 import { WatchPreview, WatchPreviewProps } from './WatchPreview';
 import { ImportThemeModal } from './ImportThemeModal';
-import { SavedTheme } from '../hooks/useSavedThemes';
+import { SavedTheme, remapToNightKeys } from '../hooks/useSavedThemes';
 import { useCapabilities, useConfig } from '../context/PebbleConfigContext';
 import { Settings } from '../context/types';
 import { copyToClipboard } from '../utils/clipboard';
@@ -58,6 +58,7 @@ export const CustomThemePanel: React.FC<CustomThemePanelProps> = ({
   const isCustom = themeId === 'custom';
   const isSaved = !!savedTheme;
   const isRound = capabilities.ROUND && !capabilities.RECT;
+  const isNight = watchPreviewProps?.isNight ?? false;
 
   const handleSave = () => {
     const theme = onSave(settings);
@@ -98,8 +99,6 @@ export const CustomThemePanel: React.FC<CustomThemePanelProps> = ({
     const keys = Object.keys(settings).filter(
       (k) => k.startsWith('SETTING_') && k.includes('COLOR')
     );
-    // Filter by night/day based on watchPreviewProps
-    const isNight = watchPreviewProps?.isNight;
     for (const key of keys) {
       const isNightKey = key.startsWith('SETTING_NIGHT_');
       if (isNight ? isNightKey : !isNightKey) {
@@ -113,7 +112,10 @@ export const CustomThemePanel: React.FC<CustomThemePanelProps> = ({
     <div className="halite-custom-panel">
       <div className={`halite-custom-panel-preview ${isRound ? 'round' : 'rect'}`}>
         <WatchPreview
-          overrideSettings={isSaved ? savedTheme!.settings : undefined}
+          overrideSettings={isSaved
+            ? (isNight ? remapToNightKeys(savedTheme!.settings) : savedTheme!.settings)
+            : undefined
+          }
           {...watchPreviewProps}
         />
       </div>
