@@ -14,8 +14,10 @@ import {
 } from '../components';
 import { useSavedThemes } from '../hooks/useSavedThemes';
 import lightThemes from '../data/light-themes.json';
+import neutralThemes from '../data/neutral-themes.json';
 import darkThemes from '../data/dark-themes.json';
 import lightThemesBw from '../data/light-themes-bw.json';
+import neutralThemesBw from '../data/neutral-themes-bw.json';
 import darkThemesBw from '../data/dark-themes-bw.json';
 import { prepareThemes } from '../utils/themeUtils';
 import {
@@ -41,16 +43,16 @@ export const SettingsPage: React.FC = () => {
   const activeThemes = React.useMemo(
     () =>
       capabilities.BW
-        ? prepareThemes(lightThemesBw, darkThemesBw, false)
-        : prepareThemes(lightThemes, darkThemes, false),
+        ? prepareThemes(lightThemesBw, neutralThemesBw, darkThemesBw, false)
+        : prepareThemes(lightThemes, neutralThemes, darkThemes, false),
     [capabilities.BW],
   );
 
   const activeNightThemes = React.useMemo(
     () =>
       capabilities.BW
-        ? prepareThemes(darkThemesBw, lightThemesBw, true)
-        : prepareThemes(darkThemes, lightThemes, true),
+        ? prepareThemes(darkThemesBw, neutralThemesBw, lightThemesBw, true)
+        : prepareThemes(darkThemes, neutralThemes, lightThemes, true),
     [capabilities.BW],
   );
 

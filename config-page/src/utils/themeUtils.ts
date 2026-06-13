@@ -24,19 +24,21 @@ export const toNightTheme = (theme: Theme): Theme => {
 };
 
 /**
- * Combines light and dark themes into a single list, ensuring the first 
+ * Combines light, neutral and dark themes into a single list, ensuring the first 
  * theme is marked as the default.
  * 
  * @param primaryThemes The first group of themes (e.g. light themes for day mode)
- * @param secondaryThemes The second group of themes (e.g. dark themes for day mode)
+ * @param neutralThemes The second group of themes (e.g. neutral themes)
+ * @param secondaryThemes The third group of themes (e.g. dark themes for day mode)
  * @param isNightMode Whether to transform keys to SETTING_NIGHT_ counterparts
  */
 export const prepareThemes = (
   primaryThemes: Theme[],
+  neutralThemes: Theme[],
   secondaryThemes: Theme[],
   isNightMode: boolean
 ): Theme[] => {
-  let combined = [...primaryThemes, ...secondaryThemes];
+  let combined = [...primaryThemes, ...neutralThemes, ...secondaryThemes];
   
   if (isNightMode) {
     combined = combined.map(toNightTheme);
